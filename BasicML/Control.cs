@@ -6,35 +6,28 @@ using System.Threading.Tasks;
 
 namespace BasicML
 {
-	internal class Control
+	// Control operations for the CPU
+	internal static class Control
 	{
 		// Branch to a specific location in memory
-		public static void Branch(int address) 
-		{ 
-			if ((address < 0) || (address < MainMemory.memory.Length)) { throw new IndexOutOfRangeException();  }
-			Cpu.memoryAddress = address;
-		}
+		public static void Branch(this Cpu cpu) { cpu.MemoryAddress = cpu.CurrentOperand; }
 
 
 		// Branch to a specific location in memory if the accumulator is positive
-		public static void BranchNegative(int address)
+		public static void BranchNegative(this Cpu cpu)
 		{
-			if (Accumulator.registerContent.IsNegative()) { Branch(address); }
+			if (cpu.Accumulator.RegisterContent.IsNegative()) { cpu.Branch(); }
 		}
 
 
 		// Branch to a specific location in memory if the accumulator is negative
-		public static void BranchZero(int address)
+		public static void BranchZero(this Cpu cpu)
 		{
-			if (Accumulator.registerContent.IsZero()) { Branch(address); }
+			if (cpu.Accumulator.RegisterContent.IsZero()) { cpu.Branch(); }
 		}
 
 
 		// Stop the program
-		public static void Halt()
-		{
-			Cpu.Excecuting = false;
-			Console.WriteLine("Excecution Halted");
-		}
+		public static void Halt(this Cpu cpu) { cpu.StopExcution(); }
 	}
 }
