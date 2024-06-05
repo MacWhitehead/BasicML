@@ -30,36 +30,38 @@ namespace BasicML
         //BRANCHZERO = 42 Branch to a specific location in memory if the accumulator is zero.
         //HALT = 43 Stop the program
 
-        private Dictionary<int, string> _dict = new Dictionary<int, string>();
+        private IDictionary<int, string> _operations = new Dictionary<int, string>();
 
         // constructor
         // TODO: this code only works when the instruction code only containts integer
         public Operations()
         {
+            // Reading Operations.txt file and parsing into dictionary
+            // Format: 10=READ
             var lines = File.ReadAllLines("Operations.txt");
-            _dict = lines.Select(line => line.Split('='))
+            _operations = lines.Select(line => line.Split('='))
                 .ToDictionary(x => int.Parse(x[0]), x => x[1]);
         }
 
-        // add elements
+        // Add elements
         public void Add(int instruction, string operation)
         {
-            _dict[instruction] = operation;
+            _operations[instruction] = operation;
         }
 
-        // indexer: instruction code as key value
+        // Indexer: instruction code as key value
         public string this[int instruction]
         {
             get
             {
-                return _dict.ContainsKey(instruction) ? _dict[instruction] : null;
+                return _operations.ContainsKey(instruction) ? _operations[instruction] : "UNDEFINED";
             }
         }
 
-        // retrive instruction code from operation
+        // Retrieve instruction code from operation
         public int ToInstruction(string operation)
         {
-            return _dict.FirstOrDefault(x => x.Value == operation).Key;
+            return _operations.FirstOrDefault(x => x.Value == operation).Key;
         }
     }
 }
