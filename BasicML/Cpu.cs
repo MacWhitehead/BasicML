@@ -25,6 +25,8 @@ namespace BasicML
 		public Memory Memory { get { return _memory; } }
 		public Accumulator Accumulator { get { return _accumulator; } }
 
+		public bool Excecuting { get; set; }
+
 
 		// Property for getting and setting the memory address
 		public int MemoryAddress 
@@ -111,13 +113,13 @@ namespace BasicML
 					//Arithmetic.Divide();
 					break;
 				case InstructionType.Branch:
-					Control.Branch(this);
+					Control.Branch(this, CurrentWord.Operand);
 					break;
 				case InstructionType.BranchNeg:
-					Control.BranchNegative(this);
+					Control.BranchNegative(this, CurrentWord.Operand);
 					break;
 				case InstructionType.BranchZero:
-					Control.BranchZero(this);
+					Control.BranchZero(this, CurrentWord.Operand);
 					break;
 				case InstructionType.Halt:
 					Control.Halt(this);

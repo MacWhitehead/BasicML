@@ -10,20 +10,20 @@ namespace BasicML
 	internal static class Control
 	{
 		// Branch to a specific location in memory
-		public static void Branch(this Cpu cpu) { cpu.MemoryAddress = cpu.CurrentOperand; }
+		public static void Branch(this Cpu cpu, int operand) { cpu.MemoryAddress = operand; }
 
 
 		// Branch to a specific location in memory if the accumulator is positive
-		public static void BranchNegative(this Cpu cpu)
+		public static void BranchNegative(this Cpu cpu, int operand)
 		{
-			if (cpu.Accumulator.RegisterContent.IsNegative()) { cpu.Branch(); }
+			if (cpu.Accumulator.RegisterContent.IsNegative()) { cpu.Branch(operand); }
 		}
 
 
 		// Branch to a specific location in memory if the accumulator is negative
-		public static void BranchZero(this Cpu cpu)
+		public static void BranchZero(this Cpu cpu, int operand)
 		{
-			if (cpu.Accumulator.RegisterContent.IsZero()) { cpu.Branch(); }
+			if (cpu.Accumulator.RegisterContent.IsZero()) { cpu.Branch(operand); }
 		}
 
 
