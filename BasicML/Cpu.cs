@@ -21,7 +21,7 @@ namespace BasicML
 
 
 		/* - - - - - - - - - - Properties - - - - - - - - - - */
-		public static bool Excecuting { get; set; }
+		public static bool Excecuting { get { return _excecuting;  } set { _excecuting = value; } }
 
 
 		// Property for getting and setting the memory address

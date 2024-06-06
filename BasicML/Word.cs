@@ -8,23 +8,42 @@ namespace BasicML
 {
     internal class Word
     {
-        public Word() { }
+        public int _rawValue = 0;
 
-        public Word(int rawValue) 
+		public Word() { }
+
+		public Word(int rawValue) 
         {
-            Instruction = rawValue / 100;
-            Operand = rawValue % 100;
+			_rawValue = rawValue;
         }
 
-		public int RawValue { get { return (Instruction * 100) + Operand; } }
+		public static Word operator +(Word a, Word b) { return new Word(a._rawValue + b._rawValue); }
+		public static Word operator -(Word a, Word b) { return new Word(a._rawValue - b._rawValue); }
+		public static Word operator *(Word a, Word b) { return new Word(a._rawValue * b._rawValue); }
+		public static Word operator /(Word a, Word b) { return new Word(a._rawValue / b._rawValue); }
 
-		public static Word operator +(Word a, Word b) { return new Word(a.RawValue + b.RawValue); }
-		public static Word operator -(Word a, Word b) { return new Word(a.RawValue - b.RawValue); }
-		public static Word operator *(Word a, Word b) { return new Word(a.RawValue * b.RawValue); }
-		public static Word operator /(Word a, Word b) { return new Word(a.RawValue / b.RawValue); }
 
-		// note: needs to add sign
-		public int Instruction {  get; set; }
-        public int Operand { get; set; }
+		public int Instruction
+		{
+			get { return Math.Abs(_rawValue / 100); }
+			set 
+			{
+				int sign = Math.Sign(_rawValue);
+				if (sign == 0) { sign = 1; }
+
+				_rawValue = ((value * 100) + Operand) * sign;
+			}
+		}
+        public int Operand
+		{ 
+			get { return _rawValue % 100; }
+			set 
+			{
+				int sign = Math.Sign(_rawValue);
+				if (sign == 0) { sign = 1; }
+
+				_rawValue = ((Instruction * 100) + value) * sign;
+			}
+		}
     }
 }
