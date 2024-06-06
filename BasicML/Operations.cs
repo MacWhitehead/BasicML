@@ -24,6 +24,44 @@ namespace BasicML
         //DIVIDE = 32 Divide the word in the accumulator by a word from a specific location in memory(leave the result in the accumulator).
         //MULTIPLY = 33 multiply a word from a specific location in memory to the word in the accumulator(leave the result in the accumulator).
 
+
+        public void Add(int address)
+        {
+            if (address < 0 || address > memory.Length)
+            {
+                throw new ArgumentOutOfRangeException("Address out of range");
+            }
+            accumulator += memory[address];
+        }
+
+        public void Subtract(int address)
+        {
+            if (address < 0 || address > memory.Length)
+            {
+                throw new ArgumentOutOfRangeException("Address out of range");
+            }
+            accumulator -= memory[address];
+        }
+
+        public int Divide(int address, int toDivide)
+        {
+            if (address < 0 || address > memory.Length)
+            {
+                throw new ArgumentOutOfRangeException("Address out of range");
+            }
+            accumulator += memory[address] / toDivide;
+        }
+
+        public int Multiply(int address, int toDivide)
+        {
+            if (address < 0 || address > memory.Length)
+            {
+                throw new ArgumentOutOfRangeException("Address out of range");
+            }
+            accumulator += memory[address] * toDivide;
+        }
+
+
         //Control operation:
         //BRANCH = 40 Branch to a specific location in memory
         //BRANCHNEG = 41 Branch to a specific location in memory if the accumulator is negative.
@@ -33,7 +71,7 @@ namespace BasicML
         private Dictionary<int, string> _dict = new Dictionary<int, string>();
 
         // constructor
-        // TODO: this code only works when the instruction code only containts integer
+        // TODO: this code only works when the instruction code only contains integer
         public Operations()
         {
             var lines = File.ReadAllLines("Operations.txt");
