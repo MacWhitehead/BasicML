@@ -7,69 +7,56 @@ using System.Windows.Forms;
 
 namespace BasicML
 {
-    internal class Memory
+    internal static class Memory
     {
         // TODO: change to interface
-        private Word[] _memory;
-        private int _memorySize = 0;
-        private int _accumulator = 0;
+        private static Word[] _memory = new Word[100];
+        private static int _memorySize = 0;
+        private static int _accumulator = 0;
 
-        // Constructor
-        public Memory()
+
+        public static Word ElementAt(int address)
         {
-            _memory = new Word[100];
-            for (int i = 0; i < 100; i++)
-            {
-                _memory[i] = new Word();
-            }
-        }
+            return _memory.ElementAt(address);
+		}
 
-        // Indexer: access word from memory address
-        public Word this[int address]
+        public static void SetElement(int address, Word word)
         {
-            get
-            {
-                return _memory.ElementAt(address);
-            }
+            _memory[address] = word;
+		}
 
-            set
-            {
-                _memory[address] = value;
-            }
-        }
-
-        public int GetInstrction(int address)
+        public static int GetInstrction(int address)
         {
             return _memory[address].Instruction;
         }
 
-        public void SetInstrction(int address, int value)
+        public static void SetInstrction(int address, int value)
         {
             _memory[address].Instruction = value;
         }
 
-        public int GetOperand(int address)
+        public static int GetOperand(int address)
         {
             return _memory[address].Operand;
         }
 
-        public void SetOperand(int address, int value)
+        public static void SetOperand(int address, int value)
         {
             _memory[address].Operand = value;
         }
 
-        public int GetAccumulator()
+        public static int GetAccumulator()
         {
             return _accumulator;
         }
 
-        public void SetAccumulator(int value)
+        public static void SetAccumulator(int value)
         {
             _accumulator = value;
         }
         
         // Memory size from InitMemory
-        public int TotalSize
+        public static int TotalSize
         {
             get
             {
@@ -83,8 +70,13 @@ namespace BasicML
         }
 
         // Initialize memory from text file
-        public void InitMemory(string filePath)
+        public static void InitMemory(string filePath)
         {
+            for (int i = 0; i < 100; i++)
+            {
+                _memory[i] = new Word();
+            }
+
             string[] lines = File.ReadAllLines(filePath);
             foreach (string line in lines)
             {
@@ -95,14 +87,14 @@ namespace BasicML
         }
 
         // Write Word into memory address
-        public void WriteMemory(string word, int address)
+        public static void WriteMemory(string word, int address)
         {
             _memory[address].Instruction = int.Parse(word.Substring(0, 2));
             _memory[address].Operand = int.Parse(word.Substring(2, 2));
         }
 
         // Read from memory address to string
-        public string ReadMemoryToString(int address)
+        public static string ReadMemoryToString(int address)
         {
             return _memory[address].Instruction.ToString() + _memory[address].Operand.ToString();
         }

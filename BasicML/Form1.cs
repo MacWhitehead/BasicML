@@ -9,63 +9,65 @@ namespace BasicML
     {
 		// Operations to convert instruction to operation in English
 		Operations operations = new Operations();
-		private Memory memory = new Memory();
-        private Cpu cpu;
 
         public FormBasicML()
         {
             InitializeComponent();
-            cpu = new Cpu(memory, richTextBoxLog);
         }
 
         // Open the test input text
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Initialize memory and loading Test file
-            memory.InitMemory("Test1.txt");
+			// Initialize memory and loading Test file
+			Memory.InitMemory("Test2.txt");
 
             // Output memory as a memory map
-            for (int i = 0; i < memory.TotalSize; i++)
+            for (int i = 0; i < Memory.TotalSize; i++)
             {
                 // In case of operand is smaller than 10 because operand is int
                 var operand = "";
-                if (memory[i].Operand < 10)
+                if (Memory.ElementAt(i).Operand < 10)
                 {
-                    operand = "0" + memory[i].Operand.ToString();
+                    operand = "0" + Memory.ElementAt(i).Operand.ToString();
                 }
                 else
                 {
-                    operand = memory[i].Operand.ToString();
+                    operand = Memory.ElementAt(i).Operand.ToString();
                 }
 
                 // Memory address number, memory instruction in integer, memory operand in two digit number
-                richTextBoxMemory.AppendText(i.ToString() + " " + memory[i].Instruction.ToString() + " " + operand + "\n");
+                richTextBoxMemory.AppendText(i.ToString() + " " + Memory.ElementAt(i).Instruction.ToString() + " " + operand + "\n");
             }
         }
 
         // Run the test program
         private void runToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Starts the cpu exececuting
-            cpu.StartExecution();
-        }
+			Cpu._logBox = richTextBoxLog;
+
+			// Starts the cpu exececuting
+			Cpu.StartExecution();
+
+            refreshMemory();
+
+		}
 
 		private void refreshMemory()
         {
             richTextBoxMemory.Clear();
 
-            for (int i = 0; i < memory.TotalSize; i++)
+            for (int i = 0; i < Memory.TotalSize; i++)
             {
                 var operand = "";
-                if (memory[i].Operand < 10)
+                if (Memory.ElementAt(i).Operand < 10)
                 {
-                    operand = "0" + memory[i].Operand.ToString();
+                    operand = "0" + Memory.ElementAt(i).Operand.ToString();
                 }
                 else
                 {
-                    operand = memory[i].Operand.ToString();
+                    operand = Memory.ElementAt(i).Operand.ToString();
                 }
-                richTextBoxMemory.AppendText(i.ToString() + " " + memory[i].Instruction.ToString() + " " + operand + "\n");
+                richTextBoxMemory.AppendText(i.ToString() + " " + Memory.ElementAt(i).Instruction.ToString() + " " + operand + "\n");
             }
         }
     }

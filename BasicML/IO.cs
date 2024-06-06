@@ -9,7 +9,8 @@ namespace BasicML
 {
 	internal static class IO
 	{
-		public static void Read(this Cpu cpu, int operand)
+
+		public static void Read(int operand)
 		{
 
 				// Input box will only works with 4 digit integer
@@ -22,8 +23,28 @@ namespace BasicML
 				if (input.Result == InputBoxResult.OK)
 				{
 					// Write input Word into operand
-					cpu.Memory.WriteMemory(input.Items["Input"], operand);
+					Memory.WriteMemory(input.Items["Input"], operand);
 				}
+		}
+
+		/*
+		// Read from keyboard and store in memory
+		public static void Read(int location)
+		{
+			Console.Write("Enter a value: ");
+			//string input = Console.ReadLine();
+			string input = "1234";
+			Memory.SetElement(location, new Word(int.Parse(input)));
+		}
+		*/
+
+		// Write to screen from memory
+		public static void Write(int location)
+		{
+			if (Memory.TotalSize < location)
+				Console.WriteLine($"Value at location {location}: {Memory.ElementAt(location)}");
+			else
+				Console.WriteLine($"Location {location} is empty.");
 		}
 
 	}

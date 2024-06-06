@@ -7,34 +7,30 @@ using System.Threading.Tasks;
 namespace BasicML
 {
 	//  This class is used to simulate the CPU
-	internal class Cpu
+	internal static class Cpu
 	{
 		/* - - - - - - - - - - Variables - - - - - - - - - - */
 
 		// Private variables
-		private Operations operations = new();									// Used for mapping the code for an operation to it's name
-		private RichTextBox _logBox;											// The location that output logs are written to
+		private static Operations operations = new();									// Used for mapping the code for an operation to it's name
+		public static RichTextBox _logBox;												// The location that output logs are written to
 
-		private int _memoryAddress = 0;											// The memory address of the next instruction to be executed
-		private bool _excecuting = false;										// Whether or not the CPU is currently excecuting
-		private Memory _memory;													// The pool of memory used by the CPU
-		private Accumulator _accumulator = new();								// The accumulator for the CPU
+		private static int _memoryAddress = 0;											// The memory address of the next instruction to be executed
+		private static bool _excecuting = false;										// Whether or not the CPU is currently excecuting
 
 
 
 		/* - - - - - - - - - - Properties - - - - - - - - - - */
-
-		// Properties that are just getters for private variables
-		public Memory Memory { get { return _memory; } }
-		public Accumulator Accumulator { get { return _accumulator; } }
-
-		public bool Excecuting { get; set; }
+		public static bool Excecuting { get; set; }
 
 
 		// Property for getting and setting the memory address
-		public int MemoryAddress 
+		public static int MemoryAddress 
 		{ 
-			get { return _memoryAddress; }
+			get 
+			{
+				return _memoryAddress;
+			}
 
 			// The setter has error checking bulit in, so that the memory address cannot be set to an invalid location
 			set 
@@ -46,28 +42,19 @@ namespace BasicML
 
 
 		// Properties that are used as convient ways to refer to commonly used variables
-		public Word CurrentWord { get { return _memory[_memoryAddress]; } }		// Gets the word at the current memory address
-		public int CurrentOperand { get { return CurrentWord.Operand; } }       // Gets the operand from the word at the current memory address
+		public static Word CurrentWord { get { return Memory.ElementAt(_memoryAddress); } }		// Gets the word at the current memory address
+		public static int CurrentOperand { get { return CurrentWord.Operand; } }       // Gets the operand from the word at the current memory address
 
-		public int CurrentInstruction { get { return CurrentWord.Instruction; } }       // Gets the operand from the word at the current memory address
-
-		public Cpu()
-		{
-			_memory = new();
-		}
-
-		public Cpu(Memory memory, RichTextBox logBox)
-		{
-			_memory = memory;
-			_logBox = logBox;
-		}
+		public static int CurrentInstruction { get { return CurrentWord.Instruction; } }       // Gets the operand from the word at the current memory address
 
 
 		/* - - - - - - - - - - Excecution - - - - - - - - - - */
 
 		// Starts excicuting instructions until the cpu is halted or runs into an error
-		public void StartExecution()
+		public static void StartExecution()
 		{
+			LogLine("Starting Excecution");
+			LogLine("Memory Size: " + Memory.TotalSize.ToString());
 			_excecuting = true;
 
 			// Excecutes until told to stop
@@ -84,69 +71,70 @@ namespace BasicML
 					PrintDebugToConsole();
 
 					// Prints the error message included with the exception
-					Console.Write("Error Message: ");
-					Console.WriteLine(e.Message);
+					Log("Error Message: ");
+					LogLine(e.Message);
 
 					// Stops further excecution
 					StopExecution();
 				}
 			}
+
 		}
 
 
 		// Stops the cpu from excecuting further instructions
-		public void StopExecution() 
+		public static void StopExecution() 
 		{ 
 			_excecuting = false;
-			Console.WriteLine("Excecution Halted");
+			LogLine("Excecution Halted");
 		}
 
-		private void StepMemoryAddresss()
+		// Moves the memory address the cpu is pointing to forward 1
+		private static void StepMemoryAddresss() 
 		{
 			_memoryAddress++;
 		}
 
-
 		// Executes the instruction at the current memory address
-		public void Execute()
+		public static void Execute()
 		{
 			switch (CurrentWord.GetInstructionType())
 			{
 				case InstructionType.Read:
-					IO.Read(this, CurrentWord.Operand);
+					IO.Read(CurrentWord.Operand);
 					break;
 				case InstructionType.Write:
-					//IO.Write();
+					IO.Write(CurrentWord.Operand);
 					break;
 				case InstructionType.Load:
-					//LoadStore.Load();
+					LoadStore.Load(CurrentWord.Operand);
 					break;
 				case InstructionType.Store:
-					//LoadStore.Store();
+					LoadStore.Store(CurrentWord.Operand);
 					break;
 				case InstructionType.Add:
-					//Arithmetic.Add();
+					Arithmetic.Add(CurrentWord.Operand);
 					break;
 				case InstructionType.Subtract:
-					//Arithmetic.Subtract();
+					Arithmetic.Subtract(CurrentWord.Operand);
 					break;
 				case InstructionType.Multiply:
-					//Arithmetic.Multiply();
+					Arithmetic.Multiply(CurrentWord.Operand);
 					break;
 				case InstructionType.Divide:
-					//Arithmetic.Divide();
+					Arithmetic.Divide(CurrentWord.Operand);
 					break;
 				case InstructionType.Branch:
-					Control.Branch(this, CurrentWord.Operand);
+					Control.Branch(CurrentWord.Operand);
 					break;
 				case InstructionType.BranchNeg:
-					Control.BranchNegative(this, CurrentWord.Operand);
+					Control.BranchNegative(CurrentWord.Operand);
 					break;
 				case InstructionType.BranchZero:
-					Control.BranchZero(this, CurrentWord.Operand);
+					Control.BranchZero(CurrentWord.Operand);
 					break;
 				case InstructionType.Halt:
-					Control.Halt(this);
+					Control.Halt();
 					break;
 				default:
 					throw new InvalidOperationException("Invalid instruction");
@@ -155,11 +143,11 @@ namespace BasicML
 			LogOperation();
 		}
 
-		public void LogOperation()
+		public static void LogOperation()
 		{
-			// Print log
-			string operation = operations[CurrentInstruction];
-			_logBox.AppendText(operation + " " + CurrentOperand + "\n");
+			// Prints the operation that is currently selected to the log output
+			string operation = CurrentInstruction.ToString();
+			LogLine(operation + " " + CurrentOperand);
 		}
 
 
@@ -167,15 +155,25 @@ namespace BasicML
 		/* - - - - - - - - - - Debug - - - - - - - - - - */
 
 		// Prints some useful debug information to the console
-		private void PrintDebugToConsole()
+		private static void PrintDebugToConsole()
 		{
-			Console.WriteLine("The CPU ran into an error during excecution.");
+			LogLine("The CPU ran into an error during excecution.");
 
-			Console.Write("Current Memory Address: ");
-			Console.WriteLine(MemoryAddress.ToString());
+			Log("Current Memory Address: ");
+			LogLine(MemoryAddress.ToString());
 
-			Console.Write("Memory Address Raw Value: ");
-			Console.WriteLine(CurrentWord.GetRawValue().ToString());
+			Log("Memory Address Raw Value: ");
+			LogLine(CurrentWord.GetRawValue().ToString());
+		}
+
+		public static void Log(string s)
+		{
+			_logBox.AppendText(s);
+		}
+
+		public static void LogLine(string s)
+		{
+			_logBox.AppendText(s + "\n");
 		}
 	}
 }

@@ -10,7 +10,7 @@ namespace BasicML
 	internal static class Word_Extensions
 	{
 		// Gets the raw four digit value held by the word object
-		public static int GetRawValue(this Word word) { return 2; }
+		public static int GetRawValue(this Word word) { return (word.Instruction * 100) + (word.Operand); }
 
 
 		// Returns true is the value stored in the word is negative

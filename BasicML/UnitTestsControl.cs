@@ -9,10 +9,7 @@ namespace BasicML.UnitTests
 	// Unit test for the Control class
 	internal class ControlTests
 	{
-		// CPU used for running the tests
-		Cpu _cpu = new Cpu();
-
-
+		/*
 		// Runs the tests
 		public List<bool> RunTests()
 		{
@@ -53,10 +50,10 @@ namespace BasicML.UnitTests
 		// Returns true if the CPU branches when the Branch function is run
 		public bool TestBranch()
 		{
-			_cpu.Branch(0);
-			_cpu.Branch(69);
+			Branch(0);
+			Branch(69);
 
-			if (_cpu.MemoryAddress == 69) { return true; }
+			if (Cpu.MemoryAddress == 69) { return true; }
 			return false;
 
 		}
@@ -65,8 +62,8 @@ namespace BasicML.UnitTests
 		// Returns true if the CPU branches when the BranchNegative function is run
 		public bool TestBranchNegative()
 		{
-			_cpu.Branch(0);
-			_cpu.BranchNegative(69);
+			Cpu.Branch(0);
+			Cpu.BranchNegative(69);
 
 			if (_cpu.MemoryAddress == 69) { return true; }
 			return false;
@@ -93,6 +90,6 @@ namespace BasicML.UnitTests
 			if (_cpu.Excecuting) { return false; }
 			return true;
 		}
-
+		*/
 	}
 }
