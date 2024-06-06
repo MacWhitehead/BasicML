@@ -7,11 +7,15 @@ namespace BasicML
 {
     public partial class FormBasicML : Form
     {
-        private Memory memory = new Memory();
+		// Operations to convert instruction to operation in English
+		Operations operations = new Operations();
+		private Memory memory = new Memory();
+        private Cpu cpu;
 
         public FormBasicML()
         {
             InitializeComponent();
+            cpu = new Cpu(memory, richTextBoxLog);
         }
 
         // Open the test input text
@@ -42,39 +46,11 @@ namespace BasicML
         // Run the test program
         private void runToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Operations to convert instruction to operation in English
-            Operations operations = new Operations();
-
-            for (int i = 0; i < memory.TotalSize; i++)
-            {
-                var operation = operations[memory[i].Instruction];
-
-                // In this test case, only the READ operation is attempted.
-                if (operation.Contains("READ"))
-                {
-                    // Input box will only works with 4 digit integer
-                    InputBoxItem[] items = new InputBoxItem[]
-                    {
-                        new InputBoxItem("Input")
-                    };
-                    InputBox input = InputBox.Show("Enter input number", items, InputBoxButtons.OKCancel);
-
-                    if (input.Result == InputBoxResult.OK)
-                    {
-                        // Write input Word into operand
-                        memory.WriteMemory(input.Items["Input"], memory[i].Operand);
-
-                        // Print log
-                        richTextBoxLog.AppendText(operation + " " + memory[i].Operand + "\n");
-
-                        // Refresh memory map
-                        refreshMemory();
-                    }
-                }
-            }
+            // Starts the cpu exececuting
+            cpu.StartExecution();
         }
 
-        private void refreshMemory()
+		private void refreshMemory()
         {
             richTextBoxMemory.Clear();
 

@@ -12,9 +12,12 @@ namespace BasicML
 		/* - - - - - - - - - - Variables - - - - - - - - - - */
 
 		// Private variables
+		private Operations operations = new();									// Used for mapping the code for an operation to it's name
+		private RichTextBox _logBox;											// The location that output logs are written to
+
 		private int _memoryAddress = 0;											// The memory address of the next instruction to be executed
 		private bool _excecuting = false;										// Whether or not the CPU is currently excecuting
-		private Memory _memory = new();											// The pool of memory used by the CPU
+		private Memory _memory;													// The pool of memory used by the CPU
 		private Accumulator _accumulator = new();								// The accumulator for the CPU
 
 
@@ -44,8 +47,20 @@ namespace BasicML
 
 		// Properties that are used as convient ways to refer to commonly used variables
 		public Word CurrentWord { get { return _memory[_memoryAddress]; } }		// Gets the word at the current memory address
-		public int CurrentOperand { get { return CurrentWord.Operand; } }		// Gets the operand from the word at the current memory address
+		public int CurrentOperand { get { return CurrentWord.Operand; } }       // Gets the operand from the word at the current memory address
 
+		public int CurrentInstruction { get { return CurrentWord.Instruction; } }       // Gets the operand from the word at the current memory address
+
+		public Cpu()
+		{
+			_memory = new();
+		}
+
+		public Cpu(Memory memory, RichTextBox logBox)
+		{
+			_memory = memory;
+			_logBox = logBox;
+		}
 
 
 		/* - - - - - - - - - - Excecution - - - - - - - - - - */
@@ -58,7 +73,11 @@ namespace BasicML
 			// Excecutes until told to stop
 			while (_excecuting) 
 			{
-				try { Execute(); }
+				try 
+				{ 
+					Execute();
+					StepMemoryAddresss();
+				}
 				catch (Exception e)
 				{
 					// Prints some basic debug info to the console
@@ -69,17 +88,22 @@ namespace BasicML
 					Console.WriteLine(e.Message);
 
 					// Stops further excecution
-					StopExcution();
+					StopExecution();
 				}
 			}
 		}
 
 
 		// Stops the cpu from excecuting further instructions
-		public void StopExcution() 
+		public void StopExecution() 
 		{ 
 			_excecuting = false;
 			Console.WriteLine("Excecution Halted");
+		}
+
+		private void StepMemoryAddresss()
+		{
+			_memoryAddress++;
 		}
 
 
@@ -89,7 +113,7 @@ namespace BasicML
 			switch (CurrentWord.GetInstructionType())
 			{
 				case InstructionType.Read:
-					//IO.Read();
+					IO.Read(this, CurrentWord.Operand);
 					break;
 				case InstructionType.Write:
 					//IO.Write();
@@ -127,6 +151,15 @@ namespace BasicML
 				default:
 					throw new InvalidOperationException("Invalid instruction");
 			}
+
+			LogOperation();
+		}
+
+		public void LogOperation()
+		{
+			// Print log
+			string operation = operations[CurrentInstruction];
+			_logBox.AppendText(operation + " " + CurrentOperand + "\n");
 		}
 
 

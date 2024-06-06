@@ -28,6 +28,6 @@ namespace BasicML
 
 
 		// Stop the program
-		public static void Halt(this Cpu cpu) { cpu.StopExcution(); }
+		public static void Halt(this Cpu cpu) { cpu.StopExecution(); }
 	}
 }
