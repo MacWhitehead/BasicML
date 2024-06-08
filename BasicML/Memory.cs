@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace BasicML
 {
-    internal static class Memory
+	public static class Memory
     {
         // TODO: change to interface
         private static Word[] _memory = new Word[100];
