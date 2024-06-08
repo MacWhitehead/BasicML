@@ -1,37 +1,74 @@
+using System.Diagnostics.Metrics;
+using System.Reflection;
+using System.Reflection.Emit;
+using static System.Windows.Forms.LinkLabel;
+
 namespace BasicML
 {
     public partial class FormBasicML : Form
     {
+		// Operations to convert instruction to operation in English
+		Operations operations = new Operations();
+
         public FormBasicML()
         {
             InitializeComponent();
         }
 
+        // Open the test input text
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var filePath = "Test1.txt";
-            List<string> output = new List<string>();
+			// Initialize memory and loading Test file
+			Memory.InitMemory("Test2.txt");
 
-            output = ReadML(filePath);
-            foreach (string line in output)
+            // Output memory as a memory map
+            for (int i = 0; i < Memory.TotalSize; i++)
             {
-                richTextBox1.AppendText(line + "\n");
+                // In case of operand is smaller than 10 because operand is int
+                var operand = "";
+                if (Memory.ElementAt(i).Operand < 10)
+                {
+                    operand = "0" + Memory.ElementAt(i).Operand.ToString();
+                }
+                else
+                {
+                    operand = Memory.ElementAt(i).Operand.ToString();
+                }
+
+                // Memory address number, memory instruction in integer, memory operand in two digit number
+                richTextBoxMemory.AppendText(i.ToString() + " " + Memory.ElementAt(i).Instruction.ToString() + " " + operand + "\n");
             }
         }
-        
-        // temporary method to read test input
-        static List<string> ReadML(string filePath)
+
+        // Run the test program
+        private void runToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Operations operations = new Operations();
-            List<string> codes = new List<string>();
-            string[] lines = File.ReadAllLines(filePath);
+			Cpu._logBox = richTextBoxLog;
 
-            foreach (string line in lines)
+			// Starts the cpu exececuting
+			Cpu.StartExecution();
+
+            refreshMemory();
+
+		}
+
+		private void refreshMemory()
+        {
+            richTextBoxMemory.Clear();
+
+            for (int i = 0; i < Memory.TotalSize; i++)
             {
-                codes.Add(operations[int.Parse(line.Substring(1, 2))] + " " + line.Substring(3, 2));
+                var operand = "";
+                if (Memory.ElementAt(i).Operand < 10)
+                {
+                    operand = "0" + Memory.ElementAt(i).Operand.ToString();
+                }
+                else
+                {
+                    operand = Memory.ElementAt(i).Operand.ToString();
+                }
+                richTextBoxMemory.AppendText(i.ToString() + " " + Memory.ElementAt(i).Instruction.ToString() + " " + operand + "\n");
             }
-
-            return codes;
         }
     }
 }
