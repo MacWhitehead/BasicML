@@ -39,6 +39,8 @@ namespace BasicML
 				int sign = Math.Sign(_rawValue);
 				if (sign == 0) { sign = 1; }
 
+				if ((value > 99) || (value < 0)) { value = 0; }
+
 				_rawValue = ((value * 100) + Operand) * sign;
 			}
 		}
@@ -49,6 +51,8 @@ namespace BasicML
 			{
 				int sign = Math.Sign(_rawValue);
 				if (sign == 0) { sign = 1; }
+
+				if ((value > 99) || (value < 0)) { value = 0; }
 
 				_rawValue = ((Instruction * 100) + value) * sign;
 			}
