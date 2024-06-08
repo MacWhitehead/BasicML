@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BasicML
 {
 	//  This class is used to simulate the CPU
-	internal static class Cpu
+	public static class Cpu
 	{
 		/* - - - - - - - - - - Variables - - - - - - - - - - */
 
@@ -16,27 +16,35 @@ namespace BasicML
 		public static RichTextBox _logBox;												// The location that output logs are written to
 
 		private static int _memoryAddress = 0;											// The memory address of the next instruction to be executed
-		private static bool _excecuting = false;										// Whether or not the CPU is currently excecuting
+		private static bool _excecuting = false;                                        // Whether or not the CPU is currently excecuting
 
 
 
 		/* - - - - - - - - - - Properties - - - - - - - - - - */
-		public static bool Excecuting { get; set; }
+		public static bool Excecuting { get { return _excecuting; } set { _excecuting = value; } }
 
 
 		// Property for getting and setting the memory address
-		public static int MemoryAddress 
-		{ 
-			get 
+		public static int MemoryAddress
+		{
+			get
 			{
 				return _memoryAddress;
 			}
 
 			// The setter has error checking bulit in, so that the memory address cannot be set to an invalid location
-			set 
+			set
 			{
-				if ((value < 0) || (value > Memory.TotalSize)) { throw new IndexOutOfRangeException(); }
-				_memoryAddress = value;
+				if ((value < 0) || (value > Memory.TotalSize))
+				{
+					// Sets the memory address to 0 if an invalid index is given
+					_memoryAddress = 0;
+					//throw new IndexOutOfRangeException();
+				}
+				else
+				{
+					_memoryAddress = value;
+				}
 			}
 		}
 
@@ -168,12 +176,24 @@ namespace BasicML
 
 		public static void Log(string s)
 		{
-			_logBox.AppendText(s);
+			if (_logBox != null)
+			{
+				_logBox.AppendText(s);
+				return;
+			}
+
+			Console.Write(s);
 		}
 
 		public static void LogLine(string s)
 		{
-			_logBox.AppendText(s + "\n");
+			if (_logBox != null)
+			{
+				_logBox.AppendText(s + "\n");
+				return;
+			}
+
+			Console.WriteLine(s);
 		}
 	}
 }
