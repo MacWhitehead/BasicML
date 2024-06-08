@@ -24,6 +24,7 @@ namespace BasicML.UnitTestArith
             return false;
         }
 
+        [TestMethod]
         public static bool AddTogether2()
         {
             Accumulator._registerContent = new Word(6);
@@ -37,7 +38,7 @@ namespace BasicML.UnitTestArith
             return false;
         }
 
-
+        [TestMethod]
         public static bool SubtractVals()
         {
             Accumulator._registerContent = new Word(6);
@@ -51,6 +52,7 @@ namespace BasicML.UnitTestArith
             return false;
         }
 
+        [TestMethod]
         public static bool SubtractVals2()
         {
             Accumulator._registerContent = new Word(10);
@@ -64,6 +66,7 @@ namespace BasicML.UnitTestArith
             return false;
         }
 
+        [TestMethod]
         public static bool DivideVals()
         {
             Accumulator._registerContent = new Word(12);
@@ -77,6 +80,7 @@ namespace BasicML.UnitTestArith
             return false;
         }
 
+        [TestMethod]
         public static bool DivideVals2()
         {
             Accumulator._registerContent = new Word(22);
@@ -90,7 +94,7 @@ namespace BasicML.UnitTestArith
             return false;
         }
 
-
+        [TestMethod]
         public static bool MultiplyVals()
         {
             Accumulator._registerContent = new Word(10);
@@ -104,7 +108,7 @@ namespace BasicML.UnitTestArith
             return false;
         }
 
-
+        [TestMethod]
         public static bool MultiplyVals2()
         {
             Accumulator._registerContent = new Word(25);
