@@ -190,7 +190,7 @@ namespace BasicML
                     var resultOperand = parseOperand(nameof(ParseProgram), line, _memorySize);
                     if (resultOperand.bResult)
                     {
-                        _memory[_memorySize].Instruction = resultOperand.iParsed;
+                        _memory[_memorySize].Operand = resultOperand.iParsed;
                     }
                 }
 
@@ -212,7 +212,7 @@ namespace BasicML
                 var resultOperand = parseOperand(nameof(WriteMemory), word, address);
                 if (resultOperand.bResult)
                 {
-                    _memory[address].Instruction = resultOperand.iParsed;
+                    _memory[address].Operand = resultOperand.iParsed;
                 }
             }
         }
