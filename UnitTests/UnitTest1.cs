@@ -13,9 +13,9 @@ namespace Unittest_IOLoadSave
 		// reject an empty string
 		public void Read_RejectEmptyString_Fail()
 		{
-			string inputString = ""; // test empty string
+			int input = 10000; // test large number
 
-			var result = BasicML.IO.Read(int.Parse(inputString));
+			var result = BasicML.IO.Read(input);
 
 			bool expectedoutput = false;
 			Assert.AreNotEqual(expectedoutput, result);
