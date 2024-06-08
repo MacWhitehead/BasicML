@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BasicML
 {
@@ -22,6 +23,13 @@ namespace BasicML
 		public static Word operator *(Word a, Word b) { return new Word(a._rawValue * b._rawValue); }
 		public static Word operator /(Word a, Word b) { return new Word(a._rawValue / b._rawValue); }
 
+		public static bool operator ==(Word a, Word b) { return a._rawValue == b._rawValue; }
+		public static bool operator !=(Word a, Word b) { return a._rawValue == b._rawValue; }
+
+		public static bool operator ==(Word a, int i) { return a._rawValue == i; }
+		public static bool operator !=(Word a, int i) { return a._rawValue == i; }
+
+		public static implicit operator Word(int i) => new Word(i);
 
 		public int Instruction
 		{
