@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BasicML
 {
 	// Represents the accumulator and it's associated register
-	public static class Accumulator 
+	internal static class Accumulator 
 	{ 
 		public static Word _registerContent = new();
 	}
