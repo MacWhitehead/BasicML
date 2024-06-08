@@ -12,17 +12,16 @@ namespace Unittest_IOLoadSave
         // reject an empty string
         public void Read_RejectEmptyString_Fail()
         {
-            Operations operations = new Operations();
 
             string inputString = "\n"; // simulate user input
 
-            StringReader sr = new StringReader(inputString)
+            StringReader sr = new StringReader(inputString);
 
             Console.SetOut(_consoleOutput);
 
-            operations.Read(inputString);
+            Read(inputString);
 
-            string expectedOutput = "Successfully stored;
+            string expectedOutput = "Successfully stored";
             Assert.AreNotEqual(expectedoutput, _consoleOutput.ToString());
   
         }
@@ -33,16 +32,16 @@ namespace Unittest_IOLoadSave
         // accept the right string, pass
         public void Read_AcceptCorrectString_Pass()
         {
-            Operations operations = new Operations();
             string inputString = "+1007";
 
-            StringReader sr = new StringReader(inputString)
+            StringReader sr = new StringReader(inputString);
 
             Console.SetOut(_consoleOutput);
 
-            operations.Read(inputString);
 
-            string expectedOutput = "Successfully stored;
+            Read(inputString);
+
+            string expectedOutput = "Successfully stored;";
             Assert.AreEqual(expectedoutput, _consoleOutput.ToString());
         }
 
@@ -52,12 +51,11 @@ namespace Unittest_IOLoadSave
         // Pass if successfully output word from memory location
         public void Write_OutputCorrectWord_Pass()
         {
-            Operations operations = new Operations();
             int location = 01; // replace this as needed, unsure what to use for test
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw); // Redirect Console.WriteLine to StringWriter
-                operations.Write(01); // Assuming location 01 exists in memory
+                Write(01); // Assuming location 01 exists in memory
 
                 // Assert
                 var expectedOutput = $"Value at location 01: Value1{Environment.NewLine}";
@@ -71,12 +69,11 @@ namespace Unittest_IOLoadSave
         // Fail if location contains no value
         public void Write_NoValueFound_Fail()
         {
-            Operations operations = new Operations();
             int location = 99; // replace this as needed
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw); // Redirect Console.WriteLine to StringWriter
-                operations.Write(01); // Assuming location 01 exists in memory
+                Write(01); // Assuming location 01 exists in memory
 
                 // Assert
                 var expectedOutput = $"Value at location 01: Value1{Environment.NewLine}";
@@ -92,14 +89,13 @@ namespace Unittest_IOLoadSave
         // fail if location contains no value
         public void Load_NoValueFound_Fail()
         {
-            Operations operations = new Operations();
             int location = 01;
             ref int accumulator = 0; // not sure what to put into this?
 
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw); // Redirect Console.WriteLine to StringWriter
-                operations.Load(01, accumulator); // Assuming location 01 exists in memory
+                Load(01, accumulator); // Assuming location 01 exists in memory
 
                 // Assert
                 var expectedOutput = "Loaded into accumulator";
@@ -120,7 +116,7 @@ namespace Unittest_IOLoadSave
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw); // Redirect Console.WriteLine to StringWriter
-                operations.Write(01, accumulator); // Assuming location 01 exists in memory
+                Write(01, accumulator); // Assuming location 01 exists in memory
 
                 // Assert
                 var expectedOutput = "Loaded into accumulator";
@@ -141,7 +137,7 @@ namespace Unittest_IOLoadSave
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
-                operations.Store(locations, accumulator);
+                Store(locations, accumulator);
 
                 // Assert
                 var expectedOutput = "Store accumulator value into memory";
@@ -154,14 +150,13 @@ namespace Unittest_IOLoadSave
 
         public void Store_FoundValue_Pass()
         {
-            Operations operations = new Operations();
             int locations = 01;
             ref int accumulator = 0; // What to put into this?
 
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
-                operations.Store(locations, accumulator);
+                Store(locations, accumulator);
 
                 // Assert
                 var expectedOutput = "Store accumulator value into memory";
