@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BasicML;
+using System.Net;
 
 /// <summary>
 /// Summary description for Class1
@@ -15,11 +16,16 @@ namespace BasicML.UnitTestArith
         public void AddTogether()
         {
             SetupSystem.RunSetup();
-            BasicML.Accumulator._registerContent = new BasicML.Word(12);
+			Console.WriteLine(Accumulator._registerContent._rawValue);
+			BasicML.Accumulator._registerContent = new BasicML.Word(12);
+            Console.WriteLine(Accumulator._registerContent._rawValue);
 			BasicML.Memory.SetElement(3, new BasicML.Word(2));
+			Console.WriteLine(Accumulator._registerContent._rawValue);
 			BasicML.Arithmetic.Add(3);
+			Console.WriteLine(Accumulator._registerContent._rawValue);
+			Console.WriteLine(Memory.ElementAt(3)._rawValue);
 
-            Assert.AreEqual(Accumulator._registerContent, new BasicML.Word(14));
+			Assert.AreEqual(Accumulator._registerContent._rawValue, new BasicML.Word(14)._rawValue);
         }
 
         [TestMethod]
@@ -66,7 +72,7 @@ namespace BasicML.UnitTestArith
 			BasicML.Memory.SetElement(3, new BasicML.Word(2));
 			BasicML.Arithmetic.Divide(3);
 
-            Assert.AreEqual(Accumulator._registerContent, new BasicML.Word(6));
+            Assert.AreEqual(Accumulator._registerContent._rawValue, 6);
         }
 
         [TestMethod]
