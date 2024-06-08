@@ -36,22 +36,7 @@ namespace BasicML
         // TODO: change sign in a proper way
         public static void SetElement(int address, Word word)
         {
-            var wordString = "+" + word.Instruction.ToString() + word.Operand.ToString();
-
-            if (checkLength(nameof(ParseProgram), wordString, _memorySize))
-            {
-                var resultInstruction = parseInstruction(nameof(ParseProgram), wordString, _memorySize);
-                if (resultInstruction.bResult)
-                {
-                    _memory[address].Instruction = resultInstruction.iParsed;
-                }
-
-                var resultOperand = parseOperand(nameof(ParseProgram), wordString, _memorySize);
-                if (resultOperand.bResult)
-                {
-                    _memory[address].Operand = resultOperand.iParsed;
-                }
-            }
+			_memory[address] = word;
 		}
 
         //public static int GetInstrction(int address)
