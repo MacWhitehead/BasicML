@@ -18,18 +18,19 @@ namespace BasicML
         private static Word[] _memory = new Word[100];
         private static int _memorySize = 0;
         private static int _accumulator = 0;
-        private static string _log = "";
+        public static string _log = "";
 
 
         public static Word ElementAt(int address)
         {
-            if (address < _memorySize)
+            if ((address < _memorySize) || (address < 0))
             {
                 return _memory.ElementAt(address);
             }
             else
             {
-                return new Word();
+				_log += "Invalid Index\n";
+				return new Word(0);
             }
 		}
 
@@ -221,7 +222,7 @@ namespace BasicML
                     }
                 }
 
-                _memorySize++;
+				_memorySize++;
             }
         }
 
