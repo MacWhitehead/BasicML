@@ -53,65 +53,31 @@ namespace BasicML
 		{
 			Console.Write("Enter a value: ");
 			string input = Console.ReadLine();
-
-			if (input != null)
-			{
-                memory[location] = input;
-				Console.WriteLine($"Successfully stored.") ;
-            }
-
-			else
-			{
-				Console.WriteLine("String cannot be emtpy");
-            }
-
-
-        }
+			memory[location] = input;
+		}
 
 		// Write to screen from memory
 		public void Write(int location)
 		{
 			if (memory.ContainsKey(location))
-			{
-                Console.WriteLine($"Value at location {location}: {memory[location]}");
-            }
-            else
-			{
-                Console.WriteLine($"Location {location} is empty.");
-
-            }
-        }
+				Console.WriteLine($"Value at location {location}: {memory[location]}");
+			else
+				Console.WriteLine($"Location {location} is empty.");
+		}
 
 		// Store accumulator value into memory
 		public void Store(int location, int accumulator)
 		{
-			if (memory.ContainsKey(location)) 
-			{
-             memory[location] = accumulator.ToString();
-				Console.WriteLine("Stored accumulator value into memory");
-            }
-
-			else
-			{
-				Console.WriteLine("Accumulator value not found");
-			}
-
+			memory[location] = accumulator.ToString();
 		}
 
 		// Load value from memory into accumulator
 		public void Load(int location, ref int accumulator)
 		{
 			if (memory.ContainsKey(location))
-			{
-                accumulator = int.Parse(memory[location]);
-                Console.WriteLine("Loaded into accumulator");
-            }
-
+				accumulator = int.Parse(memory[location]);
 			else
-			{
-                Console.WriteLine($"Location {location} is empty.");
-            }
-
+				Console.WriteLine($"Location {location} is empty.");
 		}
 		// indexer: instruction code as key value
 		// instructions dictionary

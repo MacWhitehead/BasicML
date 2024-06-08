@@ -21,7 +21,7 @@ namespace BasicML
 
 
 		/* - - - - - - - - - - Properties - - - - - - - - - - */
-		public static bool Excecuting { get { return _excecuting;  } set { _excecuting = value; } }
+		public static bool Excecuting { get; set; }
 
 
 		// Property for getting and setting the memory address
@@ -35,16 +35,8 @@ namespace BasicML
 			// The setter has error checking bulit in, so that the memory address cannot be set to an invalid location
 			set 
 			{
-				if ((value < 0) || (value > Memory.TotalSize)) 
-				{
-					// Sets the memory address to 0 if an invalid index is given
-					_memoryAddress = 0;
-					//throw new IndexOutOfRangeException();
-				}
-				else
-				{
-					_memoryAddress = value;
-				}
+				if ((value < 0) || (value > Memory.TotalSize)) { throw new IndexOutOfRangeException(); }
+				_memoryAddress = value;
 			}
 		}
 
