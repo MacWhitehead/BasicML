@@ -65,7 +65,7 @@ namespace Unittest_IOLoadSave
 
 				// Assert
 				var expectedOutput = false;
-				Assert.AreNotEqual(expectedOutput, result);
+				Assert.AreEqual(expectedOutput, result);
 			}
 		}
 
@@ -75,13 +75,13 @@ namespace Unittest_IOLoadSave
 		// fail if location contains no value
 		public void Load_NoValueFound_Fail()
 		{
-			int location = 01;
+			int location = 1;
 
 			var result = BasicML.LoadStore.Load(location); // Assuming location 01 exists in memory
 
 			// Assert
 			var expectedOutput = false;
-			Assert.AreNotEqual(expectedOutput, result);
+			Assert.AreEqual(expectedOutput, result);
 
 		}
 
@@ -91,6 +91,7 @@ namespace Unittest_IOLoadSave
 		// pass if location contains a value
 		public void Load_ValueFound_Pass()
 		{
+			SetupSystem.RunSetup();
 			//Operations operations = new Operations();
 			int location = 01;
 			var result = BasicML.IO.Write(location); // Assuming location 01 exists in memory

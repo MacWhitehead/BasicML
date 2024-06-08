@@ -43,7 +43,7 @@ namespace BasicML
 		// Write to screen from memory
 		public static bool Write(int location)
 		{
-			if (Memory.TotalSize > location)
+			if (location < Memory.TotalSize)
 			{
                 Console.WriteLine($"Value at location {location}: {Memory.ElementAt(location)}");
 				return true;
