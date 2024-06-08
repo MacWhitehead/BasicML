@@ -48,7 +48,7 @@ namespace BasicML.UnitTestArith
 			BasicML.Memory.SetElement(3, new BasicML.Word(2));
 			BasicML.Arithmetic.Subtract(3);
 
-            Assert.AreEqual(Accumulator._registerContent, new BasicML.Word(4));
+            Assert.AreEqual(Accumulator._registerContent._rawValue, 4);
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace BasicML.UnitTestArith
 			BasicML.Memory.SetElement(3, new BasicML.Word(2));
 			BasicML.Arithmetic.Subtract(3);
 
-            Assert.AreEqual(Accumulator._registerContent, new BasicML.Word(5));
+            Assert.AreEqual(Accumulator._registerContent._rawValue, 8);
         }
 
         [TestMethod]
@@ -96,7 +96,7 @@ namespace BasicML.UnitTestArith
             Memory.SetElement(3, new Word(2));
             Arithmetic.Multiply(3);
 
-            Assert.AreEqual(Accumulator._registerContent, new Word(20));
+            Assert.AreEqual(Accumulator._registerContent._rawValue, 20);
         }
 
         [TestMethod]
