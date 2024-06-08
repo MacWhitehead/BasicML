@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BasicML
 {
 	// Control operations for the CPU
-	internal static class Control
+	public static class Control
 	{
 		// Branch to a specific location in memory
 		public static void Branch(int operand) 
