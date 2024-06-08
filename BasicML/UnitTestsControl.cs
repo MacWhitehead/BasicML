@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BasicML.UnitTests
 {
 	// Unit test for the Control class
-	internal class ControlTests
+	public static class ControlTests
 	{
 		/*
 		// Runs the tests

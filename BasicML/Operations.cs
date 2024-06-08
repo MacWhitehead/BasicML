@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -18,12 +18,13 @@ namespace BasicML
 
 		}
 
-		// test function
-		public Operations(string filePath)
-		{
-			InitializeMemory(filePath);
-		}
 
+
+		}
+			memory[location] = input;
+			string input = Console.ReadLine();
+			Console.Write("Enter a value: ");
+		{
 		// Method to initialize memory from file
 
 		// test function
@@ -31,31 +32,25 @@ namespace BasicML
 		{
 			var lines = File.ReadAllLines(filePath);
 			foreach (var line in lines)
-			{
 				if (line.Length >= 4) // Ensure line is at least 4 characters long
+			{
 				{
 					Console.WriteLine($"Splitting {line}");
 					var key = line.Substring(1, 2);
 					Console.Write(key);
+
 					Console.WriteLine();
-
 					var value = line.Substring(3, 2);
-
+		}
 					Console.Write(value);
+			}
 					Console.WriteLine();
 				}
-			}
 			Console.ReadLine();
-		}
+
 
 		// Read from keyboard and store in memory
 		public void Read(int location)
-		{
-			Console.Write("Enter a value: ");
-			string input = Console.ReadLine();
-			memory[location] = input;
-		}
-
 		// Write to screen from memory
 		public void Write(int location)
 		{

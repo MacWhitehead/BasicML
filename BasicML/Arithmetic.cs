@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BasicML
 {
-	internal class Arithmetic
+	public class Arithmetic
 	{
 		public static void Add(int address)
 		{
