@@ -7,7 +7,7 @@ namespace BasicMLTests
     public class UnitTestMemory
     {
         [TestMethod]
-        public void ParseProgram_ValidProgram_ContainsData()
+        public void InitMemory_ValidProgram_ContainsData()
         {
             // Arrange
             var program = new string[] { "+1234", "+5678", "+9012" };
@@ -24,7 +24,7 @@ namespace BasicMLTests
         }
 
         [TestMethod]
-        public void ParseProgram_InvalidProgramWithChar_ZeroDataWithLog()
+        public void InitMemory_InvalidProgramWithChar_ZeroDataWithLog()
         {
             // Arrange
             var programWithChar = new string[] { "+aaaa", "+bbbb", "+cccc" };
@@ -43,7 +43,7 @@ namespace BasicMLTests
         }
 
         [TestMethod]
-        public void ParseProgram_InvalidProgramLengthLessThan5_ZeroDataWithLog()
+        public void InitMemory_InvalidProgramLengthLessThan5_ZeroDataWithLog()
         {
             // Arrange
             var programLengthLessThan5 = new string[] { "+111", "+222", "+333" };
@@ -62,7 +62,7 @@ namespace BasicMLTests
         }
 
         [TestMethod]
-        public void ParseProgram_InvalidProgramLengthMoreThan5_ZeroDataWithLog()
+        public void InitMemory_InvalidProgramLengthMoreThan5_ZeroDataWithLog()
         {
             // Arrange
             var programLengthMoreThan5 = new string[] { "+11111", "+22222", "+33333" };
