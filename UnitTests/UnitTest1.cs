@@ -42,12 +42,13 @@ namespace Unittest_IOLoadSave
 		// Pass if successfully output word from memory location
 		public void Write_OutputCorrectWord_Pass()
 		{
+			SetupSystem.RunSetup();
 			int location = 01; // replace this as needed, unsure what to use for test
 
-			var result = BasicML.LoadStore.Load(01); // Assuming location 01 exists in memory
+			bool result = BasicML.LoadStore.Load(location); // Assuming location 01 exists in memory
 
 			// Assert
-			var expectedOutput = true;
+			bool expectedOutput = true;
 			Assert.AreEqual(expectedOutput, result);
 		}
 
