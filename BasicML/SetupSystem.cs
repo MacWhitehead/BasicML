@@ -10,23 +10,7 @@ namespace BasicML
 	{
 		public static void RunSetup()
 		{
-			// Initialize memory and loading Test file
-			Memory.InitMemory("Test2.txt");
-
-			// Output memory as a memory map
-			for (int i = 0; i < Memory.TotalSize; i++)
-			{
-				// In case of operand is smaller than 10 because operand is int
-				var operand = "";
-				if (Memory.ElementAt(i).Operand < 10)
-				{
-					operand = "0" + Memory.ElementAt(i).Operand.ToString();
-				}
-				else
-				{
-					operand = Memory.ElementAt(i).Operand.ToString();
-				}
-			}
+			Memory.InitMemory(new string[] { "+1009", "+1010", "+2009", "+3110", "+4107", "+1109", "+4300", "+1110", "+4300", "+0000", "+0000", });
 		}
 	}
 }
