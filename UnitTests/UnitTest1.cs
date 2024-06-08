@@ -13,7 +13,7 @@ namespace Unittest_IOLoadSave
 		// reject an empty string
 		public void Read_RejectEmptyString_Fail()
 		{
-			string inputString = "\n"; // simulate user input
+			string inputString = ""; // simulate user input
 
 			var result = BasicML.IO.Read(int.Parse(inputString));
 
@@ -91,7 +91,8 @@ namespace Unittest_IOLoadSave
 		// pass if location contains a value
 		public void Load_ValueFound_Pass()
 		{
-			//Operations operations = new Operations();
+			int input = 1234;
+			IO.Read(input);
 			int location = 01;
 			var result = BasicML.IO.Write(location); // Assuming location 01 exists in memory
 
