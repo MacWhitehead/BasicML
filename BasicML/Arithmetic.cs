@@ -14,7 +14,11 @@ namespace BasicML
 			{
 				throw new ArgumentOutOfRangeException("Address out of range");
 			}
-			Accumulator._registerContent += Memory.ElementAt(address);
+
+			int a = Accumulator._registerContent._rawValue;
+			int b = Memory.ElementAt(address)._rawValue;
+
+			Accumulator._registerContent = a + b;
 		}
 
 		public static void Subtract(int address)
@@ -32,7 +36,7 @@ namespace BasicML
 			{
 				throw new ArgumentOutOfRangeException("Address out of range");
 			}
-			Accumulator._registerContent *= Memory.ElementAt(address);
+			Accumulator._registerContent /= Memory.ElementAt(address);
 		}
 
 		public static void Multiply(int address)
@@ -41,7 +45,7 @@ namespace BasicML
 			{
 				throw new ArgumentOutOfRangeException("Address out of range");
 			}
-			Accumulator._registerContent /= Memory.ElementAt(address);
+			Accumulator._registerContent *= Memory.ElementAt(address);
 		}
 
 	}

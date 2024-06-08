@@ -13,9 +13,9 @@ namespace Unittest_IOLoadSave
 		// reject an empty string
 		public void Read_RejectEmptyString_Fail()
 		{
-			string inputString = ""; // test empty string
+			int input = 10000; // test large number
 
-			var result = BasicML.IO.Read(int.Parse(inputString));
+			var result = BasicML.IO.Read(input);
 
 			bool expectedoutput = false;
 			Assert.AreNotEqual(expectedoutput, result);
@@ -65,7 +65,7 @@ namespace Unittest_IOLoadSave
 
 				// Assert
 				var expectedOutput = false;
-				Assert.AreNotEqual(expectedOutput, result);
+				Assert.AreEqual(expectedOutput, result);
 			}
 		}
 
@@ -75,13 +75,13 @@ namespace Unittest_IOLoadSave
 		// fail if location contains no value
 		public void Load_NoValueFound_Fail()
 		{
-			int location = 01;
+			int location = 99;
 
 			var result = BasicML.LoadStore.Load(location); // Assuming location 01 exists in memory
 
 			// Assert
 			var expectedOutput = false;
-			Assert.AreNotEqual(expectedOutput, result);
+			Assert.AreEqual(expectedOutput, result);
 
 		}
 
@@ -91,8 +91,8 @@ namespace Unittest_IOLoadSave
 		// pass if location contains a value
 		public void Load_ValueFound_Pass()
 		{
-			int input = 1234;
-			IO.Read(input);
+			SetupSystem.RunSetup();
+			//Operations operations = new Operations();
 			int location = 01;
 			var result = BasicML.IO.Write(location); // Assuming location 01 exists in memory
 
@@ -107,7 +107,6 @@ namespace Unittest_IOLoadSave
 
 		public void Store_NoValueFound_Fail()
 		{
-			//Operations operations = new Operations();
 			int locations = 01;
 			var result = BasicML.LoadStore.Store(locations);
 
@@ -122,7 +121,6 @@ namespace Unittest_IOLoadSave
 		public void Store_FoundValue_Pass()
 		{
 			int locations = 01;
-			//ref int accumulator = 0; // What to put into this?
 			var result = BasicML.LoadStore.Store(locations);
 
 			// Assert

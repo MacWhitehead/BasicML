@@ -31,7 +31,7 @@ namespace UnitTest_Potato
 			Control.Branch(0);
 			Control.Branch(1000);
 
-			Assert.AreEqual(Cpu.MemoryAddress, 0);
+			Assert.AreEqual(Cpu.MemoryAddress, -1);
 		}
 
 

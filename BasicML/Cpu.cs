@@ -38,7 +38,8 @@ namespace BasicML
 				if ((value < 0) || (value > Memory.TotalSize))
 				{
 					// Sets the memory address to 0 if an invalid index is given
-					_memoryAddress = 0;
+					Memory._log += "Invalid Index\n";
+					_memoryAddress = -1;
 					//throw new IndexOutOfRangeException();
 				}
 				else

@@ -18,40 +18,26 @@ namespace BasicML
         private static Word[] _memory = new Word[100];
         private static int _memorySize = 0;
         private static int _accumulator = 0;
-        private static string _log = "";
+        public static string _log = "";
 
 
         public static Word ElementAt(int address)
         {
-            if (address < _memorySize)
+            if ((address < _memorySize) || (address < 0))
             {
                 return _memory.ElementAt(address);
             }
             else
             {
-                return new Word();
+				_log += "Invalid Index\n";
+				return new Word(0);
             }
 		}
 
         // TODO: change sign in a proper way
         public static void SetElement(int address, Word word)
         {
-            var wordString = "+" + word.Instruction.ToString() + word.Operand.ToString();
-
-            if (checkLength(nameof(ParseProgram), wordString, _memorySize))
-            {
-                var resultInstruction = parseInstruction(nameof(ParseProgram), wordString, _memorySize);
-                if (resultInstruction.bResult)
-                {
-                    _memory[address].Instruction = resultInstruction.iParsed;
-                }
-
-                var resultOperand = parseOperand(nameof(ParseProgram), wordString, _memorySize);
-                if (resultOperand.bResult)
-                {
-                    _memory[address].Operand = resultOperand.iParsed;
-                }
-            }
+			_memory[address] = word;
 		}
 
         //public static int GetInstrction(int address)
@@ -236,7 +222,7 @@ namespace BasicML
                     }
                 }
 
-                _memorySize++;
+				_memorySize++;
             }
         }
 
