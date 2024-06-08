@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,12 +23,35 @@ namespace BasicML
 
         public static Word ElementAt(int address)
         {
-            return _memory.ElementAt(address);
+            if (address < _memorySize)
+            {
+                return _memory.ElementAt(address);
+            }
+            else
+            {
+                return new Word();
+            }
 		}
 
+        // TODO: change sign in a proper way
         public static void SetElement(int address, Word word)
         {
-            _memory[address] = word;
+            var wordString = "+" + word.Instruction.ToString() + word.Operand.ToString();
+
+            if (checkLength(nameof(ParseProgram), wordString, _memorySize))
+            {
+                var resultInstruction = parseInstruction(nameof(ParseProgram), wordString, _memorySize);
+                if (resultInstruction.bResult)
+                {
+                    _memory[address].Instruction = resultInstruction.iParsed;
+                }
+
+                var resultOperand = parseOperand(nameof(ParseProgram), wordString, _memorySize);
+                if (resultOperand.bResult)
+                {
+                    _memory[address].Operand = resultOperand.iParsed;
+                }
+            }
 		}
 
         //public static int GetInstrction(int address)
@@ -149,13 +174,28 @@ namespace BasicML
 
             set
             {
-                _memorySize = value;
+                if (value > 99)
+                {
+                    _memorySize = 99;
+                    _log += $"{nameof(TotalSize)}: Set memory value is larger than 99\n";
+                }
+                else if (value < 0)
+                {
+                    _memorySize = 0;
+                    _log += $"{nameof(TotalSize)}: Set memory value is smaller than 0\n";
+                }
+                else
+                {
+                    _memorySize = value;
+                }
             }
         }
 
         // Initialize memory from text file
         public static void InitMemory(string filePath)
         {
+            _memorySize = 0;
+
             for (int i = 0; i < 100; i++)
             {
                 _memory[i] = new Word();
@@ -167,6 +207,8 @@ namespace BasicML
 
         public static void InitMemory(string[] program)
         {
+            _memorySize = 0;
+
             for (int i = 0; i < 100; i++)
             {
                 _memory[i] = new Word();
@@ -175,7 +217,7 @@ namespace BasicML
             ParseProgram(program);
         }
 
-        public static void ParseProgram(string[] lines)
+        private static void ParseProgram(string[] lines)
         {
             foreach (string line in lines)
             {
@@ -206,23 +248,29 @@ namespace BasicML
                 var resultInstruction = parseInstruction(nameof(WriteMemory), word, address);
                 if (resultInstruction.bResult)
                 {
-                    _memory[address].Instruction = resultInstruction.iParsed;
+                    if (address < 99)
+                    {
+                        _memory[address].Instruction = resultInstruction.iParsed;
+                    }
                 }
 
                 var resultOperand = parseOperand(nameof(WriteMemory), word, address);
                 if (resultOperand.bResult)
                 {
-                    _memory[address].Operand = resultOperand.iParsed;
+                    if (address < 99)
+                    {
+                        _memory[address].Operand = resultOperand.iParsed;
+                    }
                 }
             }
         }
 
         // Read from memory address to string
         // TODO: return with sign
-        public static string ReadMemoryToString(int address)
-        {
-            return _memory[address].Instruction.ToString() + _memory[address].Operand.ToString();
-        }
+        //public static string ReadMemoryToString(int address)
+        //{
+        //    return _memory[address].Instruction.ToString() + _memory[address].Operand.ToString();
+        //}
 
         public static string Log
         {

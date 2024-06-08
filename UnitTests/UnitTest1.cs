@@ -13,7 +13,7 @@ namespace Unittest_IOLoadSave
 		// reject an empty string
 		public void Read_RejectEmptyString_Fail()
 		{
-			string inputString = "\n"; // simulate user input
+			string inputString = ""; // test empty string
 
 			var result = BasicML.IO.Read(int.Parse(inputString));
 
