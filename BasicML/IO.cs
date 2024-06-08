@@ -10,21 +10,23 @@ namespace BasicML
 	public static class IO
 	{
 
-		public static void Read(int operand)
+		public static bool Read(int operand)
 		{
+			// Input box will only works with 4 digit integer
+			InputBoxItem[] items = new InputBoxItem[]
+			{
+					new InputBoxItem("Input")
+			};
+			InputBox input = InputBox.Show("Enter input number", items, InputBoxButtons.OKCancel);
 
-				// Input box will only works with 4 digit integer
-				InputBoxItem[] items = new InputBoxItem[]
-				{
-						new InputBoxItem("Input")
-				};
-				InputBox input = InputBox.Show("Enter input number", items, InputBoxButtons.OKCancel);
+			if (input.Result == InputBoxResult.OK)
+			{
+				// Write input Word into operand
+				Memory.WriteMemory(input.Items["Input"], operand);
+			return true;
+			}
 
-				if (input.Result == InputBoxResult.OK)
-				{
-					// Write input Word into operand
-					Memory.WriteMemory(input.Items["Input"], operand);
-				}
+			return false;
 		}
 
 		/*
@@ -39,13 +41,21 @@ namespace BasicML
 		*/
 
 		// Write to screen from memory
-		public static void Write(int location)
+		public static bool Write(int location)
 		{
 			if (Memory.TotalSize < location)
-				Console.WriteLine($"Value at location {location}: {Memory.ElementAt(location)}");
+			{
+                Console.WriteLine($"Value at location {location}: {Memory.ElementAt(location)}");
+				return true;
+            }
+				
 			else
-				Console.WriteLine($"Location {location} is empty.");
+			{
+                Console.WriteLine($"Location {location} is empty.");
+				return false;
+            }
+
 		}
 
-	}
+    }
 }

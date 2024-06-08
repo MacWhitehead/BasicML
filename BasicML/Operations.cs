@@ -20,48 +20,39 @@ namespace BasicML
 
 
 		// Write to screen from memory
-		public void Write(int location)
+		public bool Write(int location)
 		{
 			if (memory.ContainsKey(location))
 			{
 				Console.WriteLine($"Value at location {location}: {memory[location]}");
+				return true;
 			}
-			else
-			{
-				Console.WriteLine($"Location {location} is empty.");
-
-			}
+			return false;
 		}
 
 		// Store accumulator value into memory
-		public void Store(int location, int accumulator)
+		public bool Store(int location, int accumulator)
 		{
 			if (memory.ContainsKey(location))
 			{
 				memory[location] = accumulator.ToString();
-				Console.WriteLine("Stored accumulator value into memory");
+				return true;
 			}
 
-			else
-			{
-				Console.WriteLine("Accumulator value not found");
-			}
+			return false;
 
 		}
 
 		// Load value from memory into accumulator
-		public void Load(int location, ref int accumulator)
+		public bool Load(int location, ref int accumulator)
 		{
 			if (memory.ContainsKey(location))
 			{
 				accumulator = int.Parse(memory[location]);
-				Console.WriteLine("Loaded into accumulator");
+				return true;
 			}
 
-			else
-			{
-				Console.WriteLine($"Location {location} is empty.");
-			}
+			return false;
 
 		}
 		// indexer: instruction code as key value
