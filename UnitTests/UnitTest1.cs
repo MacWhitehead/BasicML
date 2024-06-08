@@ -13,17 +13,12 @@ namespace Unittest_IOLoadSave
 		// reject an empty string
 		public void Read_RejectEmptyString_Fail()
 		{
-
 			string inputString = "\n"; // simulate user input
 
-			StringReader sr = new StringReader(inputString);
+			var result = BasicML.IO.Read(int.Parse(inputString));
 
-			//Console.SetOut(_consoleOutput);
-
-			BasicML.IO.Read(int.Parse(inputString));
-
-			string expectedOutput = "Successfully stored";
-			//Assert.AreNotEqual(expectedoutput, _consoleOutput.ToString());
+			bool expectedoutput = false;
+			Assert.AreNotEqual(expectedoutput, result);
 
 		}
 
@@ -35,15 +30,10 @@ namespace Unittest_IOLoadSave
 		{
 			string inputString = "+1007";
 
-			StringReader sr = new StringReader(inputString);
+			var result = BasicML.IO.Read(int.Parse(inputString));
 
-			//Console.SetOut(_consoleOutput);
-
-
-			BasicML.IO.Read(int.Parse(inputString));
-
-			string expectedOutput = "Successfully stored;";
-			//Assert.AreEqual(expectedoutput, _consoleOutput.ToString());
+			bool expectedoutput = true;
+			Assert.AreEqual(expectedoutput, result);
 		}
 
 		// WRITE
@@ -53,15 +43,12 @@ namespace Unittest_IOLoadSave
 		public void Write_OutputCorrectWord_Pass()
 		{
 			int location = 01; // replace this as needed, unsure what to use for test
-			using (var sw = new StringWriter())
-			{
-				Console.SetOut(sw); // Redirect Console.WriteLine to StringWriter
-				BasicML.IO.Write(01); // Assuming location 01 exists in memory
 
-				// Assert
-				var expectedOutput = $"Value at location 01: Value1{Environment.NewLine}";
-				Assert.AreEqual(expectedOutput, sw.ToString());
-			}
+			var result = BasicML.LoadStore.Load(01); // Assuming location 01 exists in memory
+
+			// Assert
+			var expectedOutput = true;
+			Assert.AreEqual(expectedOutput, result);
 		}
 
 		// WRITE 
@@ -74,14 +61,12 @@ namespace Unittest_IOLoadSave
 			using (var sw = new StringWriter())
 			{
 				Console.SetOut(sw); // Redirect Console.WriteLine to StringWriter
-				BasicML.IO.Write(01); // Assuming location 01 exists in memory
+				var result = BasicML.IO.Write(location); // Assuming location 01 exists in memory
 
 				// Assert
-				var expectedOutput = $"Value at location 01: Value1{Environment.NewLine}";
-				Assert.AreNotEqual(expectedOutput, sw.ToString());
+				var expectedOutput = false;
+				Assert.AreNotEqual(expectedOutput, result);
 			}
-
-
 		}
 
 		// LOAD
@@ -91,17 +76,13 @@ namespace Unittest_IOLoadSave
 		public void Load_NoValueFound_Fail()
 		{
 			int location = 01;
-			//ref int accumulator = 0; // not sure what to put into this?
 
-			using (var sw = new StringWriter())
-			{
-				Console.SetOut(sw); // Redirect Console.WriteLine to StringWriter
-				BasicML.LoadStore.Load(01); // Assuming location 01 exists in memory
+			var result = BasicML.LoadStore.Load(location); // Assuming location 01 exists in memory
 
-				// Assert
-				var expectedOutput = "Loaded into accumulator";
-				Assert.AreNotEqual(expectedOutput, sw.ToString());
-			}
+			// Assert
+			var expectedOutput = false;
+			Assert.AreNotEqual(expectedOutput, result);
+
 		}
 
 		//LOAD
@@ -112,17 +93,11 @@ namespace Unittest_IOLoadSave
 		{
 			//Operations operations = new Operations();
 			int location = 01;
-			//ref int accumulator = 0; // not sure what to put into this?
+			var result = BasicML.IO.Write(location); // Assuming location 01 exists in memory
 
-			using (var sw = new StringWriter())
-			{
-				Console.SetOut(sw); // Redirect Console.WriteLine to StringWriter
-				BasicML.IO.Write(01); // Assuming location 01 exists in memory
-
-				// Assert
-				var expectedOutput = "Loaded into accumulator";
-				Assert.AreEqual(expectedOutput, sw.ToString());
-			}
+			// Assert
+			var expectedOutput = true;
+			Assert.AreEqual(expectedOutput, result);
 		}
 
 		// STORE
@@ -133,17 +108,11 @@ namespace Unittest_IOLoadSave
 		{
 			//Operations operations = new Operations();
 			int locations = 01;
-			//ref int accumulator = 0; // What to put into this?
+			var result = BasicML.LoadStore.Store(locations);
 
-			using (var sw = new StringWriter())
-			{
-				Console.SetOut(sw);
-				BasicML.LoadStore.Store(locations);
-
-				// Assert
-				var expectedOutput = "Store accumulator value into memory";
-				Assert.AreNotEqual(expectedOutput, sw.ToString());
-			}
+			// Assert
+			var expectedOutput = false;
+			Assert.AreNotEqual(expectedOutput, result);
 		}
 		// STORE
 
@@ -153,16 +122,11 @@ namespace Unittest_IOLoadSave
 		{
 			int locations = 01;
 			//ref int accumulator = 0; // What to put into this?
+			var result = BasicML.LoadStore.Store(locations);
 
-			using (var sw = new StringWriter())
-			{
-				Console.SetOut(sw);
-				BasicML.LoadStore.Store(locations);
-
-				// Assert
-				var expectedOutput = "Store accumulator value into memory";
-				Assert.AreEqual(expectedOutput, sw.ToString());
-			}
+			// Assert
+			var expectedOutput = true;
+			Assert.AreEqual(expectedOutput, result);
 		}
 
 	}
