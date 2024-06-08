@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BasicML
 {
-	internal static class IO
+	public static class IO
 	{
 
 		public static void Read(int operand)

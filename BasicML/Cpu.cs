@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BasicML
 {
 	//  This class is used to simulate the CPU
-	internal static class Cpu
+	public static class Cpu
 	{
 		/* - - - - - - - - - - Variables - - - - - - - - - - */
 

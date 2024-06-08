@@ -18,50 +18,6 @@ namespace BasicML
 
 		}
 
-        public void Add(int address)
-        {
-            if (address < 0 || address > memory.Length)
-            {
-                throw new ArgumentOutOfRangeException("Address out of range");
-            }
-            accumulator += memory[address];
-        }
-
-        {
-        public void Subtract(int address)
-            if (address < 0 || address > memory.Length)
-            {
-                throw new ArgumentOutOfRangeException("Address out of range");
-            accumulator -= memory[address];
-            }
-        }
-        public int Divide(int address, int toDivide)
-
-        {
-            {
-            if (address < 0 || address > memory.Length)
-                throw new ArgumentOutOfRangeException("Address out of range");
-            }
-            accumulator += memory[address] / toDivide;
-        }
-
-        public int Multiply(int address, int toDivide)
-        {
-            if (address < 0 || address > memory.Length)
-            {
-                throw new ArgumentOutOfRangeException("Address out of range");
-            }
-            accumulator += memory[address] * toDivide;
-        }
-
-		// Method to initialize memory from file
-
-        public Operations()
-        {
-            var lines = File.ReadAllLines("Operations.txt");
-            _dict = lines.Select(line => line.Split('='))
-                .ToDictionary(x => int.Parse(x[0]), x => x[1]);
-        }
 
 		// Write to screen from memory
 		public void Write(int location)
@@ -69,11 +25,6 @@ namespace BasicML
 			if (memory.ContainsKey(location))
 			{
                 Console.WriteLine($"Value at location {location}: {memory[location]}");
-            }
-            else
-			{
-                Console.WriteLine($"Location {location} is empty.");
-
             }
             else
 			{

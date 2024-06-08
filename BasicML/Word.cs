@@ -7,7 +7,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BasicML
 {
-    internal class Word
+    public class Word
     {
         public int _rawValue = 0;
 

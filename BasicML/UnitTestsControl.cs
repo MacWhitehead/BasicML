@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BasicML.UnitTests
 {
 	// Unit test for the Control class
-	internal static class ControlTests
+	public static class ControlTests
 	{
 		// Runs the tests
 		public static List<bool> RunTests(bool verbose = true)

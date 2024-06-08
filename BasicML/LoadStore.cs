@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BasicML
 {
-	internal class LoadStore
+	public class LoadStore
 	{
 		// Load value from memory into accumulator
 		public static void Load(int location)

@@ -1,4 +1,5 @@
-﻿using BasicML;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using BasicML;
 
 /// <summary>
 /// Summary description for Class1
