@@ -11,116 +11,98 @@ namespace BasicML.UnitTestArith
     public class UnitTest2
     {
         [TestMethod]
-        // Tests addition
-        public static bool AddTogether()
+        // Tests addition - True
+        public void AddTogether()
         {
-			BasicML.Accumulator._registerContent = new BasicML.Word(12);
+            SetupSystem.RunSetup();
+            BasicML.Accumulator._registerContent = new BasicML.Word(12);
 			BasicML.Memory.SetElement(3, new BasicML.Word(2));
 			BasicML.Arithmetic.Add(3);
 
-            if(Accumulator._registerContent == new BasicML.Word(14))
-            {
-                return true;
-            }
-            return false;
+            Assert.AreEqual(Accumulator._registerContent, new BasicML.Word(14));
         }
 
         [TestMethod]
-        public static bool AddTogether2()
+        // Tests addition - False
+        public void AddTogether2()
         {
+            SetupSystem.RunSetup();
             Accumulator._registerContent = new BasicML.Word(6);
 			BasicML.Memory.SetElement(3, new BasicML.Word(2));
 			BasicML.Arithmetic.Add(3);
-
-            if (Accumulator._registerContent == new BasicML.Word(8))
-            {
-                return true;
-            }
-            return false;
+            Assert.AreNotEqual(Accumulator._registerContent, new BasicML.Word(9));
         }
 
         [TestMethod]
-        public static bool SubtractVals()
+        // Tests subtraction - True
+        public void SubtractVals()
         {
+            SetupSystem.RunSetup();
             Accumulator._registerContent = new BasicML.Word(6);
 			BasicML.Memory.SetElement(3, new BasicML.Word(2));
 			BasicML.Arithmetic.Subtract(3);
 
-            if (Accumulator._registerContent == new BasicML.Word(3))
-            {
-                return true;
-            }
-            return false;
+            Assert.AreEqual(Accumulator._registerContent, new BasicML.Word(4));
         }
 
         [TestMethod]
-        public static bool SubtractVals2()
+        // Tests subtraction - False
+        public void SubtractVals2()
         {
+            SetupSystem.RunSetup();
             Accumulator._registerContent = new BasicML.Word(10);
 			BasicML.Memory.SetElement(3, new BasicML.Word(2));
 			BasicML.Arithmetic.Subtract(3);
 
-            if (Accumulator._registerContent == new BasicML.Word(5))
-            {
-                return true;
-            }
-            return false;
+            Assert.AreEqual(Accumulator._registerContent, new BasicML.Word(5));
         }
 
         [TestMethod]
-        public static bool DivideVals()
+        // Tests divide - True
+        public void DivideVals()
         {
+            SetupSystem.RunSetup();
             Accumulator._registerContent = new BasicML.Word(12);
 			BasicML.Memory.SetElement(3, new BasicML.Word(2));
 			BasicML.Arithmetic.Divide(3);
 
-            if (Accumulator._registerContent == new BasicML.Word(6))
-            {
-                return true;
-            }
-            return false;
+            Assert.AreEqual(Accumulator._registerContent, new BasicML.Word(6));
         }
 
         [TestMethod]
-        public static bool DivideVals2()
+        // Tests divide - false
+        public void DivideVals2()
         {
+            SetupSystem.RunSetup();
             Accumulator._registerContent = new BasicML.Word(22);
 			BasicML.Memory.SetElement(3, new BasicML.Word(2));
 			BasicML.Arithmetic.Divide(3);
 
-            if (Accumulator._registerContent == new BasicML.Word(11))
-            {
-                return true;
-            }
-            return false;
+            Assert.AreNotEqual(Accumulator._registerContent, new BasicML.Word(10));
         }
 
         [TestMethod]
-        public static bool MultiplyVals()
+        // Tests multiply - True
+        public void MultiplyVals()
         {
+            SetupSystem.RunSetup();
             Accumulator._registerContent = new BasicML.Word(10);
             Memory.SetElement(3, new Word(2));
             Arithmetic.Multiply(3);
 
-            if (Accumulator._registerContent == new Word(20))
-            {
-                return true;
-            }
-            return false;
+            Assert.AreEqual(Accumulator._registerContent, new Word(20));
         }
 
         [TestMethod]
-        public static bool MultiplyVals2()
+        // Tests multiply - false
+        public void MultiplyVals2()
         {
+            SetupSystem.RunSetup();
             Accumulator._registerContent = new BasicML.Word(25);
 			BasicML.Memory.SetElement(3, new BasicML.Word(2));
 			BasicML.Arithmetic.Multiply(3);
 
-            if (Accumulator._registerContent == new BasicML.Word(50))
-            {
-                return true;
-            }
-            return false;
+            Assert.AreNotEqual(Accumulator._registerContent, new BasicML.Word(55));
         }
     }
 }
