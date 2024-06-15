@@ -18,25 +18,40 @@ namespace BasicML
         // Open the test input text
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-			// Initialize memory and loading Test file
-			Memory.InitMemory("Test2.txt");
-
-            // Output memory as a memory map
-            for (int i = 0; i < Memory.TotalSize; i++)
+            // Initialize memory and loading Test file
+            //Memory.InitMemory("Test2.txt");
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                // In case of operand is smaller than 10 because operand is int
-                var operand = "";
-                if (Memory.ElementAt(i).Operand < 10)
-                {
-                    operand = "0" + Memory.ElementAt(i).Operand.ToString();
-                }
-                else
-                {
-                    operand = Memory.ElementAt(i).Operand.ToString();
-                }
+                openFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
+                openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
 
-                // Memory address number, memory instruction in integer, memory operand in two digit number
-                richTextBoxMemory.AppendText(i.ToString() + " " + Memory.ElementAt(i).Instruction.ToString() + " " + operand + "\n");
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    richTextBoxMemory.Clear();
+
+                    //Get the path of specified file
+                    Memory.InitMemory(openFileDialog.FileName);
+
+                    // Output memory as a memory map
+                    for (int i = 0; i < Memory.TotalSize; i++)
+                    {
+                        // In case of operand is smaller than 10 because operand is int
+                        var operand = "";
+                        if (Memory.ElementAt(i).Operand < 10)
+                        {
+                            operand = "0" + Memory.ElementAt(i).Operand.ToString();
+                        }
+                        else
+                        {
+                            operand = Memory.ElementAt(i).Operand.ToString();
+                        }
+
+                        // Memory address number, memory instruction in integer, memory operand in two digit number
+                        richTextBoxMemory.AppendText(i.ToString() + " " + Memory.ElementAt(i).Instruction.ToString() + " " + operand + "\n");
+                    }
+                }
             }
         }
 
