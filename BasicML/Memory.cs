@@ -23,7 +23,7 @@ namespace BasicML
 
         public static Word ElementAt(int address)
         {
-            if ((address < _memorySize) || (address < 0))
+            if ((address <= _memorySize) || (address < 0))
             {
                 return _memory.ElementAt(address);
             }
@@ -258,6 +258,7 @@ namespace BasicML
         //    return _memory[address].Instruction.ToString() + _memory[address].Operand.ToString();
         //}
 
+        // internal use only
         public static string Log
         {
             get { return _log; }

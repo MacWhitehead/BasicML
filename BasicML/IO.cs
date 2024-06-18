@@ -9,7 +9,6 @@ namespace BasicML
 {
 	public static class IO
 	{
-
 		public static bool Read(int operand)
 		{
             // Input box will only works with 4 digit integer
@@ -18,6 +17,10 @@ namespace BasicML
             if (InputBox("Input", "Enter input number", ref value) == DialogResult.OK)
             {
                 // Write input Word into operand
+                if (value.Substring(0,1) != "+" || value.Substring(0, 1) != "-")
+                {
+                    value = "+" + value;
+                }
                 Memory.WriteMemory(value, operand);
                 return true;
             }
@@ -25,32 +28,39 @@ namespace BasicML
 			return false;
 		}
 
-		/*
-		// Read from keyboard and store in memory
-		public static void Read(int location)
-		{
-			Console.Write("Enter a value: ");
-			//string input = Console.ReadLine();
-			string input = "1234";
-			Memory.SetElement(location, new Word(int.Parse(input)));
-		}
-		*/
-
 		// Write to screen from memory
-		public static bool Write(int location)
+		public static bool Write(int location, RichTextBox log)
 		{
-			if (location < Memory.TotalSize)
-			{
-                Console.WriteLine($"Value at location {location}: {Memory.ElementAt(location)}");
-				return true;
-            }
-				
-			else
-			{
-                Console.WriteLine($"Location {location} is empty.");
-				return false;
-            }
+            if (log != null)
+            {
+                if (location <= Memory.TotalSize)
+                {
+                    log.AppendText($"Value at location {location}: " +
+                        $"{Memory.ElementAt(location).Instruction.ToString() + Memory.ElementAt(location).Operand.ToString()}");
+                    log.AppendText("\n");
 
+                    return true;
+                }
+                else
+                {
+                    log.AppendText($"Location {location} is empty.");
+                    log.AppendText("\n");
+
+                    return false;
+                }
+            }
+            else
+            {
+                // else only works for UnitTests project
+                if (location <= Memory.TotalSize)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
 		}
 
         public static DialogResult InputBox(string title, string content, ref string value)
@@ -93,6 +103,5 @@ namespace BasicML
             value = textBox.Text;
             return dialogResult;
         }
-
     }
 }

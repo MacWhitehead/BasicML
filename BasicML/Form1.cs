@@ -7,9 +7,6 @@ namespace BasicML
 {
     public partial class FormBasicML : Form
     {
-		// Operations to convert instruction to operation in English
-		Operations operations = new Operations();
-
         public FormBasicML()
         {
             InitializeComponent();
@@ -35,7 +32,7 @@ namespace BasicML
                     Memory.InitMemory(openFileDialog.FileName);
 
                     // Output memory as a memory map
-                    for (int i = 0; i < Memory.TotalSize; i++)
+                    for (int i = 0; i < 100; i++)
                     {
                         // In case of operand is smaller than 10 because operand is int
                         var operand = "";
@@ -71,7 +68,7 @@ namespace BasicML
         {
             richTextBoxMemory.Clear();
 
-            for (int i = 0; i < Memory.TotalSize; i++)
+            for (int i = 0; i < 100; i++)
             {
                 var operand = "";
                 if (Memory.ElementAt(i).Operand < 10)

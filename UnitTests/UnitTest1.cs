@@ -61,7 +61,7 @@ namespace Unittest_IOLoadSave
 			using (var sw = new StringWriter())
 			{
 				Console.SetOut(sw); // Redirect Console.WriteLine to StringWriter
-				var result = BasicML.IO.Write(location); // Assuming location 01 exists in memory
+				var result = BasicML.IO.Write(location, null); // Assuming location 01 exists in memory
 
 				// Assert
 				var expectedOutput = false;
@@ -94,7 +94,7 @@ namespace Unittest_IOLoadSave
 			SetupSystem.RunSetup();
 			//Operations operations = new Operations();
 			int location = 01;
-			var result = BasicML.IO.Write(location); // Assuming location 01 exists in memory
+			var result = BasicML.IO.Write(location, null); // Assuming location 01 exists in memory
 
 			// Assert
 			var expectedOutput = true;

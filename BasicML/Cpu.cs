@@ -11,13 +11,10 @@ namespace BasicML
 	{
 		/* - - - - - - - - - - Variables - - - - - - - - - - */
 
-		// Private variables
-		private static Operations operations = new();									// Used for mapping the code for an operation to it's name
 		public static RichTextBox _logBox;												// The location that output logs are written to
 
 		private static int _memoryAddress = 0;											// The memory address of the next instruction to be executed
 		private static bool _excecuting = false;                                        // Whether or not the CPU is currently excecuting
-
 
 
 		/* - - - - - - - - - - Properties - - - - - - - - - - */
@@ -53,7 +50,6 @@ namespace BasicML
 		// Properties that are used as convient ways to refer to commonly used variables
 		public static Word CurrentWord { get { return Memory.ElementAt(_memoryAddress); } }		// Gets the word at the current memory address
 		public static int CurrentOperand { get { return CurrentWord.Operand; } }       // Gets the operand from the word at the current memory address
-
 		public static int CurrentInstruction { get { return CurrentWord.Instruction; } }       // Gets the operand from the word at the current memory address
 
 
@@ -87,7 +83,6 @@ namespace BasicML
 					StopExecution();
 				}
 			}
-
 		}
 
 
@@ -113,7 +108,7 @@ namespace BasicML
 					IO.Read(CurrentWord.Operand);
 					break;
 				case InstructionType.Write:
-					IO.Write(CurrentWord.Operand);
+					IO.Write(CurrentWord.Operand, _logBox);
 					break;
 				case InstructionType.Load:
 					LoadStore.Load(CurrentWord.Operand);
@@ -159,8 +154,6 @@ namespace BasicML
 			LogLine(operation + " " + CurrentOperand);
 		}
 
-
-
 		/* - - - - - - - - - - Debug - - - - - - - - - - */
 
 		// Prints some useful debug information to the console
@@ -182,8 +175,6 @@ namespace BasicML
 				_logBox.AppendText(s);
 				return;
 			}
-
-			Console.Write(s);
 		}
 
 		public static void LogLine(string s)
@@ -193,8 +184,6 @@ namespace BasicML
 				_logBox.AppendText(s + "\n");
 				return;
 			}
-
-			Console.WriteLine(s);
 		}
 	}
 }
