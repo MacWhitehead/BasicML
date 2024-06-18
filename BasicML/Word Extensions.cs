@@ -29,14 +29,14 @@ namespace BasicML
 		public static InstructionType GetInstructionType(this Word word)
 		{
 			if (Enum.IsDefined(typeof(InstructionType), word.Instruction)) { return (InstructionType)word.Instruction; }
-			else { return InstructionType.nullInstruction; }
+			else { return InstructionType.NullInstruction; }
 		}
 	}
 
 	// Represents a type of instruction to be excecuted
 	public enum InstructionType
 	{
-		nullInstruction = 0,
+		NullInstruction = 0,
 		Read = 10,
 		Write = 11,
 		Load = 20,

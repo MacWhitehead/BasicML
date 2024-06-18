@@ -19,8 +19,8 @@ namespace BasicML
 			}
 			else
 			{
-				Cpu.LogLine($"Memory Size: {Memory.TotalSize}");
-				Cpu.LogLine($"Location: {location}");
+				Logging.LogLine($"Memory Size: {Memory.TotalSize}");
+				Logging.LogLine($"Location: {location}");
 				//Cpu.LogLine($"Location {location} is empty.");
 				return false;
 			}

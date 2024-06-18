@@ -43,7 +43,7 @@ namespace BasicML
         // Run the test program
         private void runToolStripMenuItem_Click(object sender, EventArgs e)
         {
-			Cpu._logBox = richTextBoxLog;
+			Logging._logBox = richTextBoxLog;
 
 			// Starts the cpu exececuting
 			Cpu.StartExecution();

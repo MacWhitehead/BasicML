@@ -31,6 +31,12 @@ namespace BasicML
 
 		public static implicit operator Word(int i) => new Word(i);
 
+		// Returns the words value in string format
+		public string ToString()
+		{
+			return _rawValue.ToString();
+		}
+
 		public int Instruction
 		{
 			get { return Math.Abs(_rawValue / 100); }
