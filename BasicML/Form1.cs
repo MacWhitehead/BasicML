@@ -218,6 +218,11 @@ namespace BasicML
 
 		private void memoryGrid_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
 		{
+			if ((e.RowIndex < 0) || (e.RowIndex >= memoryGrid.Rows.Count))
+			{
+				return;
+			}
+
 			if ((e.ColumnIndex == 2) && (e.RowIndex == Cpu.MemoryAddress))
 			{
 				return;
@@ -228,7 +233,7 @@ namespace BasicML
 				return; 
 			}
 
-			if (((e.ColumnIndex == 2) || (e.ColumnIndex == 3)) && ((e.RowIndex >= 0) && (e.RowIndex < memoryGrid.Rows.Count)))
+			if ((e.ColumnIndex == 2) || (e.ColumnIndex == 3))
 			{
 				DataGridViewImageCell cell = (DataGridViewImageCell)memoryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
 				if (cell != null)
