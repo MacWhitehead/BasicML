@@ -10,91 +10,104 @@ namespace BasicML
 	public class Word
 	{
 		public bool _isBreakpoint = false;
-		public int _rawValue = 0;
+		private int _rawValue = 0;
+
+		public int RawValue
+		{
+			get { return _rawValue; }
+			set 
+			{
+				if (value < -9999) { value = -9999; }
+				else if (value > 9999) { value = 9999; }
+				_rawValue = value;
+			}
+		}
 
 		public Word() { }
 
 		public Word(int rawValue)
 		{
-			_rawValue = rawValue;
+			RawValue = rawValue;
 		}
 
 		public Word(string s)
 		{
+			Word word = new();
+			TryParse(s, out word);
+
+			RawValue = word.RawValue;
+		}
+
+		public static bool TryParse(string s, out Word word)
+		{
+			bool success = false;
 			int value = 0;
 
 			if (s != null)
 			{
-				if (s[0] == '-')
+				if (s[0] == '-') 
 				{
-					value = -int.Parse(s.AsSpan(1));
+					success = int.TryParse(s.AsSpan(1), out value);
+					value = -value;
 				}
-				else if (s[0] == '+')
-				{
-					value = int.Parse(s.AsSpan(1));
-				}
-				else
-				{
-					value = int.Parse(s);
-				}
+				else if (s[0] == '+') { success = int.TryParse(s.AsSpan(1), out value); }
+				else { success = int.TryParse(s, out value); }
 			}
 
-			_rawValue = value;
-			return;
+			word = new Word(value);
+			return success;
 		}
 
 
-		public static Word operator +(Word a, Word b) { return new Word(a._rawValue + b._rawValue); }
-		public static Word operator -(Word a, Word b) { return new Word(a._rawValue - b._rawValue); }
-		public static Word operator *(Word a, Word b) { return new Word(a._rawValue * b._rawValue); }
-		public static Word operator /(Word a, Word b) { return new Word(a._rawValue / b._rawValue); }
+		public static Word operator +(Word a, Word b) { return new Word(a.RawValue + b.RawValue); }
+		public static Word operator -(Word a, Word b) { return new Word(a.RawValue - b.RawValue); }
+		public static Word operator *(Word a, Word b) { return new Word(a.RawValue * b.RawValue); }
+		public static Word operator /(Word a, Word b) { return new Word(a.RawValue / b.RawValue); }
 
-		public static bool operator ==(Word a, Word b) { return a._rawValue == b._rawValue; }
-		public static bool operator !=(Word a, Word b) { return a._rawValue == b._rawValue; }
+		public static bool operator ==(Word a, Word b) { return a.RawValue == b.RawValue; }
+		public static bool operator !=(Word a, Word b) { return a.RawValue == b.RawValue; }
 
-		public static bool operator ==(Word a, int i) { return a._rawValue == i; }
-		public static bool operator !=(Word a, int i) { return a._rawValue == i; }
+		public static bool operator ==(Word a, int i) { return a.RawValue == i; }
+		public static bool operator !=(Word a, int i) { return a.RawValue == i; }
 
 		public static implicit operator Word(int i) => new(i);
 		public static implicit operator Word(string s) => new(s);
 
 		// Returns the words value in string format
-		public override string ToString()
-		{
-			return _rawValue.ToString();
-		}
-
 		public string ToString(bool includePositiveOperand = false)
 		{
-			string prefix = "";
-			if (includePositiveOperand && (_rawValue > 0)) { prefix = "+"; }
-			return prefix + _rawValue.ToString();
+			string output = Math.Abs(RawValue).ToString().PadLeft(4, '0');
+
+			if (RawValue < 0) { output = "-" + output; }
+			else if (includePositiveOperand) { output = "+" + output; }
+			
+			return output;
 		}
 
 		public int Instruction
 		{
-			get { return Math.Abs(_rawValue / 100); }
+			get { return Math.Abs(RawValue / 100); }
 			set
 			{
-				int sign = Math.Sign(_rawValue);
+				int sign = Math.Sign(RawValue);
 				if (sign == 0) { sign = 1; }
 
 				if ((value > 99) || (value < 0)) { value = 0; }
 
-				_rawValue = ((value * 100) + Operand) * sign;
+				RawValue = ((value * 100) + Operand) * sign;
 			}
 		}
 		public int Operand
 		{
-			get { return _rawValue % 100; }
+			get { return RawValue % 100; }
 			set
 			{
-				int sign = Math.Sign(_rawValue);
+				int sign = Math.Sign(RawValue);
 				if (sign == 0) { sign = 1; }
 
 				if ((value > 99) || (value < 0)) { value = 0; }
 
-				_rawValue = ((Instruction * 100) + value) * sign;
+				RawValue = ((Instruction * 100) + value) * sign;
 			}
 		}
 	}

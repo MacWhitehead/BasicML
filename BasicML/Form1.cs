@@ -23,6 +23,8 @@ namespace BasicML
 
 			_formLoggingBox = loggingBox;
 
+			loadFileButton.Visible = false;
+
 			startPointColumn.Image = BLANK_IMAGE;
 			breakPointColumn.Image = BLANK_IMAGE;
 
@@ -30,7 +32,7 @@ namespace BasicML
 			memoryAddColumn.ValuesAreIcons = true;
 
 			memoryRemoveColumn.Icon = REMOVE_COULUMN_ICON;
-			memoryRemoveColumn.ValuesAreIcons= true;
+			memoryRemoveColumn.ValuesAreIcons = true;
 
 			refreshMemory();
 		}
@@ -68,29 +70,25 @@ namespace BasicML
 
 		private void chooseFile_Click(object sender, EventArgs e)
 		{
-			// Starts the cpu exececuting
-			Logging.Log("Boop");
-
 			DialogResult result = openFileDialog.ShowDialog();
-			if (result == DialogResult.OK) // Test result.
+			if (result == DialogResult.OK)
 			{
 				fileTextBox.Text = openFileDialog.FileName;
+				Logging.LogLine("File Loaded");
+				loadFileButton.Visible = true;
 			}
-			Logging.Log(result.ToString()); // <-- For debugging use.
+			else
+			{
+				Logging.LogLine("Error Loading File (" + result.ToString() + ")");
+			}
 
 			refreshMemory();
 		}
 
 		private void loadFileButton_Click(object sender, EventArgs e)
 		{
-			try
-			{
-				FileReader.ReadFileToMemory(fileTextBox.Text);
-			}
-			catch
-			{
-				Logging.Log("Could not read file");
-			}
+			try { FileReader.ReadFileToMemory(fileTextBox.Text); }
+			catch { Logging.Log("Could not read file"); }
 
 			Cpu.MemoryAddress = 0;
 
@@ -110,14 +108,23 @@ namespace BasicML
 			Cpu.StepExecution();
 		}
 
-		private void refreshMemory()
+		private void refreshMemory(bool repopulateCells = true)
 		{
-			memoryGrid.Rows.Clear();
+			memoryGrid.ClearSelection();
+
+			if (repopulateCells)
+			{
+				memoryGrid.Rows.Clear();
+				for (int i = 0; i < Memory.TotalSize; i++)
+				{
+					memoryGrid.Rows.Add();
+				}
+			}
+
 			for (int i = 0; i < Memory.TotalSize; i++)
 			{
-				memoryGrid.Rows.Add();
 				memoryGrid.Rows[i].Cells[0].Value = i.ToString();
-				memoryGrid.Rows[i].Cells[1].Value = Memory.ElementAt(i).ToString();
+				memoryGrid.Rows[i].Cells[1].Value = Memory.ElementAt(i).ToString(true);
 				if (Memory.ElementAt(i)._isBreakpoint)
 				{
 					DataGridViewImageCell cell = (DataGridViewImageCell)memoryGrid.Rows[i].Cells[3];
@@ -150,7 +157,20 @@ namespace BasicML
 
 			lastRemoveCell.ValueIsIcon = false;
 			lastRemoveCell.Value = BLANK_IMAGE;
+
+			if (Memory.TotalSize > 0)
+			{
+				runButton.Visible = true;
+				stepButton.Visible = true;
+			}
+			else
+			{
+				runButton.Visible = false;
+				stepButton.Visible = false;
+			}
 		}
+
+
 
 		private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
 		{
@@ -169,32 +189,27 @@ namespace BasicML
 
 		private void memoryGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
-			if ((e.RowIndex >= 0) && (e.RowIndex < memoryGrid.Rows.Count))
-			{
-				if (e.ColumnIndex == 2)
-				{
-					Cpu.MemoryAddress = e.RowIndex;
-				}
-				if (e.ColumnIndex == 3)
-				{
-					Memory.ElementAt(e.RowIndex)._isBreakpoint = !Memory.ElementAt(e.RowIndex)._isBreakpoint;
-				}
-				if (e.ColumnIndex == 4)
-				{
-					Memory.AddAt(e.RowIndex, 0000);
-				}
-				else if ((e.ColumnIndex == 5) && (e.RowIndex < memoryGrid.Rows.Count - 1))
-				{
-					Memory.RemoveAt(e.RowIndex);
-				}
+			// Returns early if the cell is out of bounds
+			if ((e.RowIndex < 0) || (e.RowIndex >= memoryGrid.Rows.Count)) { return; }
+			if ((e.ColumnIndex < 0) || (e.ColumnIndex >= memoryGrid.Columns.Count)) { return; }
 
-				refreshMemory();
-			}
+
+			if (e.ColumnIndex == 2) { Cpu.MemoryAddress = e.RowIndex; }
+			else if (e.ColumnIndex == 3) { Memory.ElementAt(e.RowIndex)._isBreakpoint = !Memory.ElementAt(e.RowIndex)._isBreakpoint; }
+			else if (e.ColumnIndex == 4) { Memory.AddAt(e.RowIndex, 0000); }
+			else if ((e.ColumnIndex == 5) && (e.RowIndex < memoryGrid.Rows.Count - 1)) { Memory.RemoveAt(e.RowIndex); }
+
+			refreshMemory();
 		}
 
 		private void memoryGrid_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
 		{
-			if ((e.RowIndex >= 0) && (e.RowIndex < memoryGrid.Rows.Count - 1))
+			// Returns early if the cell is out of bounds
+			if ((e.RowIndex < 0) || (e.RowIndex >= memoryGrid.Rows.Count)) { return; }
+			if ((e.ColumnIndex < 0) || (e.ColumnIndex >= memoryGrid.Columns.Count)) { return; }
+
+
+			if (e.RowIndex < memoryGrid.Rows.Count - 1)
 			{
 				if ((e.ColumnIndex == 2) || (e.ColumnIndex == 3))
 				{
@@ -202,37 +217,26 @@ namespace BasicML
 					if (cell != null)
 					{
 						cell.ValueIsIcon = true;
-						if (e.ColumnIndex == 2)
-						{
-							cell.Value = START_POINT_ICON;
-						}
-						else if (e.ColumnIndex == 3)
-						{
-							cell.Value = BREAK_POINT_ICON;
-						}
+						if (e.ColumnIndex == 2) { cell.Value = START_POINT_ICON; }
+						else if (e.ColumnIndex == 3) { cell.Value = BREAK_POINT_ICON; }
 					}
 				}
 
 			}
 		}
 
+		// Runs when the mouse leaves a cell in the memoryGrid
 		private void memoryGrid_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
 		{
-			if ((e.RowIndex < 0) || (e.RowIndex >= memoryGrid.Rows.Count))
-			{
-				return;
-			}
+			// Returns early if the cell is out of bounds
+			if ((e.RowIndex < 0) || (e.RowIndex >= memoryGrid.Rows.Count)) { return; }
+			if ((e.ColumnIndex < 0) || (e.ColumnIndex >= memoryGrid.Columns.Count)) { return; }
 
-			if ((e.ColumnIndex == 2) && (e.RowIndex == Cpu.MemoryAddress))
-			{
-				return;
-			}
+			// Returns early if the cell contents should not be changed on leave
+			if ((e.ColumnIndex == 2) && (e.RowIndex == Cpu.MemoryAddress)) { return; }
+			if ((e.ColumnIndex == 3) && (Memory.ElementAt(e.RowIndex)._isBreakpoint)) { return; }
 
-			if ((e.ColumnIndex == 3) && (Memory.ElementAt(e.RowIndex)._isBreakpoint))
-			{
-				return; 
-			}
-
+			// Clears the icon from the startPoint and breakPoint cells on mouse leave
 			if ((e.ColumnIndex == 2) || (e.ColumnIndex == 3))
 			{
 				DataGridViewImageCell cell = (DataGridViewImageCell)memoryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
@@ -243,5 +247,42 @@ namespace BasicML
 				}
 			}
 		}
+
+		private void groupBox3_Enter(object sender, EventArgs e)
+		{
+
+		}
+
+		private void memoryGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+		{
+			// Returns early if the cell is out of bounds
+			if ((e.RowIndex < 0) || (e.RowIndex >= memoryGrid.Rows.Count)) { return; }
+			if ((e.ColumnIndex < 0) || (e.ColumnIndex >= memoryGrid.Columns.Count)) { return; }
+
+			if (e.ColumnIndex == 1)
+			{
+				DataGridViewTextBoxCell cell = (DataGridViewTextBoxCell)memoryGrid.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+				if (cell != null)
+				{
+					string? cellValue = null;
+
+					if (cell.Value != null) { cellValue = cell.Value.ToString(); }
+
+					if ((cellValue == null) || (cellValue == string.Empty)) { cellValue = "0000"; }
+					
+
+					// Sets the value of the corresponding memory element to the value of the cell
+					if (e.RowIndex >= Memory.TotalSize) { Memory.Add(cellValue); }
+					else { Memory.SetElement(e.RowIndex, cellValue); }
+
+					// Updates the value of the cell to the value of the corresponding memory element
+					//cell.Value = Memory.ElementAt(e.RowIndex).ToString(true);
+
+					refreshMemory(false);
+				}
+			}
+		}
+
 	}
 }

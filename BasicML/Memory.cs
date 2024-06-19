@@ -43,18 +43,24 @@ namespace BasicML
 
         public static void Add(Word word)
         {
+            // Will not add if memory is full
+            if (TotalSize >= _memory.Length) { return; }
+
             _memorySize++;
             SetElement(_memorySize - 1, word);
 		}
 
         public static void AddAt(int index, Word word)
         {
+			// Will not add if memory is full
+			if (TotalSize >= _memory.Length) { return; }
+
+            // Will not add if index is out of range
+			if ((index < 0) || (index >= _memory.Length)) { return; }
+
 			_memorySize++;
 
-			for (int i = _memorySize - 1; i > index; i--)
-			{
-				_memory[i] = _memory[i - 1];
-			}
+			for (int i = _memorySize - 1; i > index; i--) { _memory[i] = _memory[i - 1]; }
 
 			_memory[index] = word;
 		}
@@ -63,10 +69,7 @@ namespace BasicML
         {
 			_memorySize--;
 
-			for (int i = index; i < _memorySize; i++)
-            {
-                _memory[i] = _memory[i + 1];
-			}
+			for (int i = index; i < _memorySize; i++) { _memory[i] = _memory[i + 1]; }
 		}
 
 
