@@ -9,6 +9,7 @@ namespace BasicML
 {
 	public class Word
 	{
+		public bool _isBreakpoint = false;
 		public int _rawValue = 0;
 
 		public Word() { }
@@ -17,6 +18,31 @@ namespace BasicML
 		{
 			_rawValue = rawValue;
 		}
+
+		public Word(string s)
+		{
+			int value = 0;
+
+			if (s != null)
+			{
+				if (s[0] == '-')
+				{
+					value = -int.Parse(s.AsSpan(1));
+				}
+				else if (s[0] == '+')
+				{
+					value = int.Parse(s.AsSpan(1));
+				}
+				else
+				{
+					value = int.Parse(s);
+				}
+			}
+
+			_rawValue = value;
+			return;
+		}
+
 
 		public static Word operator +(Word a, Word b) { return new Word(a._rawValue + b._rawValue); }
 		public static Word operator -(Word a, Word b) { return new Word(a._rawValue - b._rawValue); }
@@ -29,12 +55,20 @@ namespace BasicML
 		public static bool operator ==(Word a, int i) { return a._rawValue == i; }
 		public static bool operator !=(Word a, int i) { return a._rawValue == i; }
 
-		public static implicit operator Word(int i) => new Word(i);
+		public static implicit operator Word(int i) => new(i);
+		public static implicit operator Word(string s) => new(s);
 
 		// Returns the words value in string format
-		public string ToString()
+		public override string ToString()
 		{
 			return _rawValue.ToString();
+		}
+
+		public string ToString(bool includePositiveOperand = false)
+		{
+			string prefix = "";
+			if (includePositiveOperand && (_rawValue > 0)) { prefix = "+"; }
+			return prefix + _rawValue.ToString();
 		}
 
 		public int Instruction

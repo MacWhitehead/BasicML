@@ -12,15 +12,13 @@ namespace BasicML
 		/* - - - - - - - - - - Variables - - - - - - - - - - */
 
 		// Private variables
-		private static Operations operations = new();									// Used for mapping the code for an operation to it's name
-
 		private static int _memoryAddress = 0;											// The memory address of the next instruction to be executed
-		private static bool _excecuting = false;                                        // Whether or not the CPU is currently excecuting
+		private static bool _executing = false;                                        // Whether or not the CPU is currently excecuting
 
 
 
 		/* - - - - - - - - - - Properties - - - - - - - - - - */
-		public static bool Excecuting { get { return _excecuting; } set { _excecuting = value; } }
+		public static bool Executing { get { return _executing; } set { _executing = value; } }
 
 
 		// Property for getting and setting the memory address
@@ -63,20 +61,31 @@ namespace BasicML
 		// Starts excecuting instructions until the cpu is halted or runs into an error
 		public static void StartExecution()
 		{
-			Logging.LogLine("Starting Excecution");
-			Logging.LogLine("Memory Size: " + Memory.TotalSize.ToString());
-			_excecuting = true;
-
-			// Excecutes until told to stop
-			while (_excecuting) 
+			// Resets the memory address location if it is invalid
+			if ((_memoryAddress < 0) || (_memoryAddress >= Memory.TotalSize))
 			{
-				StepExcecution();
+				MemoryAddress = 0;
 			}
 
+			Logging.LogLine("Starting Excecution");
+			Logging.LogLine("Memory Size: " + Memory.TotalSize.ToString());
+			_executing = true;
+
+			// Excecutes until told to stop
+			while (_executing) 
+			{
+				StepExecution();
+
+				if (CurrentWord._isBreakpoint) 
+				{
+					_executing = false;
+					Logging.Log("Hit breakpoint.");
+				}
+			}
 		}
 
 		// Excecutes a single instruction, then stops
-		public static void StepExcecution()
+		public static void StepExecution()
 		{
 			try
 			{
@@ -97,7 +106,7 @@ namespace BasicML
 		// Stops the cpu from excecuting further instructions
 		public static void StopExecution() 
 		{ 
-			_excecuting = false;
+			_executing = false;
 			Logging.LogLine("Excecution Halted");
 		}
 

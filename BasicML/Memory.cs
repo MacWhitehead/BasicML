@@ -40,6 +40,41 @@ namespace BasicML
 			_memory[address] = word;
 		}
 
+
+        public static void Add(Word word)
+        {
+            _memorySize++;
+            SetElement(_memorySize - 1, word);
+		}
+
+        public static void AddAt(int index, Word word)
+        {
+			_memorySize++;
+
+			for (int i = _memorySize - 1; i > index; i--)
+			{
+				_memory[i] = _memory[i - 1];
+			}
+
+			_memory[index] = word;
+		}
+
+        public static void RemoveAt(int index)
+        {
+			_memorySize--;
+
+			for (int i = index; i < _memorySize; i++)
+            {
+                _memory[i] = _memory[i + 1];
+			}
+		}
+
+
+        public static void Clear()
+        {
+            _memorySize = 0;
+        }
+
         //public static int GetInstrction(int address)
         //{
         //    return _memory[address].Instruction;

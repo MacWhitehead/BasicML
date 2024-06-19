@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BasicML
 {
-	internal static class TestReader
+	internal static class FileReader
 	{
 		// Reads a file matching the format of the "Test1.txt" and "Test2.txt" files provided on the "Group Project Milestone 2" page
 		public static List<int> ReadFile(string filePath, bool verbose = true)
@@ -41,6 +41,19 @@ namespace BasicML
 
 			// Returns the array
 			return _numbers;
+		}
+
+		public static void ReadFileToMemory(string filePath, bool verbose = true)
+		{
+			List<int> fileContent = ReadFile(filePath, verbose);
+
+			Memory.Clear();
+
+			foreach (int word in fileContent)
+			{
+				Memory.Add(word);
+
+			}
 		}
 	}
 }

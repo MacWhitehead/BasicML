@@ -8,13 +8,11 @@ namespace BasicML
 {
 	public static class Logging
 	{
-		public static RichTextBox _logBox;				// The location that output logs are written to
-
 		public static void Log(string s)
 		{
-			if (_logBox != null)
+			if (FormBasicML._formLoggingBox != null)
 			{
-				_logBox.AppendText(s);
+				FormBasicML._formLoggingBox.AppendText(s);
 				return;
 			}
 
@@ -23,9 +21,9 @@ namespace BasicML
 
 		public static void LogLine(string s)
 		{
-			if (_logBox != null)
+			if (FormBasicML._formLoggingBox != null)
 			{
-				_logBox.AppendText(s + "\n");
+				FormBasicML._formLoggingBox.AppendText(s + "\n");
 				return;
 			}
 

@@ -13,17 +13,14 @@ namespace BasicML
 		public static bool Read(int operand)
 		{
 			// Input box will only works with 4 digit integer
-			InputBoxItem[] items = new InputBoxItem[]
-			{
-					new InputBoxItem("Input")
-			};
+			InputBoxItem[] items = [ new InputBoxItem("Input") ];
 			InputBox input = InputBox.Show("Enter input number", items, InputBoxButtons.OKCancel);
 
 			if (input.Result == InputBoxResult.OK)
 			{
 				// Write input Word into operand
-				Memory.WriteMemory(input.Items["Input"], operand);
-			return true;
+				Memory.SetElement(operand, input.Items["Input"]);
+				return true;
 			}
 
 			return false;
