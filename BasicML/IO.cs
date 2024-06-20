@@ -19,14 +19,28 @@ namespace BasicML
 			if (input.Result == InputBoxResult.OK)
 			{
 				// Write input Word into operand
-				Memory.SetElement(operand, input.Items["Input"]);
-				return true;
+				return Read(operand, input.Items["Input"]);
 			}
 
 			return false;
 		}
 
-		/*
+        // Places a value into memory
+        public static bool Read(int operand, string s, bool setDefaultOnFail = true)
+        {
+			bool success = Word.TryParse(s, out Word word);
+			if (success) { return Memory.SetElement(operand, word); }
+			else if (setDefaultOnFail) { Memory.SetElement(operand, word); }
+			return success;
+        }
+
+        // Places a value into memory
+        public static bool Read(int operand, Word word)
+        {
+			return Memory.SetElement(operand, word);
+        }
+
+        /*
 		// Read from keyboard and store in memory
 		public static void Read(int location)
 		{
@@ -37,8 +51,8 @@ namespace BasicML
 		}
 		*/
 
-		// Write to screen from memory
-		public static bool Write(int location)
+        // Write to screen from memory
+        public static bool Write(int location)
 		{
 			if (location < Memory.TotalSize)
 			{

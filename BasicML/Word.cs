@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,11 +33,15 @@ namespace BasicML
 
 		public Word(string s)
 		{
-			Word word = new();
-			TryParse(s, out word);
-
+			Word word = Parse(s);
 			RawValue = word.RawValue;
 		}
+
+		public static Word Parse(string s)
+		{
+			TryParse(s, out Word word);
+			return word;
+        }
 
 		public static bool TryParse(string s, out Word word)
 		{
@@ -45,7 +50,8 @@ namespace BasicML
 
 			if (s != null)
 			{
-				if (s[0] == '-') 
+				if (s.Length == 0) { success = false; }
+				else if (s[0] == '-')
 				{
 					success = int.TryParse(s.AsSpan(1), out value);
 					value = -value;

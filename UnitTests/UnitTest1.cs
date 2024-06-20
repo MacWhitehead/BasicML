@@ -13,12 +13,15 @@ namespace Unittest_IOLoadSave
 		// reject an empty string
 		public void Read_RejectEmptyString_Fail()
 		{
-			int input = 10000; // test large number
+            SetupSystem.RunSetup();
 
-			var result = BasicML.IO.Read(input);
+            string inputString = "";
 
-			bool expectedoutput = false;
-			Assert.AreNotEqual(expectedoutput, result);
+			// Returns false if the input string cannot parse to a word
+            bool result = BasicML.IO.Read(2, inputString);
+
+            bool expectedoutput = false;
+			Assert.AreEqual(expectedoutput, result);
 
 		}
 
@@ -28,9 +31,12 @@ namespace Unittest_IOLoadSave
 		// accept the right string, pass
 		public void Read_AcceptCorrectString_Pass()
 		{
-			string inputString = "+1007";
+            SetupSystem.RunSetup();
 
-			var result = BasicML.IO.Read(int.Parse(inputString));
+            string inputString = "+1007";
+
+            // Returns true if the input string parses to a word
+            bool result = BasicML.IO.Read(2, inputString);
 
 			bool expectedoutput = true;
 			Assert.AreEqual(expectedoutput, result);

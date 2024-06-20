@@ -400,6 +400,14 @@ public class InputBox
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(312, 47 + (39 * items.Length));
+
+            // Automatically sets the size of the dialog box to fit its contents
+            AutoSize = true;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
+
+            // Makes the dialog box open in front of its parent
+            StartPosition = FormStartPosition.CenterParent;
+
             for (int i = 0; i < label.Length; i++)
             {
                 Controls.Add(label[i]);
@@ -413,7 +421,6 @@ public class InputBox
             Controls.Add(button3);
             MaximizeBox = false;
             MinimizeBox = false;
-            MaximumSize = new Size(99999, 85 + (39 * items.Length));
             Name = "dialogForm";
             ShowIcon = false;
             ShowInTaskbar = false;

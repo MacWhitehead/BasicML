@@ -35,9 +35,12 @@ namespace BasicML
 		}
 
         // TODO: change sign in a proper way
-        public static void SetElement(int address, Word word)
+        public static bool SetElement(int address, Word word)
         {
+            if ((address >= TotalSize) || (address < 0)) { return false; }
+
 			_memory[address] = word;
+            return true;
 		}
 
 

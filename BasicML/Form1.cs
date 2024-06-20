@@ -11,11 +11,10 @@ namespace BasicML
 		public static RichTextBox? _formLoggingBox;
 
 		private Bitmap BLANK_IMAGE = new(2, 2);
-
-		private Icon START_POINT_ICON = SystemIcons.GetStockIcon(StockIconId.DeviceAudioPlayer, 20);
-		private Icon BREAK_POINT_ICON = SystemIcons.GetStockIcon(StockIconId.Delete, 20);
-		private Icon ADD_COULUMN_ICON = SystemIcons.GetStockIcon(StockIconId.Users, 20);
-		private Icon REMOVE_COULUMN_ICON = SystemIcons.GetStockIcon(StockIconId.Info, 20);
+		private Icon START_POINT_ICON = SystemIcons.GetStockIcon(StockIconId.MediaAudioDVD, 20);
+		private Icon BREAK_POINT_ICON = SystemIcons.GetStockIcon(StockIconId.Error, 20);
+		private Icon ADD_COULUMN_ICON = SystemIcons.GetStockIcon(StockIconId.Stack, 20);
+		private Icon REMOVE_COULUMN_ICON = SystemIcons.GetStockIcon(StockIconId.Delete, 20);
 
 		public FormBasicML()
 		{
@@ -153,7 +152,7 @@ namespace BasicML
 			lastBreakPointCell.Value = BLANK_IMAGE;
 
 			lastAddCell.ValueIsIcon = true;
-			lastAddCell.Value = SystemIcons.GetStockIcon(StockIconId.Users, 20);
+			lastAddCell.Value = ADD_COULUMN_ICON;
 
 			lastRemoveCell.ValueIsIcon = false;
 			lastRemoveCell.Value = BLANK_IMAGE;
