@@ -42,3 +42,4 @@ HALT = 43 Stop the program
     - Step will run the program step by step. User can keep pressing the step button to continue the program
 4. The user will see the memory contents and can add a line or delete a line if needed
 5. The user can also see a log that will display errors or processes during the run.
+6. Upload a new text file to start a new program.
