@@ -94,10 +94,10 @@ namespace UnitTest_Potato
 		public void TestHalt()
 		{
 			SetupSystem.RunSetup();
-			Cpu.Excecuting = true;
+			Cpu.Executing = true;
 			Control.Halt();
 
-			Assert.AreEqual(Cpu.Excecuting, false);
+			Assert.AreEqual(Cpu.Executing, false);
 		}
 
 		// Returns true if the cpu state remains as non-excecuting when running halt
@@ -105,10 +105,10 @@ namespace UnitTest_Potato
 		public void TestHaltContradiction()
 		{
 			SetupSystem.RunSetup();
-			Cpu.Excecuting = false;
+			Cpu.Executing = false;
 			Control.Halt();
 
-			Assert.AreEqual(Cpu.Excecuting, false);
+			Assert.AreEqual(Cpu.Executing, false);
 		}
 	}
 }

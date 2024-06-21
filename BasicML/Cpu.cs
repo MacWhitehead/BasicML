@@ -12,16 +12,13 @@ namespace BasicML
 		/* - - - - - - - - - - Variables - - - - - - - - - - */
 
 		// Private variables
-		private static Operations operations = new();									// Used for mapping the code for an operation to it's name
-		public static RichTextBox _logBox;												// The location that output logs are written to
-
 		private static int _memoryAddress = 0;											// The memory address of the next instruction to be executed
-		private static bool _excecuting = false;                                        // Whether or not the CPU is currently excecuting
+		private static bool _executing = false;                                        // Whether or not the CPU is currently excecuting
 
 
 
 		/* - - - - - - - - - - Properties - - - - - - - - - - */
-		public static bool Excecuting { get { return _excecuting; } set { _excecuting = value; } }
+		public static bool Executing { get { return _executing; } set { _executing = value; } }
 
 
 		// Property for getting and setting the memory address
@@ -56,46 +53,61 @@ namespace BasicML
 
 		public static int CurrentInstruction { get { return CurrentWord.Instruction; } }       // Gets the operand from the word at the current memory address
 
+		public static InstructionType CurrentInstructionType { get { return CurrentWord.GetInstructionType(); } }       // Gets the operand from the word at the current memory address
+
 
 		/* - - - - - - - - - - Excecution - - - - - - - - - - */
 
-		// Starts excicuting instructions until the cpu is halted or runs into an error
+		// Starts excecuting instructions until the cpu is halted or runs into an error
 		public static void StartExecution()
 		{
-			LogLine("Starting Excecution");
-			LogLine("Memory Size: " + Memory.TotalSize.ToString());
-			_excecuting = true;
-
-			// Excecutes until told to stop
-			while (_excecuting) 
+			// Resets the memory address location if it is invalid
+			if ((_memoryAddress < 0) || (_memoryAddress >= Memory.TotalSize))
 			{
-				try 
-				{ 
-					Execute();
-					StepMemoryAddresss();
-				}
-				catch (Exception e)
-				{
-					// Prints some basic debug info to the console
-					PrintDebugToConsole();
-
-					// Prints the error message included with the exception
-					Log("Error Message: ");
-					LogLine(e.Message);
-
-					// Stops further excecution
-					StopExecution();
-				}
+				MemoryAddress = 0;
 			}
 
+			Logging.LogLine("Starting Excecution");
+			Logging.LogLine("Memory Size: " + Memory.TotalSize.ToString());
+			_executing = true;
+
+			// Excecutes until told to stop
+			while (_executing) 
+			{
+				StepExecution();
+
+				if (CurrentWord._isBreakpoint) 
+				{
+					_executing = false;
+					Logging.Log("Hit breakpoint.");
+				}
+			}
 		}
 
+		// Excecutes a single instruction, then stops
+		public static void StepExecution()
+		{
+			try
+			{
+				Execute();
+				StepMemoryAddresss();
+			}
+			catch (Exception e)
+			{
+				// Prints the error message included with the exception
+				Logging.Log("Error Message: ");
+				Logging.LogLine(e.Message);
+
+				// Stops further excecution
+				StopExecution();
+			}
+		}
 
 		// Stops the cpu from excecuting further instructions
 		public static void StopExecution() 
 		{ 
-			_excecuting = false;
-			LogLine("Excecution Halted");
+			_executing = false;
+			Logging.LogLine("Excecution Halted");
 		}
 
 		// Moves the memory address the cpu is pointing to forward 1
@@ -107,6 +119,8 @@ namespace BasicML
 		// Executes the instruction at the current memory address
 		public static void Execute()
 		{
+			Logging.LogLine("Current Memory Location: " + MemoryAddress.ToString() + " (" + CurrentWord.ToString() + ")	" + ExcecutionLog());
+
 			switch (CurrentWord.GetInstructionType())
 			{
 				case InstructionType.Read:
@@ -148,53 +162,39 @@ namespace BasicML
 				default:
 					throw new InvalidOperationException("Invalid instruction");
 			}
-
-			LogOperation();
 		}
 
-		public static void LogOperation()
+		public static string ExcecutionLog()
 		{
-			// Prints the operation that is currently selected to the log output
-			string operation = CurrentInstruction.ToString();
-			LogLine(operation + " " + CurrentOperand);
-		}
-
-
-
-		/* - - - - - - - - - - Debug - - - - - - - - - - */
-
-		// Prints some useful debug information to the console
-		private static void PrintDebugToConsole()
-		{
-			LogLine("The CPU ran into an error during excecution.");
-
-			Log("Current Memory Address: ");
-			LogLine(MemoryAddress.ToString());
-
-			Log("Memory Address Raw Value: ");
-			LogLine(CurrentWord.GetRawValue().ToString());
-		}
-
-		public static void Log(string s)
-		{
-			if (_logBox != null)
+			switch (CurrentWord.GetInstructionType())
 			{
-				_logBox.AppendText(s);
-				return;
+				case InstructionType.Read:
+					return "Reading value from screen and placing it into memory at [" + CurrentWord.Operand.ToString() + "]";
+				case InstructionType.Write:
+					return "Writing value from memory at [" + CurrentWord.Operand.ToString() + "] to the screen";
+				case InstructionType.Load:
+					return "Loading value from memory at [" + CurrentWord.Operand.ToString() + "] into the accumulator";
+				case InstructionType.Store:
+					return "Store value from accumulator (" + Accumulator._registerContent.ToString() + ") into memory at [" + CurrentWord.Operand.ToString() + "] (" + Memory.ElementAt(CurrentWord.Operand).ToString() + ")";
+				case InstructionType.Add:
+					return "Add value from accumulator (" + Accumulator._registerContent.ToString() + ") to value from memory at [" + CurrentWord.Operand.ToString() + "] (" + Memory.ElementAt(CurrentWord.Operand).ToString() + ")";
+				case InstructionType.Subtract:
+					return "Subtract value from accumulator (" + Accumulator._registerContent.ToString() + ") from value from memory at [" + CurrentWord.Operand.ToString() + "] (" + Memory.ElementAt(CurrentWord.Operand).ToString() + ")";
+				case InstructionType.Multiply:
+					return "Multiply value from accumulator (" + Accumulator._registerContent.ToString() + ") with value from memory at [" + CurrentWord.Operand.ToString() + "] (" + Memory.ElementAt(CurrentWord.Operand).ToString() + ")";
+				case InstructionType.Divide:
+					return "Divide value from accumulator (" + Accumulator._registerContent.ToString() + ") by value from memory at [" + CurrentWord.Operand.ToString() + "] (" + Memory.ElementAt(CurrentWord.Operand).ToString() + ")";
+				case InstructionType.Branch:
+					return "Branch to the memory location [" + CurrentWord.Operand.ToString() + "]";
+				case InstructionType.BranchNeg:
+					return "Branch to the memory location [" + CurrentWord.Operand.ToString() + "] if the value in the accumulator (" + Accumulator._registerContent.ToString() + ") is negative";
+				case InstructionType.BranchZero:
+					return "Branch to the memory location [" + CurrentWord.Operand.ToString() + "] if the value in the accumulator (" + Accumulator._registerContent.ToString() + ") is non-zero";
+				case InstructionType.Halt:
+					return "Halt further operations";
+				default:
+					return "Unexpected value given as instruction (" + CurrentWord.Instruction.ToString() + ")";
 			}
-
-			Console.Write(s);
-		}
-
-		public static void LogLine(string s)
-		{
-			if (_logBox != null)
-			{
-				_logBox.AppendText(s + "\n");
-				return;
-			}
-
-			Console.WriteLine(s);
 		}
 	}
 }

@@ -9,34 +9,30 @@ namespace BasicML
 {
 	internal static class Word_Extensions
 	{
-		// Gets the raw four digit value held by the word object
-		public static int GetRawValue(this Word word) { return (word.Instruction * 100) + (word.Operand); }
-
-
 		// Returns true is the value stored in the word is negative
-		public static bool IsNegative(this Word word) { return word.GetRawValue() < 0; }
+		public static bool IsNegative(this Word word) { return word.RawValue < 0; }
 
 
 		// Returns true is the value stored in the word is positive
-		public static bool IsPositive(this Word word) { return word.GetRawValue() > 0; }
+		public static bool IsPositive(this Word word) { return word.RawValue > 0; }
 
 
 		// Returns true is the value stored in the word is exactly 0
-		public static bool IsZero(this Word word) { return word.GetRawValue() == 0; }
+		public static bool IsZero(this Word word) { return word.RawValue == 0; }
 
 
 		// Returns an enum which represents the instruction type stored in the word
 		public static InstructionType GetInstructionType(this Word word)
 		{
 			if (Enum.IsDefined(typeof(InstructionType), word.Instruction)) { return (InstructionType)word.Instruction; }
-			else { return InstructionType.nullInstruction; }
+			else { return InstructionType.NullInstruction; }
 		}
 	}
 
 	// Represents a type of instruction to be excecuted
 	public enum InstructionType
 	{
-		nullInstruction = 0,
+		NullInstruction = 0,
 		Read = 10,
 		Write = 11,
 		Load = 20,
