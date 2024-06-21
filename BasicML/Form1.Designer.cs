@@ -33,12 +33,6 @@
 			this.loggingBox = new RichTextBox();
 			this.groupBox2 = new GroupBox();
 			this.memoryGrid = new DataGridView();
-			this.memoryIndexColumn = new DataGridViewTextBoxColumn();
-			this.memoryContentsColumn = new DataGridViewTextBoxColumn();
-			this.startPointColumn = new DataGridViewImageColumn();
-			this.breakPointColumn = new DataGridViewImageColumn();
-			this.memoryAddColumn = new DataGridViewImageColumn();
-			this.memoryRemoveColumn = new DataGridViewImageColumn();
 			this.groupBox3 = new GroupBox();
 			this.stepButton = new Button();
 			this.runButton = new Button();
@@ -46,6 +40,12 @@
 			this.fileTextBox = new TextBox();
 			this.chooseFile = new Button();
 			this.openFileDialog = new OpenFileDialog();
+			this.memoryIndexColumn = new DataGridViewTextBoxColumn();
+			this.memoryContentsColumn = new DataGridViewTextBoxColumn();
+			this.startPointColumn = new DataGridViewImageColumn();
+			this.breakPointColumn = new DataGridViewImageColumn();
+			this.memoryAddColumn = new DataGridViewImageColumn();
+			this.memoryRemoveColumn = new DataGridViewImageColumn();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -62,12 +62,13 @@
 			this.tableLayoutPanel1.Controls.Add(this.groupBox3, 0, 0);
 			this.tableLayoutPanel1.Dock = DockStyle.Fill;
 			this.tableLayoutPanel1.Location = new Point(0, 0);
+			this.tableLayoutPanel1.Margin = new Padding(4, 5, 4, 5);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
 			this.tableLayoutPanel1.RowCount = 3;
 			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
 			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
 			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
-			this.tableLayoutPanel1.Size = new Size(792, 681);
+			this.tableLayoutPanel1.Size = new Size(1131, 1135);
 			this.tableLayoutPanel1.TabIndex = 0;
 			this.tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
 			// 
@@ -75,9 +76,11 @@
 			// 
 			this.groupBox1.Controls.Add(this.loggingBox);
 			this.groupBox1.Dock = DockStyle.Fill;
-			this.groupBox1.Location = new Point(3, 411);
+			this.groupBox1.Location = new Point(4, 686);
+			this.groupBox1.Margin = new Padding(4, 5, 4, 5);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new Size(786, 267);
+			this.groupBox1.Padding = new Padding(4, 5, 4, 5);
+			this.groupBox1.Size = new Size(1123, 444);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Log";
@@ -85,9 +88,10 @@
 			// loggingBox
 			// 
 			this.loggingBox.Dock = DockStyle.Fill;
-			this.loggingBox.Location = new Point(3, 19);
+			this.loggingBox.Location = new Point(4, 29);
+			this.loggingBox.Margin = new Padding(4, 5, 4, 5);
 			this.loggingBox.Name = "loggingBox";
-			this.loggingBox.Size = new Size(780, 245);
+			this.loggingBox.Size = new Size(1115, 410);
 			this.loggingBox.TabIndex = 1;
 			this.loggingBox.Text = "";
 			// 
@@ -95,9 +99,11 @@
 			// 
 			this.groupBox2.Controls.Add(this.memoryGrid);
 			this.groupBox2.Dock = DockStyle.Fill;
-			this.groupBox2.Location = new Point(3, 139);
+			this.groupBox2.Location = new Point(4, 232);
+			this.groupBox2.Margin = new Padding(4, 5, 4, 5);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new Size(786, 266);
+			this.groupBox2.Padding = new Padding(4, 5, 4, 5);
+			this.groupBox2.Size = new Size(1123, 444);
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Memory";
@@ -110,31 +116,99 @@
 			this.memoryGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.memoryGrid.Columns.AddRange(new DataGridViewColumn[] { this.memoryIndexColumn, this.memoryContentsColumn, this.startPointColumn, this.breakPointColumn, this.memoryAddColumn, this.memoryRemoveColumn });
 			this.memoryGrid.Dock = DockStyle.Fill;
-			this.memoryGrid.Location = new Point(3, 19);
-			this.memoryGrid.Margin = new Padding(2);
+			this.memoryGrid.Location = new Point(4, 29);
 			this.memoryGrid.MultiSelect = false;
 			this.memoryGrid.Name = "memoryGrid";
+			this.memoryGrid.RightToLeft = RightToLeft.No;
 			this.memoryGrid.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
 			this.memoryGrid.RowHeadersVisible = false;
 			this.memoryGrid.RowHeadersWidth = 62;
 			this.memoryGrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.memoryGrid.SelectionMode = DataGridViewSelectionMode.CellSelect;
-			this.memoryGrid.Size = new Size(780, 244);
+			this.memoryGrid.Size = new Size(1115, 410);
 			this.memoryGrid.TabIndex = 9;
 			this.memoryGrid.CellContentClick += memoryGrid_CellContentClick;
 			this.memoryGrid.CellEndEdit += memoryGrid_CellEndEdit;
 			this.memoryGrid.CellMouseEnter += memoryGrid_CellMouseEnter;
 			this.memoryGrid.CellMouseLeave += memoryGrid_CellMouseLeave;
-
+			// 
+			// groupBox3
+			// 
+			this.groupBox3.Controls.Add(this.stepButton);
+			this.groupBox3.Controls.Add(this.runButton);
+			this.groupBox3.Controls.Add(this.loadFileButton);
+			this.groupBox3.Controls.Add(this.fileTextBox);
+			this.groupBox3.Controls.Add(this.chooseFile);
+			this.groupBox3.Dock = DockStyle.Fill;
+			this.groupBox3.Location = new Point(3, 3);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new Size(1125, 221);
+			this.groupBox3.TabIndex = 4;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Controls";
+			this.groupBox3.Enter += groupBox3_Enter;
+			// 
+			// stepButton
+			// 
+			this.stepButton.Location = new Point(123, 167);
+			this.stepButton.Name = "stepButton";
+			this.stepButton.Size = new Size(111, 38);
+			this.stepButton.TabIndex = 6;
+			this.stepButton.Text = "Step";
+			this.stepButton.UseVisualStyleBackColor = true;
+			this.stepButton.Click += stepButton_Click;
+			// 
+			// runButton
+			// 
+			this.runButton.Location = new Point(6, 167);
+			this.runButton.Name = "runButton";
+			this.runButton.Size = new Size(111, 38);
+			this.runButton.TabIndex = 5;
+			this.runButton.Text = "Run";
+			this.runButton.UseVisualStyleBackColor = true;
+			this.runButton.Click += runButton_Click;
+			// 
+			// loadFileButton
+			// 
+			this.loadFileButton.Location = new Point(407, 60);
+			this.loadFileButton.Name = "loadFileButton";
+			this.loadFileButton.Size = new Size(111, 38);
+			this.loadFileButton.TabIndex = 4;
+			this.loadFileButton.Text = "Load";
+			this.loadFileButton.UseVisualStyleBackColor = true;
+			this.loadFileButton.Click += loadFileButton_Click;
+			// 
+			// fileTextBox
+			// 
+			this.fileTextBox.Location = new Point(6, 60);
+			this.fileTextBox.Name = "fileTextBox";
+			this.fileTextBox.Size = new Size(277, 31);
+			this.fileTextBox.TabIndex = 2;
+			this.fileTextBox.Text = "Please Choose A FIle";
+			// 
+			// chooseFile
+			// 
+			this.chooseFile.Location = new Point(290, 60);
+			this.chooseFile.Name = "chooseFile";
+			this.chooseFile.Size = new Size(111, 38);
+			this.chooseFile.TabIndex = 3;
+			this.chooseFile.Text = "Choose File";
+			this.chooseFile.UseVisualStyleBackColor = true;
+			this.chooseFile.Click += chooseFile_Click;
+			// 
+			// openFileDialog
+			// 
+			this.openFileDialog.FileName = "openFileDialog";
 			// 
 			// memoryIndexColumn
 			// 
-			this.memoryIndexColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+			this.memoryIndexColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 			this.memoryIndexColumn.HeaderText = "Index";
 			this.memoryIndexColumn.MinimumWidth = 8;
 			this.memoryIndexColumn.Name = "memoryIndexColumn";
 			this.memoryIndexColumn.ReadOnly = true;
-			this.memoryIndexColumn.Width = 50;
+			this.memoryIndexColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+			this.memoryIndexColumn.Width = 61;
 			// 
 			// memoryContentsColumn
 			// 
@@ -145,133 +219,55 @@
 			// 
 			// startPointColumn
 			// 
-			this.startPointColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+			this.startPointColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 			this.startPointColumn.HeaderText = "CPU";
 			this.startPointColumn.MinimumWidth = 8;
 			this.startPointColumn.Name = "startPointColumn";
 			this.startPointColumn.ReadOnly = true;
 			this.startPointColumn.Resizable = DataGridViewTriState.True;
-			this.startPointColumn.SortMode = DataGridViewColumnSortMode.Automatic;
 			this.startPointColumn.ToolTipText = "The location in memory that the CPU is at";
-			this.startPointColumn.Width = 50;
+			this.startPointColumn.Width = 51;
 			// 
 			// breakPointColumn
 			// 
-			this.breakPointColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+			this.breakPointColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 			this.breakPointColumn.HeaderText = "Break";
 			this.breakPointColumn.MinimumWidth = 8;
 			this.breakPointColumn.Name = "breakPointColumn";
 			this.breakPointColumn.ReadOnly = true;
 			this.breakPointColumn.Resizable = DataGridViewTriState.True;
-			this.breakPointColumn.SortMode = DataGridViewColumnSortMode.Automatic;
 			this.breakPointColumn.ToolTipText = "Breakpoints";
-			this.breakPointColumn.Width = 50;
+			this.breakPointColumn.Width = 61;
 			// 
 			// memoryAddColumn
 			// 
-			this.memoryAddColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+			this.memoryAddColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 			this.memoryAddColumn.HeaderText = "Add";
 			this.memoryAddColumn.MinimumWidth = 8;
 			this.memoryAddColumn.Name = "memoryAddColumn";
 			this.memoryAddColumn.ReadOnly = true;
 			this.memoryAddColumn.Resizable = DataGridViewTriState.True;
-			this.memoryAddColumn.SortMode = DataGridViewColumnSortMode.Automatic;
 			this.memoryAddColumn.ToolTipText = "Adds a new element to memory";
-			this.memoryAddColumn.Width = 50;
+			this.memoryAddColumn.Width = 52;
 			// 
 			// memoryRemoveColumn
 			// 
-			this.memoryRemoveColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+			this.memoryRemoveColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
 			this.memoryRemoveColumn.HeaderText = "Delete";
 			this.memoryRemoveColumn.MinimumWidth = 8;
 			this.memoryRemoveColumn.Name = "memoryRemoveColumn";
 			this.memoryRemoveColumn.ReadOnly = true;
 			this.memoryRemoveColumn.Resizable = DataGridViewTriState.True;
-			this.memoryRemoveColumn.SortMode = DataGridViewColumnSortMode.Automatic;
 			this.memoryRemoveColumn.ToolTipText = "Deletes an element from memory";
-			this.memoryRemoveColumn.Width = 50;
-			// 
-			// groupBox3
-			// 
-			this.groupBox3.Controls.Add(this.stepButton);
-			this.groupBox3.Controls.Add(this.runButton);
-			this.groupBox3.Controls.Add(this.loadFileButton);
-			this.groupBox3.Controls.Add(this.fileTextBox);
-			this.groupBox3.Controls.Add(this.chooseFile);
-			this.groupBox3.Dock = DockStyle.Fill;
-			this.groupBox3.Location = new Point(2, 2);
-			this.groupBox3.Margin = new Padding(2);
-			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Padding = new Padding(2);
-			this.groupBox3.Size = new Size(788, 132);
-			this.groupBox3.TabIndex = 4;
-			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = "Controls";
-			this.groupBox3.Enter += groupBox3_Enter;
-			// 
-			// stepButton
-			// 
-			this.stepButton.Location = new Point(86, 100);
-			this.stepButton.Margin = new Padding(2);
-			this.stepButton.Name = "stepButton";
-			this.stepButton.Size = new Size(78, 23);
-			this.stepButton.TabIndex = 6;
-			this.stepButton.Text = "Step";
-			this.stepButton.UseVisualStyleBackColor = true;
-			this.stepButton.Click += stepButton_Click;
-			// 
-			// runButton
-			// 
-			this.runButton.Location = new Point(4, 100);
-			this.runButton.Margin = new Padding(2);
-			this.runButton.Name = "runButton";
-			this.runButton.Size = new Size(78, 23);
-			this.runButton.TabIndex = 5;
-			this.runButton.Text = "Run";
-			this.runButton.UseVisualStyleBackColor = true;
-			this.runButton.Click += runButton_Click;
-			// 
-			// loadFileButton
-			// 
-			this.loadFileButton.Location = new Point(285, 36);
-			this.loadFileButton.Margin = new Padding(2);
-			this.loadFileButton.Name = "loadFileButton";
-			this.loadFileButton.Size = new Size(78, 23);
-			this.loadFileButton.TabIndex = 4;
-			this.loadFileButton.Text = "Load";
-			this.loadFileButton.UseVisualStyleBackColor = true;
-			this.loadFileButton.Click += loadFileButton_Click;
-			// 
-			// fileTextBox
-			// 
-			this.fileTextBox.Location = new Point(4, 36);
-			this.fileTextBox.Margin = new Padding(2);
-			this.fileTextBox.Name = "fileTextBox";
-			this.fileTextBox.Size = new Size(195, 23);
-			this.fileTextBox.TabIndex = 2;
-			this.fileTextBox.Text = "Please Choose A FIle";
-			// 
-			// chooseFile
-			// 
-			this.chooseFile.Location = new Point(203, 36);
-			this.chooseFile.Margin = new Padding(2);
-			this.chooseFile.Name = "chooseFile";
-			this.chooseFile.Size = new Size(78, 23);
-			this.chooseFile.TabIndex = 3;
-			this.chooseFile.Text = "Choose File";
-			this.chooseFile.UseVisualStyleBackColor = true;
-			this.chooseFile.Click += chooseFile_Click;
-			// 
-			// openFileDialog
-			// 
-			this.openFileDialog.FileName = "openFileDialog";
+			this.memoryRemoveColumn.Width = 68;
 			// 
 			// FormBasicML
 			// 
-			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleDimensions = new SizeF(10F, 25F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(792, 681);
+			ClientSize = new Size(1131, 1135);
 			Controls.Add(this.tableLayoutPanel1);
+			Margin = new Padding(4, 5, 4, 5);
 			Name = "FormBasicML";
 			Text = "BasicML";
 			this.tableLayoutPanel1.ResumeLayout(false);

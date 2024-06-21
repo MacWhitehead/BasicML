@@ -59,6 +59,22 @@ public struct InputBoxItem
 //    public bool ShowCloseButton = true;
 //}
 
+public class UserInput
+{
+	public static string GetUserInput()
+	{
+		InputBoxItem[] items = [new InputBoxItem("Input")];
+		InputBox input = InputBox.Show("Enter input number", items, InputBoxButtons.OKCancel);
+
+		if (input.Result == InputBoxResult.OK)
+		{
+			return input.Items["Input"];
+		}
+
+		return string.Empty;
+	}
+}
+
 public class InputBox
 {
     private Dictionary<string, string> items;

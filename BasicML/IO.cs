@@ -10,19 +10,10 @@ namespace BasicML
 	public static class IO
 	{
 
+		// Asks the user for a value and places it into memory
 		public static bool Read(int operand)
 		{
-			// Input box will only works with 4 digit integer
-			InputBoxItem[] items = [ new InputBoxItem("Input") ];
-			InputBox input = InputBox.Show("Enter input number", items, InputBoxButtons.OKCancel);
-
-			if (input.Result == InputBoxResult.OK)
-			{
-				// Write input Word into operand
-				return Read(operand, input.Items["Input"]);
-			}
-
-			return false;
+			return Read(operand, UserInput.GetUserInput());
 		}
 
         // Places a value into memory
@@ -40,29 +31,18 @@ namespace BasicML
 			return Memory.SetElement(operand, word);
         }
 
-        /*
-		// Read from keyboard and store in memory
-		public static void Read(int location)
-		{
-			Console.Write("Enter a value: ");
-			//string input = Console.ReadLine();
-			string input = "1234";
-			Memory.SetElement(location, new Word(int.Parse(input)));
-		}
-		*/
-
         // Write to screen from memory
         public static bool Write(int location)
 		{
 			if (location < Memory.TotalSize)
 			{
-                Console.WriteLine($"Value at location {location}: {Memory.ElementAt(location)}");
+                Logging.LogLine($"Value at location {location}: {Memory.ElementAt(location)}");
 				return true;
             }
 				
 			else
 			{
-                Console.WriteLine($"Location {location} is empty.");
+				Logging.LogLine($"Location {location} is empty.");
 				return false;
             }
 

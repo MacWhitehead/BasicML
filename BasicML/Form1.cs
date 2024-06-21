@@ -33,6 +33,9 @@ namespace BasicML
 			memoryRemoveColumn.Icon = REMOVE_COULUMN_ICON;
 			memoryRemoveColumn.ValuesAreIcons = true;
 
+			// Centers the text for the headers
+			foreach (DataGridViewColumn column in memoryGrid.Columns) { column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter; }
+
 			refreshMemory();
 		}
 
@@ -86,7 +89,7 @@ namespace BasicML
 
 		private void loadFileButton_Click(object sender, EventArgs e)
 		{
-			try { FileReader.ReadFileToMemory(fileTextBox.Text); }
+			try { FileReader.ReadFileToMemory(fileTextBox.Text, false); }
 			catch { Logging.Log("Could not read file"); }
 
 			Cpu.MemoryAddress = 0;
@@ -105,6 +108,8 @@ namespace BasicML
 		private void stepButton_Click(object sender, EventArgs e)
 		{
 			Cpu.StepExecution();
+
+			refreshMemory();
 		}
 
 		private void refreshMemory(bool repopulateCells = true)
