@@ -28,9 +28,10 @@ namespace BasicML
 			{
 				if ((value > 9999) || (value < -9999))
 				{
-					while ((value > 9999) || (value < -9999)) { value %= 10; }
 					Logging.LogLine("Overflow occured. Truncating word value");
+					value %= 10000;
 				}
+
 				_rawValue = value;
 			}
 		}
