@@ -10,11 +10,11 @@ namespace BasicML
 	{
 		public static RichTextBox? _formLoggingBox;
 
-		private Bitmap BLANK_IMAGE = new(2, 2);
-		private Icon START_POINT_ICON = SystemIcons.GetStockIcon(StockIconId.MediaAudioDVD, 20);
-		private Icon BREAK_POINT_ICON = SystemIcons.GetStockIcon(StockIconId.Error, 20);
-		private Icon ADD_COULUMN_ICON = SystemIcons.GetStockIcon(StockIconId.Stack, 20);
-		private Icon REMOVE_COULUMN_ICON = SystemIcons.GetStockIcon(StockIconId.Delete, 20);
+		private readonly Bitmap BLANK_IMAGE = new(2, 2);
+		private readonly Icon START_POINT_ICON = SystemIcons.GetStockIcon(StockIconId.MediaAudioDVD, 20);
+		private readonly Icon BREAK_POINT_ICON = SystemIcons.GetStockIcon(StockIconId.Error, 20);
+		private readonly Icon ADD_COULUMN_ICON = SystemIcons.GetStockIcon(StockIconId.Stack, 20);
+		private readonly Icon REMOVE_COULUMN_ICON = SystemIcons.GetStockIcon(StockIconId.Delete, 20);
 
 		public FormBasicML()
 		{
@@ -36,41 +36,10 @@ namespace BasicML
 			// Centers the text for the headers
 			foreach (DataGridViewColumn column in memoryGrid.Columns) { column.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter; }
 
-			refreshMemory();
+			RefreshMemory();
 		}
 
-		// Open the test input text
-		private void openToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			// Initialize memory and loading Test file
-			Memory.InitMemory("Test2.txt");
-
-			// Output memory as a memory map
-			for (int i = 0; i < Memory.MAX_SIZE; i++)
-			{
-				// In case of operand is smaller than 10 because operand is int
-				var operand = "";
-				if (Memory.ElementAt(i).Operand < 10)
-				{
-					operand = "0" + Memory.ElementAt(i).Operand.ToString();
-				}
-				else
-				{
-					operand = Memory.ElementAt(i).Operand.ToString();
-				}
-			}
-		}
-
-		// Run the test program
-		private void runToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			// Starts the cpu exececuting
-			Cpu.StartExecution();
-
-			refreshMemory();
-		}
-
-		private void chooseFile_Click(object sender, EventArgs e)
+		private void ChooseFile_Click(object sender, EventArgs e)
 		{
 			DialogResult result = openFileDialog.ShowDialog();
 			if (result == DialogResult.OK)
@@ -84,35 +53,34 @@ namespace BasicML
 				Logging.LogLine("Error Loading File (" + result.ToString() + ")");
 			}
 
-			refreshMemory();
+			RefreshMemory();
 		}
 
-		private void loadFileButton_Click(object sender, EventArgs e)
+		private void LoadFileButton_Click(object sender, EventArgs e)
 		{
 			try { FileReader.ReadFileToMemory(fileTextBox.Text, false); }
 			catch { Logging.Log("Could not read file"); }
 
 			Cpu.MemoryAddress = 0;
 
-			refreshMemory();
-
+			RefreshMemory();
 		}
 
-		private void runButton_Click(object sender, EventArgs e)
+		private void RunButton_Click(object sender, EventArgs e)
 		{
 			Cpu.StartExecution();
 
-			refreshMemory();
+			RefreshMemory();
 		}
 
-		private void stepButton_Click(object sender, EventArgs e)
+		private void StepButton_Click(object sender, EventArgs e)
 		{
 			Cpu.StepExecution();
 
-			refreshMemory();
+			RefreshMemory();
 		}
 
-		private void refreshMemory(bool repopulateCells = true)
+		private void RefreshMemory(bool repopulateCells = true)
 		{
 			memoryGrid.ClearSelection();
 
@@ -162,7 +130,7 @@ namespace BasicML
 			lastRemoveCell.ValueIsIcon = false;
 			lastRemoveCell.Value = BLANK_IMAGE;
 
-			if (Memory.MAX_SIZE > 0)
+			if (Memory.Count > 0)
 			{
 				runButton.Visible = true;
 				stepButton.Visible = true;
@@ -174,22 +142,6 @@ namespace BasicML
 			}
 		}
 
-
-
-		private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-		{
-
-		}
 
 		private void memoryGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
@@ -203,7 +155,7 @@ namespace BasicML
 			else if (e.ColumnIndex == 4) { Memory.AddAt(e.RowIndex, 0000); }
 			else if ((e.ColumnIndex == 5) && (e.RowIndex < memoryGrid.Rows.Count - 1)) { Memory.RemoveAt(e.RowIndex); }
 
-			refreshMemory();
+			RefreshMemory();
 		}
 
 		private void memoryGrid_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
@@ -252,11 +204,6 @@ namespace BasicML
 			}
 		}
 
-		private void groupBox3_Enter(object sender, EventArgs e)
-		{
-
-		}
-
 		private void memoryGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
 		{
 			// Returns early if the cell is out of bounds
@@ -280,10 +227,7 @@ namespace BasicML
 					if (e.RowIndex >= Memory.MAX_SIZE) { Memory.Add(cellValue); }
 					else { Memory.SetElement(e.RowIndex, cellValue); }
 
-					// Updates the value of the cell to the value of the corresponding memory element
-					//cell.Value = Memory.ElementAt(e.RowIndex).ToString(true);
-
-					refreshMemory(false);
+					RefreshMemory(false);
 				}
 			}
 		}

@@ -14,13 +14,15 @@ using System.Windows.Forms;
 
 namespace BasicML
 {
+    // This class represents the memory for the BasicML simulator
 	public static class Memory
     {
-        public const int MAX_SIZE = 100;
+        public const int MAX_SIZE = 100;                // This is the maximum ammount of space that can be allocated
 
-        private static List<Word> wordList = new();
+        private static List<Word> wordList = new();     // This is where the underlying data is all stored
 
         public static int Count { get { return wordList.Count; } }
+
 
 	    // Returns the Word stored at the given index
 	    public static Word ElementAt(int index)
@@ -31,6 +33,7 @@ namespace BasicML
 
 			return wordList[index];
 		}
+
 
         // Sets the word at the chosen index
         public static bool SetElement(int index, Word word)
@@ -55,6 +58,7 @@ namespace BasicML
             wordList.Add(word);
 		}
 
+
         // Inserts a word at the chosen index
         public static void AddAt(int index, Word word)
         {
@@ -69,29 +73,34 @@ namespace BasicML
 			wordList[index] = word;
 		}
 
+
         // Removes a word at a given index
         public static void RemoveAt(int index)
         {
 			for (int i = index; i < Count; i++) { wordList[i] = wordList[i + 1]; }
 		}
 
+
         // Clears the contents of the wordList
         public static void Clear() { wordList.Clear(); }
 
 
-		// Initialize memory from text file
+		// Initialize memory from an array
 		public static void InitMemory(params Word[] memoryContents)
 		{
             Clear();
             foreach (Word word in memoryContents) { Add(word); }
 		}
 
-		// Initialize memory from text file
+
+		// Initialize memory from an array
 		public static void InitMemory(params int[] memoryContents)
 		{
             InitMemory(Array.ConvertAll(memoryContents, item => (Word)item));
 		}
 
+
+		// Initialize memory from text file
 		public static void InitMemory(string filePath)
         {
             int[] lines = FileReader.ReadFile(filePath).ToArray();
