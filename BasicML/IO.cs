@@ -20,8 +20,8 @@ namespace BasicML
         public static bool Read(int operand, string s, bool setDefaultOnFail = true)
         {
 			bool success = Word.TryParse(s, out Word word);
-			if (success) { return Memory.SetElement(operand, word); }
-			else if (setDefaultOnFail) { Memory.SetElement(operand, word); }
+			if (success) { return Read(operand, word); }
+			else if (setDefaultOnFail) { Read(operand, word); }
 			return success;
         }
 
@@ -36,7 +36,7 @@ namespace BasicML
 		{
 			if (location < Memory.TotalSize)
 			{
-                Logging.LogLine($"Value at location {location}: {Memory.ElementAt(location)}");
+                Logging.LogLine($"Value at location {location}: {Memory.ElementAt(location).ToString()}");
 				return true;
             }
 				

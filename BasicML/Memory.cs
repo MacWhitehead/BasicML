@@ -37,7 +37,10 @@ namespace BasicML
         // TODO: change sign in a proper way
         public static bool SetElement(int address, Word word)
         {
-            if ((address >= TotalSize) || (address < 0)) { return false; }
+            if ((address >= _memory.Length) || (address < 0)) { return false; }
+
+            // Populates extra memory addresses if the program tries to access a noninitialised location that is within the memory limits of the system
+            while (address >= TotalSize)  { Add(new Word(0)); }
 
 			_memory[address] = word;
             return true;
