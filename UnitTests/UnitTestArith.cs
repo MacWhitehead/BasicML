@@ -16,16 +16,16 @@ namespace BasicML.UnitTestArith
         public void AddTogether()
         {
             SetupSystem.RunSetup();
-			Console.WriteLine(Accumulator._registerContent._rawValue);
+			Console.WriteLine(Accumulator._registerContent.RawValue);
 			BasicML.Accumulator._registerContent = new BasicML.Word(12);
-            Console.WriteLine(Accumulator._registerContent._rawValue);
+            Console.WriteLine(Accumulator._registerContent.RawValue);
 			BasicML.Memory.SetElement(3, new BasicML.Word(2));
-			Console.WriteLine(Accumulator._registerContent._rawValue);
+			Console.WriteLine(Accumulator._registerContent.RawValue);
 			BasicML.Arithmetic.Add(3);
-			Console.WriteLine(Accumulator._registerContent._rawValue);
-			Console.WriteLine(Memory.ElementAt(3)._rawValue);
+			Console.WriteLine(Accumulator._registerContent.RawValue);
+			Console.WriteLine(Memory.ElementAt(3).RawValue);
 
-			Assert.AreEqual(Accumulator._registerContent._rawValue, new BasicML.Word(14)._rawValue);
+			Assert.AreEqual(Accumulator._registerContent.RawValue, new BasicML.Word(14).RawValue);
         }
 
         [TestMethod]
@@ -48,7 +48,7 @@ namespace BasicML.UnitTestArith
 			BasicML.Memory.SetElement(3, new BasicML.Word(2));
 			BasicML.Arithmetic.Subtract(3);
 
-            Assert.AreEqual(Accumulator._registerContent._rawValue, 4);
+            Assert.AreEqual(Accumulator._registerContent.RawValue, 4);
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace BasicML.UnitTestArith
 			BasicML.Memory.SetElement(3, new BasicML.Word(2));
 			BasicML.Arithmetic.Subtract(3);
 
-            Assert.AreEqual(Accumulator._registerContent._rawValue, 8);
+            Assert.AreEqual(Accumulator._registerContent.RawValue, 8);
         }
 
         [TestMethod]
@@ -72,7 +72,7 @@ namespace BasicML.UnitTestArith
 			BasicML.Memory.SetElement(3, new BasicML.Word(2));
 			BasicML.Arithmetic.Divide(3);
 
-            Assert.AreEqual(Accumulator._registerContent._rawValue, 6);
+            Assert.AreEqual(Accumulator._registerContent.RawValue, 6);
         }
 
         [TestMethod]
@@ -96,7 +96,7 @@ namespace BasicML.UnitTestArith
             Memory.SetElement(3, new Word(2));
             Arithmetic.Multiply(3);
 
-            Assert.AreEqual(Accumulator._registerContent._rawValue, 20);
+            Assert.AreEqual(Accumulator._registerContent.RawValue, 20);
         }
 
         [TestMethod]

@@ -15,8 +15,8 @@ namespace BasicML
 				throw new ArgumentOutOfRangeException("Address out of range");
 			}
 
-			int a = Accumulator._registerContent._rawValue;
-			int b = Memory.ElementAt(address)._rawValue;
+			int a = Accumulator._registerContent.RawValue;
+			int b = Memory.ElementAt(address).RawValue;
 
 			Accumulator._registerContent = a + b;
 		}

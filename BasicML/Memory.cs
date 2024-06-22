@@ -35,10 +35,54 @@ namespace BasicML
 		}
 
         // TODO: change sign in a proper way
-        public static void SetElement(int address, Word word)
+        public static bool SetElement(int address, Word word)
         {
+            if ((address >= _memory.Length) || (address < 0)) { return false; }
+
+            // Populates extra memory addresses if the program tries to access a noninitialised location that is within the memory limits of the system
+            while (address >= TotalSize)  { Add(new Word(0)); }
+
 			_memory[address] = word;
+            return true;
 		}
+
+
+        public static void Add(Word word)
+        {
+            // Will not add if memory is full
+            if (TotalSize >= _memory.Length) { return; }
+
+            _memorySize++;
+            SetElement(_memorySize - 1, word);
+		}
+
+        public static void AddAt(int index, Word word)
+        {
+			// Will not add if memory is full
+			if (TotalSize >= _memory.Length) { return; }
+
+            // Will not add if index is out of range
+			if ((index < 0) || (index >= _memory.Length)) { return; }
+
+			_memorySize++;
+
+			for (int i = _memorySize - 1; i > index; i--) { _memory[i] = _memory[i - 1]; }
+
+			_memory[index] = word;
+		}
+
+        public static void RemoveAt(int index)
+        {
+			_memorySize--;
+
+			for (int i = index; i < _memorySize; i++) { _memory[i] = _memory[i + 1]; }
+		}
+
+
+        public static void Clear()
+        {
+            _memorySize = 0;
+        }
 
         //public static int GetInstrction(int address)
         //{
