@@ -39,49 +39,26 @@ namespace BasicML
 			refreshMemory();
 		}
 
-		// Open the test input text
-		private void openToolStripMenuItem_Click(object sender, EventArgs e)
+		private void chooseFile_Click(object sender, EventArgs e)
 		{
-			// Initialize memory and loading Test file
-			Memory.InitMemory("Test2.txt");
-
-			// Output memory as a memory map
-			for (int i = 0; i < Memory.TotalSize; i++)
+			using (OpenFileDialog openFileDialog = new OpenFileDialog())
 			{
-				// In case of operand is smaller than 10 because operand is int
-				var operand = "";
-				if (Memory.ElementAt(i).Operand < 10)
+				openFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
+				openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+				openFileDialog.FilterIndex = 1;
+				openFileDialog.RestoreDirectory = true;
+				DialogResult result = openFileDialog.ShowDialog();
+
+				if (result == DialogResult.OK)
 				{
-					operand = "0" + Memory.ElementAt(i).Operand.ToString();
+					fileTextBox.Text = openFileDialog.FileName;
+					Logging.LogLine("File Loaded");
+					loadFileButton.Visible = true;
 				}
 				else
 				{
-					operand = Memory.ElementAt(i).Operand.ToString();
+					Logging.LogLine("Error Loading File (" + result.ToString() + ")");
 				}
-			}
-		}
-
-		// Run the test program
-		private void runToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			// Starts the cpu exececuting
-			Cpu.StartExecution();
-
-			refreshMemory();
-		}
-
-		private void chooseFile_Click(object sender, EventArgs e)
-		{
-			DialogResult result = openFileDialog.ShowDialog();
-			if (result == DialogResult.OK)
-			{
-				fileTextBox.Text = openFileDialog.FileName;
-				Logging.LogLine("File Loaded");
-				loadFileButton.Visible = true;
-			}
-			else
-			{
-				Logging.LogLine("Error Loading File (" + result.ToString() + ")");
 			}
 
 			refreshMemory();
@@ -100,6 +77,7 @@ namespace BasicML
 
 		private void runButton_Click(object sender, EventArgs e)
 		{
+			_formLoggingBox.Clear();
 			Cpu.StartExecution();
 
 			refreshMemory();

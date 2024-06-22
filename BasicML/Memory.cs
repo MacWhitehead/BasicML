@@ -8,8 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-[assembly: InternalsVisibleTo("BasicMLTests")]
-
 namespace BasicML
 {
 	public static class Memory
@@ -23,7 +21,7 @@ namespace BasicML
 
         public static Word ElementAt(int address)
         {
-            if ((address <= _memorySize) || (address < 0))
+            if ((address < _memorySize) || (address < 0))
             {
                 return _memory.ElementAt(address);
             }

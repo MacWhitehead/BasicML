@@ -6,8 +6,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicML", "BasicML\BasicML.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{B016CF84-B4F7-482E-A21B-62190BA0A8BF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicMLTests", "BasicMLTests\BasicMLTests.csproj", "{907EF181-469F-400B-A637-B1E33D1C19FB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,10 +20,6 @@ Global
 		{B016CF84-B4F7-482E-A21B-62190BA0A8BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B016CF84-B4F7-482E-A21B-62190BA0A8BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B016CF84-B4F7-482E-A21B-62190BA0A8BF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{907EF181-469F-400B-A637-B1E33D1C19FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{907EF181-469F-400B-A637-B1E33D1C19FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{907EF181-469F-400B-A637-B1E33D1C19FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{907EF181-469F-400B-A637-B1E33D1C19FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
