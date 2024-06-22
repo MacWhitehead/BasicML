@@ -46,7 +46,7 @@ namespace BasicML
 			Memory.InitMemory("Test2.txt");
 
 			// Output memory as a memory map
-			for (int i = 0; i < Memory.TotalSize; i++)
+			for (int i = 0; i < Memory.MAX_SIZE; i++)
 			{
 				// In case of operand is smaller than 10 because operand is int
 				var operand = "";
@@ -119,13 +119,13 @@ namespace BasicML
 			if (repopulateCells)
 			{
 				memoryGrid.Rows.Clear();
-				for (int i = 0; i < Memory.TotalSize; i++)
+				for (int i = 0; i < Memory.Count; i++)
 				{
 					memoryGrid.Rows.Add();
 				}
 			}
 
-			for (int i = 0; i < Memory.TotalSize; i++)
+			for (int i = 0; i < Memory.Count; i++)
 			{
 				memoryGrid.Rows[i].Cells[0].Value = i.ToString();
 				memoryGrid.Rows[i].Cells[1].Value = Memory.ElementAt(i).ToString(true);
@@ -137,7 +137,7 @@ namespace BasicML
 				}
 			}
 
-			if (Memory.TotalSize >= Cpu.MemoryAddress)
+			if (Memory.Count >= Cpu.MemoryAddress)
 			{
 				DataGridViewImageCell selectedStartPointCell = (DataGridViewImageCell)memoryGrid.Rows[Cpu.MemoryAddress].Cells[2];
 
@@ -162,7 +162,7 @@ namespace BasicML
 			lastRemoveCell.ValueIsIcon = false;
 			lastRemoveCell.Value = BLANK_IMAGE;
 
-			if (Memory.TotalSize > 0)
+			if (Memory.MAX_SIZE > 0)
 			{
 				runButton.Visible = true;
 				stepButton.Visible = true;
@@ -277,7 +277,7 @@ namespace BasicML
 					
 
 					// Sets the value of the corresponding memory element to the value of the cell
-					if (e.RowIndex >= Memory.TotalSize) { Memory.Add(cellValue); }
+					if (e.RowIndex >= Memory.MAX_SIZE) { Memory.Add(cellValue); }
 					else { Memory.SetElement(e.RowIndex, cellValue); }
 
 					// Updates the value of the cell to the value of the corresponding memory element

@@ -32,10 +32,9 @@ namespace BasicML
 			// The setter has error checking bulit in, so that the memory address cannot be set to an invalid location
 			set
 			{
-				if ((value < 0) || (value > Memory.TotalSize))
+				if ((value < 0) || (value > Memory.MAX_SIZE))
 				{
 					// Sets the memory address to 0 if an invalid index is given
-					Memory._log += "Invalid Index\n";
 					_memoryAddress = -1;
 					//throw new IndexOutOfRangeException();
 				}
@@ -62,13 +61,13 @@ namespace BasicML
 		public static void StartExecution()
 		{
 			// Resets the memory address location if it is invalid
-			if ((_memoryAddress < 0) || (_memoryAddress >= Memory.TotalSize))
+			if ((_memoryAddress < 0) || (_memoryAddress >= Memory.MAX_SIZE))
 			{
 				MemoryAddress = 0;
 			}
 
 			Logging.LogLine("Starting Excecution");
-			Logging.LogLine("Memory Size: " + Memory.TotalSize.ToString());
+			Logging.LogLine("Memory Size: " + Memory.MAX_SIZE.ToString());
 			_executing = true;
 
 			// Excecutes until told to stop

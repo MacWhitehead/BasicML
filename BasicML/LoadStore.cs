@@ -12,14 +12,14 @@ namespace BasicML
 		// Load value from memory into accumulator
 		public static bool Load(int location)
 		{
-			if (location < Memory.TotalSize)
+			if (location < Memory.MAX_SIZE)
 			{
 				Accumulator._registerContent = Memory.ElementAt(location);
 				return true;
 			}
 			else
 			{
-				Logging.LogLine($"Memory Size: {Memory.TotalSize}");
+				Logging.LogLine($"Memory Size: {Memory.MAX_SIZE}");
 				Logging.LogLine($"Location: {location}");
 				//Cpu.LogLine($"Location {location} is empty.");
 				return false;
