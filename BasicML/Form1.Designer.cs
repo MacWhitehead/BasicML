@@ -70,7 +70,6 @@
 			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
 			this.tableLayoutPanel1.Size = new Size(1131, 1135);
 			this.tableLayoutPanel1.TabIndex = 0;
-			this.tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
 			// 
 			// groupBox1
 			// 
@@ -146,7 +145,6 @@
 			this.groupBox3.TabIndex = 4;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Controls";
-			this.groupBox3.Enter += groupBox3_Enter;
 			// 
 			// stepButton
 			// 
@@ -156,7 +154,7 @@
 			this.stepButton.TabIndex = 6;
 			this.stepButton.Text = "Step";
 			this.stepButton.UseVisualStyleBackColor = true;
-			this.stepButton.Click += stepButton_Click;
+			this.stepButton.Click += StepButton_Click;
 			// 
 			// runButton
 			// 
@@ -166,7 +164,7 @@
 			this.runButton.TabIndex = 5;
 			this.runButton.Text = "Run";
 			this.runButton.UseVisualStyleBackColor = true;
-			this.runButton.Click += runButton_Click;
+			this.runButton.Click += RunButton_Click;
 			// 
 			// loadFileButton
 			// 
@@ -176,7 +174,7 @@
 			this.loadFileButton.TabIndex = 4;
 			this.loadFileButton.Text = "Load";
 			this.loadFileButton.UseVisualStyleBackColor = true;
-			this.loadFileButton.Click += loadFileButton_Click;
+			this.loadFileButton.Click += LoadFileButton_Click;
 			// 
 			// fileTextBox
 			// 
@@ -194,7 +192,7 @@
 			this.chooseFile.TabIndex = 3;
 			this.chooseFile.Text = "Choose File";
 			this.chooseFile.UseVisualStyleBackColor = true;
-			this.chooseFile.Click += chooseFile_Click;
+			this.chooseFile.Click += ChooseFile_Click;
 			// 
 			// openFileDialog
 			// 
