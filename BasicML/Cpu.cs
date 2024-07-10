@@ -56,7 +56,7 @@ namespace BasicML
 			if ((_memoryAddress < 0) || (_memoryAddress >= Memory.MAX_SIZE)) { MemoryAddress = 0; }
 
 			Logging.LogLine("Starting Excecution");
-			Logging.LogLine("Memory Size: " + Memory.MAX_SIZE.ToString());
+			//Logging.LogLine("Memory Size: " + Memory.MAX_SIZE.ToString());
 			_executing = true;
 
 			// Excecutes until told to stop

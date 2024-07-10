@@ -8,26 +8,39 @@ namespace BasicML
 {
 	public static class Logging
 	{
-		public static void Log(string s)
+		public enum LoggingDestination
 		{
-			if (FormBasicML._formLoggingBox != null)
+			LogBox = 0,
+			ProgramOutput = 1,
+			Console = 2
+		}
+
+
+		public static void Log(string s, LoggingDestination destination = LoggingDestination.LogBox)
+		{
+			switch(destination)
 			{
-				FormBasicML._formLoggingBox.AppendText(s);
-				return;
+				case LoggingDestination.LogBox:
+					if (FormBasicML._formLoggingBox != null)
+					{
+						FormBasicML._formLoggingBox.AppendText(s);
+						return;
+					}
+					break;
+				case LoggingDestination.ProgramOutput:
+					if (FormBasicML._formProgramOutputBox != null)
+					{
+						FormBasicML._formProgramOutputBox.AppendText(s);
+						return;
+					}
+					break;
+				default:
+					break;
 			}
 
 			Console.Write(s);
 		}
 
-		public static void LogLine(string s)
-		{
-			if (FormBasicML._formLoggingBox != null)
-			{
-				FormBasicML._formLoggingBox.AppendText(s + "\n");
-				return;
-			}
-
-			Console.WriteLine(s);
-		}
+		public static void LogLine(string s, LoggingDestination destination = LoggingDestination.LogBox) { Log(s + "\n", destination); }
 	}
 }

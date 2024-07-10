@@ -9,6 +9,7 @@ namespace BasicML
 	public partial class FormBasicML : Form
 	{
 		public static RichTextBox? _formLoggingBox;
+		public static RichTextBox? _formProgramOutputBox;
 
 		private readonly Bitmap BLANK_IMAGE = new(2, 2);
 		private readonly Icon START_POINT_ICON = SystemIcons.GetStockIcon(StockIconId.MediaAudioDVD, 20);
@@ -16,11 +17,15 @@ namespace BasicML
 		private readonly Icon ADD_COULUMN_ICON = SystemIcons.GetStockIcon(StockIconId.Stack, 20);
 		private readonly Icon REMOVE_COULUMN_ICON = SystemIcons.GetStockIcon(StockIconId.Delete, 20);
 
+		private static bool fileLoaded = false;
+		private static string fileName = "";
+
 		public FormBasicML()
 		{
 			InitializeComponent();
 
 			_formLoggingBox = loggingBox;
+			_formProgramOutputBox = programOutputBox;
 
 			loadFileButton.Visible = false;
 
@@ -39,30 +44,44 @@ namespace BasicML
 			RefreshMemory();
 		}
 
-		private void ChooseFile_Click(object sender, EventArgs e)
+		private void ChooseFile()
 		{
 			DialogResult result = openFileDialog.ShowDialog();
 			if (result == DialogResult.OK)
 			{
-				fileTextBox.Text = openFileDialog.FileName;
+				fileName = fileTextBox.Text = openFileDialog.FileName;
+				fileLoaded = true;
 				Logging.LogLine("File Loaded");
-				loadFileButton.Visible = true;
 			}
 			else
 			{
+				fileLoaded = false;
 				Logging.LogLine("Error Loading File (" + result.ToString() + ")");
 			}
+		}
+
+		private void LoadFile()
+		{
+			try { FileReader.ReadFileToMemory(fileTextBox.Text, false); }
+			catch { Logging.Log("Could not read file"); }
+
+			// Resets the value in the accumulator
+			Accumulator._registerContent = 0;
+
+			Cpu.MemoryAddress = 0;
+		}
+
+		private void ChooseFile_Click(object sender, EventArgs e)
+		{
+			ChooseFile();
+			LoadFile();
 
 			RefreshMemory();
 		}
 
 		private void LoadFileButton_Click(object sender, EventArgs e)
 		{
-			try { FileReader.ReadFileToMemory(fileTextBox.Text, false); }
-			catch { Logging.Log("Could not read file"); }
-
-			Cpu.MemoryAddress = 0;
-
+			LoadFile();
 			RefreshMemory();
 		}
 
@@ -134,16 +153,29 @@ namespace BasicML
 			{
 				runButton.Visible = true;
 				stepButton.Visible = true;
+
+				if (Cpu.MemoryAddress != 0) { runFromStartButton.Visible = true; }
+				else { runFromStartButton.Visible = false; }
+
+				if ((Cpu.MemoryAddress != 0) || (Accumulator._registerContent != 0)) { resetButton.Visible = true; }
+				else { resetButton.Visible = false; }
 			}
 			else
 			{
 				runButton.Visible = false;
 				stepButton.Visible = false;
+				resetButton.Visible = false;
+				runFromStartButton.Visible = false;
 			}
+
+			if (fileLoaded) { loadFileButton.Visible = true; }
+			else { loadFileButton.Visible = false; }
+
+			accumulatorTextBox.Text = Accumulator._registerContent.ToString(true);
 		}
 
 
-		private void memoryGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+		private void MemoryGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
 			// Returns early if the cell is out of bounds
 			if ((e.RowIndex < 0) || (e.RowIndex >= memoryGrid.Rows.Count)) { return; }
@@ -158,7 +190,7 @@ namespace BasicML
 			RefreshMemory();
 		}
 
-		private void memoryGrid_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+		private void MemoryGrid_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
 		{
 			// Returns early if the cell is out of bounds
 			if ((e.RowIndex < 0) || (e.RowIndex >= memoryGrid.Rows.Count)) { return; }
@@ -182,7 +214,7 @@ namespace BasicML
 		}
 
 		// Runs when the mouse leaves a cell in the memoryGrid
-		private void memoryGrid_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+		private void MemoryGrid_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
 		{
 			// Returns early if the cell is out of bounds
 			if ((e.RowIndex < 0) || (e.RowIndex >= memoryGrid.Rows.Count)) { return; }
@@ -204,7 +236,7 @@ namespace BasicML
 			}
 		}
 
-		private void memoryGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+		private void MemoryGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
 		{
 			// Returns early if the cell is out of bounds
 			if ((e.RowIndex < 0) || (e.RowIndex >= memoryGrid.Rows.Count)) { return; }
@@ -221,7 +253,7 @@ namespace BasicML
 					if (cell.Value != null) { cellValue = cell.Value.ToString(); }
 
 					if ((cellValue == null) || (cellValue == string.Empty)) { cellValue = "0000"; }
-					
+
 
 					// Sets the value of the corresponding memory element to the value of the cell
 					if (e.RowIndex >= Memory.MAX_SIZE) { Memory.Add(cellValue); }
@@ -232,5 +264,27 @@ namespace BasicML
 			}
 		}
 
+		private void ResetButton_Click(object sender, EventArgs e)
+		{
+			Cpu.MemoryAddress = 0;
+			Accumulator._registerContent = 0;
+			programOutputBox.Clear();
+			RefreshMemory();
+		}
+
+		private void AccumulatorTextBox_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				Accumulator._registerContent = accumulatorTextBox.Text;
+				RefreshMemory();
+			}
+		}
+
+		private void RunFromStartButton_Click(object sender, EventArgs e)
+		{
+			Cpu.MemoryAddress = 0;
+			Cpu.StartExecution();
+		}
 	}
 }

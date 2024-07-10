@@ -9,6 +9,6 @@ namespace BasicML
 	// Represents the accumulator and it's associated register
 	public static class Accumulator 
 	{ 
-		public static Word _registerContent = new();
+		public static Word _registerContent = 0;
 	}
 }

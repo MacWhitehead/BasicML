@@ -36,7 +36,7 @@ namespace BasicML
 		{
 			if (location < Memory.MAX_SIZE)
 			{
-                Logging.LogLine($"Value at location {location}: {Memory.ElementAt(location).ToString()}");
+                Logging.LogLine($"Value at location {location}: {Memory.ElementAt(location).ToString()}", Logging.LoggingDestination.ProgramOutput);
 				return true;
             }
 				

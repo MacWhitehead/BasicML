@@ -143,10 +143,10 @@ namespace BasicML
 		public static Word operator /(Word a, Word b) { return new Word(a.RawValue / b.RawValue); }     // Defines how a division operator should be applied when used with two words
 
 		public static bool operator ==(Word a, Word b) { return a.RawValue == b.RawValue; }             // Defines how an equality operator should be applied when used with two words
-		public static bool operator !=(Word a, Word b) { return a.RawValue == b.RawValue; }             // Defines how an inequality operator should be applied when used with two words
+		public static bool operator !=(Word a, Word b) { return a.RawValue != b.RawValue; }             // Defines how an inequality operator should be applied when used with two words
 
 		public static bool operator ==(Word a, int i) { return a.RawValue == i; }                       // Defines how an equality operator should be applied when used with a word and an int
-		public static bool operator !=(Word a, int i) { return a.RawValue == i; }                       // Defines how an inequality operator should be applied when used with a word and an int
+		public static bool operator !=(Word a, int i) { return a.RawValue != i; }                       // Defines how an inequality operator should be applied when used with a word and an int
 
 		public static implicit operator Word(int i) => new(i);                                          // Allows implicit conversion to a Word from an int
 		public static implicit operator Word(string s) => new(s);                                       // Allows implicit conversion to a Word from a string
