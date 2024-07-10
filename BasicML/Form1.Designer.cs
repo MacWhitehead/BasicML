@@ -1,4 +1,4 @@
-﻿
+
 namespace BasicML
 {
     partial class FormBasicML
