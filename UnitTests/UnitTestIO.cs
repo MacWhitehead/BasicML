@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestPlatform.Utilities;
 namespace Unittest_IOLoadSave
 {
 	[TestClass]
-	public class UnitTest1
+	public class UnitTestIO
 	{
 		// READ
 

@@ -17,17 +17,26 @@ namespace BasicML
 		// Opens a file dialog to choose a file
 		private void ChooseFile()
 		{
-			DialogResult result = openFileDialog.ShowDialog();
-			if (result == DialogResult.OK)
+			using (OpenFileDialog openFileDialog = new OpenFileDialog())
 			{
-				fileName = fileTextBox.Text = openFileDialog.FileName;
-				fileLoaded = true;
-				Logging.LogLine("File Loaded");
-			}
-			else
-			{
-				fileLoaded = false;
-				Logging.LogLine("Error Loading File (" + result.ToString() + ")");
+				openFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
+				openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+				openFileDialog.FilterIndex = 1;
+				openFileDialog.RestoreDirectory = true;
+
+				DialogResult result = openFileDialog.ShowDialog();
+
+				if (result == DialogResult.OK)
+				{
+					fileName = fileTextBox.Text = openFileDialog.FileName;
+					fileLoaded = true;
+					Logging.LogLine("File Loaded");
+				}
+				else
+				{
+					fileLoaded = false;
+					Logging.LogLine("Error Loading File (" + result.ToString() + ")");
+				}
 			}
 		}
 
