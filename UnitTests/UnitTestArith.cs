@@ -6,10 +6,10 @@ using System.Net;
 /// Summary description for Class1
 /// </summary>
 /// 
-namespace BasicML.UnitTestArith
+namespace UnitTests_Arithmatic
 {
     [TestClass]
-    public class UnitTest2
+    public class UnitTestArithmatic
     {
         [TestMethod]
         // Tests addition - True

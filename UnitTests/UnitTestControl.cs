@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VisualStudio.TestPlatform.Utilities;
 using BasicML;
 
-namespace UnitTest_Potato
+namespace UnitTests_Control
 {
 	[TestClass]
 	public class UnitTestControl

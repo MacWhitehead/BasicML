@@ -14,8 +14,11 @@ namespace BasicML
 		{
 			if (location < Memory.MAX_SIZE)
 			{
+				bool returnValue = location < Memory.Count;
+
 				Accumulator._registerContent = Memory.ElementAt(location);
-				return true;
+
+				return returnValue;
 			}
 			else
 			{
@@ -29,14 +32,13 @@ namespace BasicML
 		// Store accumulator value into memory
 		public static bool Store(int location)
 		{
-			if (location == 0)
-			{
-                return false;
+			if ((location < 0) || (location >= Memory.MAX_SIZE)) { return false; }
 
-            }
+			bool returnValue = location < Memory.Count;
+
             Memory.SetElement(location, Accumulator._registerContent);
-            return true;
 
+            return returnValue;
         }
 		
 	}

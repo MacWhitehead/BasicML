@@ -26,7 +26,7 @@ namespace BasicML
 			get { return _rawValue; }
 			set 
 			{
-				if ((value > 9999) || (value < -9999))
+				while ((value > 9999) || (value < -9999))
 				{
 					Logging.LogLine("Overflow occured. Truncating word value");
 					value %= 10000;
@@ -120,6 +120,9 @@ namespace BasicML
 			word = new Word(value);
 			return success;
 		}
+
+		// This returns a bool signifying whether or not a string value can be cleanly parsed to a word. It also has the option of additionally returning the parsed word as an out variable
+		public static bool TryParse(string s) { return TryParse(s, out Word word); }
 
 
 		// Returns the words value in a string format
