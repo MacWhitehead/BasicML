@@ -21,7 +21,7 @@ namespace BasicML
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+		#region Windows Form Designer generated code
 
 		/// <summary>
 		///  Required method for Designer support - do not modify
@@ -53,6 +53,7 @@ namespace BasicML
 			this.groupBox4 = new GroupBox();
 			this.programOutputBox = new RichTextBox();
 			this.openFileDialog = new OpenFileDialog();
+			this.colorSchemeButton = new Button();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -200,6 +201,7 @@ namespace BasicML
 			// 
 			// groupBox3
 			// 
+			this.groupBox3.Controls.Add(this.colorSchemeButton);
 			this.groupBox3.Controls.Add(this.runFromStartButton);
 			this.groupBox3.Controls.Add(this.resetButton);
 			this.groupBox3.Controls.Add(this.label1);
@@ -335,6 +337,16 @@ namespace BasicML
 			// 
 			this.openFileDialog.FileName = "openFileDialog";
 			// 
+			// colorSchemeButton
+			// 
+			this.colorSchemeButton.Location = new Point(672, 19);
+			this.colorSchemeButton.Name = "colorSchemeButton";
+			this.colorSchemeButton.Size = new Size(111, 23);
+			this.colorSchemeButton.TabIndex = 11;
+			this.colorSchemeButton.Text = "Color Scheme";
+			this.colorSchemeButton.UseVisualStyleBackColor = true;
+			this.colorSchemeButton.Click += ColorSchemeButton_Click;
+			// 
 			// FormBasicML
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
@@ -351,21 +363,11 @@ namespace BasicML
 			this.groupBox3.PerformLayout();
 			this.groupBox4.ResumeLayout(false);
 			ResumeLayout(false);
-            // 
-            // ColorScheme
-            // 
-            ColorScheme.Location = new Point(4, 72);
-            ColorScheme.Name = "ColorScheme";
-            ColorScheme.Size = new Size(160, 23);
-            ColorScheme.TabIndex = 7;
-            ColorScheme.Text = "Color Scheme";
-            ColorScheme.UseVisualStyleBackColor = true;
-            ColorScheme.Click += button1_Click;
 		}
 
-        #endregion
+		#endregion
 
-        private TableLayoutPanel tableLayoutPanel1;
+		private TableLayoutPanel tableLayoutPanel1;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
 		private GroupBox groupBox3;
@@ -389,6 +391,6 @@ namespace BasicML
 		private Button runFromStartButton;
 		private GroupBox groupBox4;
 		private RichTextBox programOutputBox;
-        private Button ColorScheme;
-    }
+		private Button colorSchemeButton;
+	}
 }

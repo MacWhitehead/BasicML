@@ -44,5 +44,15 @@ namespace BasicML
 			stepButton.BackColor = color;
 			resetButton.BackColor = color;
 		}
+
+
+		// This function will change colors based on what hex values provided by the user
+		private void ColorSchemePopUp_OnSubmit(string value1, string value2)
+		{
+			Color userBackgroundColor = ColorTranslator.FromHtml(value1);
+			Color userButtonColor = ColorTranslator.FromHtml(value2);
+
+			SetColors(userBackgroundColor, userButtonColor);
+		}
 	}
 }

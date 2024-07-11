@@ -90,5 +90,34 @@ namespace BasicML
 			programOutputBox.Clear();
 			RefreshMemory();
 		}
+
+
+		// Runs when the "Color Scheme" button is clicked
+		private void ColorSchemeButton_Click(object sender, EventArgs e)
+		{
+			// two variables: one to hold the background color of GUI, one to hold the button color of GUI
+			// DEFAULT COLORS: Green: 4C721D and White: FFFFFF            
+
+			//var UVUGreen = ColorTranslator.FromHtml("#4C721D");
+			//var UVUWhite = ColorTranslator.FromHtml("#FFFFFF");
+			//this.BackColor = UVUGreen;
+			//this.chooseFile.BackColor = UVUWhite;
+			//this.loadFileButton.BackColor = UVUWhite;
+			//this.runButton.BackColor = UVUWhite;
+			//this.stepButton.BackColor = UVUWhite;
+			//this.ColorScheme.BackColor = UVUWhite;
+
+			ColorSchemePopUp colorschemepopup = new ColorSchemePopUp();
+
+			// subscribe to the OnSubmit event
+			colorschemepopup.OnSubmit += ColorSchemePopUp_OnSubmit;
+			colorschemepopup.Show();
+
+			// pop up box for two hex colors, one for the main window, and one for the buttons
+			// user should be able to enter in their own preferred hex color
+			// a set of instructions, one with a textbox for inputting hex color, and a button to confirm their choice
+
+			// re-create window with the desired new colors
+		}
 	}
 }
