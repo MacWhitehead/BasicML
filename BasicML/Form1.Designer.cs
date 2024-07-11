@@ -47,9 +47,9 @@ namespace BasicML
 			this.accumulatorTextBox = new TextBox();
 			this.stepButton = new Button();
 			this.runButton = new Button();
-			this.loadFileButton = new Button();
+			this.reloadFileButton = new Button();
 			this.fileTextBox = new TextBox();
-			this.chooseFile = new Button();
+			this.chooseFileButton = new Button();
 			this.groupBox4 = new GroupBox();
 			this.programOutputBox = new RichTextBox();
 			this.openFileDialog = new OpenFileDialog();
@@ -206,9 +206,9 @@ namespace BasicML
 			this.groupBox3.Controls.Add(this.accumulatorTextBox);
 			this.groupBox3.Controls.Add(this.stepButton);
 			this.groupBox3.Controls.Add(this.runButton);
-			this.groupBox3.Controls.Add(this.loadFileButton);
+			this.groupBox3.Controls.Add(this.reloadFileButton);
 			this.groupBox3.Controls.Add(this.fileTextBox);
-			this.groupBox3.Controls.Add(this.chooseFile);
+			this.groupBox3.Controls.Add(this.chooseFileButton);
 			this.groupBox3.Dock = DockStyle.Fill;
 			this.groupBox3.Location = new Point(2, 2);
 			this.groupBox3.Margin = new Padding(2);
@@ -279,16 +279,16 @@ namespace BasicML
 			this.runButton.UseVisualStyleBackColor = true;
 			this.runButton.Click += RunButton_Click;
 			// 
-			// loadFileButton
+			// reloadFileButton
 			// 
-			this.loadFileButton.Location = new Point(286, 20);
-			this.loadFileButton.Margin = new Padding(2);
-			this.loadFileButton.Name = "loadFileButton";
-			this.loadFileButton.Size = new Size(78, 23);
-			this.loadFileButton.TabIndex = 4;
-			this.loadFileButton.Text = "Reload";
-			this.loadFileButton.UseVisualStyleBackColor = true;
-			this.loadFileButton.Click += LoadFileButton_Click;
+			this.reloadFileButton.Location = new Point(286, 20);
+			this.reloadFileButton.Margin = new Padding(2);
+			this.reloadFileButton.Name = "reloadFileButton";
+			this.reloadFileButton.Size = new Size(78, 23);
+			this.reloadFileButton.TabIndex = 4;
+			this.reloadFileButton.Text = "Reload";
+			this.reloadFileButton.UseVisualStyleBackColor = true;
+			this.reloadFileButton.Click += LoadFileButton_Click;
 			// 
 			// fileTextBox
 			// 
@@ -299,16 +299,16 @@ namespace BasicML
 			this.fileTextBox.TabIndex = 2;
 			this.fileTextBox.Text = "Please Choose A FIle";
 			// 
-			// chooseFile
+			// chooseFileButton
 			// 
-			this.chooseFile.Location = new Point(204, 20);
-			this.chooseFile.Margin = new Padding(2);
-			this.chooseFile.Name = "chooseFile";
-			this.chooseFile.Size = new Size(78, 23);
-			this.chooseFile.TabIndex = 3;
-			this.chooseFile.Text = "Choose File";
-			this.chooseFile.UseVisualStyleBackColor = true;
-			this.chooseFile.Click += ChooseFile_Click;
+			this.chooseFileButton.Location = new Point(204, 20);
+			this.chooseFileButton.Margin = new Padding(2);
+			this.chooseFileButton.Name = "chooseFileButton";
+			this.chooseFileButton.Size = new Size(78, 23);
+			this.chooseFileButton.TabIndex = 3;
+			this.chooseFileButton.Text = "Choose File";
+			this.chooseFileButton.UseVisualStyleBackColor = true;
+			this.chooseFileButton.Click += ChooseFile_Click;
 			// 
 			// groupBox4
 			// 
@@ -360,11 +360,11 @@ namespace BasicML
         private GroupBox groupBox2;
 		private GroupBox groupBox3;
 		private TextBox fileTextBox;
-		private Button chooseFile;
+		private Button chooseFileButton;
 		private OpenFileDialog openFileDialog;
 		private Button stepButton;
 		private Button runButton;
-		private Button loadFileButton;
+		private Button reloadFileButton;
 		private DataGridView memoryGrid;
 		private RichTextBox loggingBox;
 		private DataGridViewTextBoxColumn memoryIndexColumn;
