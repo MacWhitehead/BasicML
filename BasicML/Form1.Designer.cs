@@ -1,4 +1,5 @@
-﻿namespace BasicML
+
+namespace BasicML
 {
     partial class FormBasicML
     {
@@ -33,54 +34,64 @@
 			this.loggingBox = new RichTextBox();
 			this.groupBox2 = new GroupBox();
 			this.memoryGrid = new DataGridView();
-			this.groupBox3 = new GroupBox();
-			this.stepButton = new Button();
-			this.runButton = new Button();
-			this.loadFileButton = new Button();
-			this.fileTextBox = new TextBox();
-			this.chooseFile = new Button();
-			this.openFileDialog = new OpenFileDialog();
 			this.memoryIndexColumn = new DataGridViewTextBoxColumn();
 			this.memoryContentsColumn = new DataGridViewTextBoxColumn();
 			this.startPointColumn = new DataGridViewImageColumn();
 			this.breakPointColumn = new DataGridViewImageColumn();
 			this.memoryAddColumn = new DataGridViewImageColumn();
 			this.memoryRemoveColumn = new DataGridViewImageColumn();
+			this.groupBox3 = new GroupBox();
+			this.colorSchemeButton = new Button();
+			this.runFromStartButton = new Button();
+			this.resetButton = new Button();
+			this.label1 = new Label();
+			this.accumulatorTextBox = new TextBox();
+			this.stepButton = new Button();
+			this.runButton = new Button();
+			this.reloadFileButton = new Button();
+			this.fileTextBox = new TextBox();
+			this.chooseFileButton = new Button();
+			this.groupBox4 = new GroupBox();
+			this.programOutputBox = new RichTextBox();
+			this.openFileDialog = new OpenFileDialog();
+			this.saveAsButton = new Button();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)this.memoryGrid).BeginInit();
 			this.groupBox3.SuspendLayout();
+			this.groupBox4.SuspendLayout();
 			SuspendLayout();
 			// 
 			// tableLayoutPanel1
 			// 
 			this.tableLayoutPanel1.ColumnCount = 1;
 			this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-			this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 2);
+			this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 3);
 			this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 1);
 			this.tableLayoutPanel1.Controls.Add(this.groupBox3, 0, 0);
+			this.tableLayoutPanel1.Controls.Add(this.groupBox4, 0, 2);
 			this.tableLayoutPanel1.Dock = DockStyle.Fill;
 			this.tableLayoutPanel1.Location = new Point(0, 0);
 			this.tableLayoutPanel1.Margin = new Padding(4, 5, 4, 5);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-			this.tableLayoutPanel1.RowCount = 3;
-			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+			this.tableLayoutPanel1.RowCount = 4;
+			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 17F));
 			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
-			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
+			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 26F));
+			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 17F));
 			this.tableLayoutPanel1.Size = new Size(1131, 1135);
 			this.tableLayoutPanel1.TabIndex = 0;
-			this.tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
 			// 
 			// groupBox1
 			// 
 			this.groupBox1.Controls.Add(this.loggingBox);
 			this.groupBox1.Dock = DockStyle.Fill;
-			this.groupBox1.Location = new Point(4, 686);
+			this.groupBox1.Location = new Point(4, 946);
 			this.groupBox1.Margin = new Padding(4, 5, 4, 5);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Padding = new Padding(4, 5, 4, 5);
-			this.groupBox1.Size = new Size(1123, 444);
+			this.groupBox1.Size = new Size(1123, 184);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Log";
@@ -91,7 +102,8 @@
 			this.loggingBox.Location = new Point(4, 29);
 			this.loggingBox.Margin = new Padding(4, 5, 4, 5);
 			this.loggingBox.Name = "loggingBox";
-			this.loggingBox.Size = new Size(1115, 410);
+			this.loggingBox.ReadOnly = true;
+			this.loggingBox.Size = new Size(1115, 150);
 			this.loggingBox.TabIndex = 1;
 			this.loggingBox.Text = "";
 			// 
@@ -99,7 +111,7 @@
 			// 
 			this.groupBox2.Controls.Add(this.memoryGrid);
 			this.groupBox2.Dock = DockStyle.Fill;
-			this.groupBox2.Location = new Point(4, 232);
+			this.groupBox2.Location = new Point(4, 197);
 			this.groupBox2.Margin = new Padding(4, 5, 4, 5);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Padding = new Padding(4, 5, 4, 5);
@@ -110,14 +122,16 @@
 			// 
 			// memoryGrid
 			// 
+			this.memoryGrid.AllowDrop = true;
 			this.memoryGrid.AllowUserToDeleteRows = false;
 			this.memoryGrid.AllowUserToResizeColumns = false;
 			this.memoryGrid.AllowUserToResizeRows = false;
+			this.memoryGrid.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
 			this.memoryGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.memoryGrid.Columns.AddRange(new DataGridViewColumn[] { this.memoryIndexColumn, this.memoryContentsColumn, this.startPointColumn, this.breakPointColumn, this.memoryAddColumn, this.memoryRemoveColumn });
 			this.memoryGrid.Dock = DockStyle.Fill;
+			this.memoryGrid.EditMode = DataGridViewEditMode.EditProgrammatically;
 			this.memoryGrid.Location = new Point(4, 29);
-			this.memoryGrid.MultiSelect = false;
 			this.memoryGrid.Name = "memoryGrid";
 			this.memoryGrid.RightToLeft = RightToLeft.No;
 			this.memoryGrid.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
@@ -127,78 +141,15 @@
 			this.memoryGrid.SelectionMode = DataGridViewSelectionMode.CellSelect;
 			this.memoryGrid.Size = new Size(1115, 410);
 			this.memoryGrid.TabIndex = 9;
-			this.memoryGrid.CellContentClick += memoryGrid_CellContentClick;
-			this.memoryGrid.CellEndEdit += memoryGrid_CellEndEdit;
-			this.memoryGrid.CellMouseEnter += memoryGrid_CellMouseEnter;
-			this.memoryGrid.CellMouseLeave += memoryGrid_CellMouseLeave;
-			// 
-			// groupBox3
-			// 
-			this.groupBox3.Controls.Add(this.stepButton);
-			this.groupBox3.Controls.Add(this.runButton);
-			this.groupBox3.Controls.Add(this.loadFileButton);
-			this.groupBox3.Controls.Add(this.fileTextBox);
-			this.groupBox3.Controls.Add(this.chooseFile);
-			this.groupBox3.Dock = DockStyle.Fill;
-			this.groupBox3.Location = new Point(3, 3);
-			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Size = new Size(1125, 221);
-			this.groupBox3.TabIndex = 4;
-			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = "Controls";
-			this.groupBox3.Enter += groupBox3_Enter;
-			// 
-			// stepButton
-			// 
-			this.stepButton.Location = new Point(123, 167);
-			this.stepButton.Name = "stepButton";
-			this.stepButton.Size = new Size(111, 38);
-			this.stepButton.TabIndex = 6;
-			this.stepButton.Text = "Step";
-			this.stepButton.UseVisualStyleBackColor = true;
-			this.stepButton.Click += stepButton_Click;
-			// 
-			// runButton
-			// 
-			this.runButton.Location = new Point(6, 167);
-			this.runButton.Name = "runButton";
-			this.runButton.Size = new Size(111, 38);
-			this.runButton.TabIndex = 5;
-			this.runButton.Text = "Run";
-			this.runButton.UseVisualStyleBackColor = true;
-			this.runButton.Click += runButton_Click;
-			// 
-			// loadFileButton
-			// 
-			this.loadFileButton.Location = new Point(407, 60);
-			this.loadFileButton.Name = "loadFileButton";
-			this.loadFileButton.Size = new Size(111, 38);
-			this.loadFileButton.TabIndex = 4;
-			this.loadFileButton.Text = "Load";
-			this.loadFileButton.UseVisualStyleBackColor = true;
-			this.loadFileButton.Click += loadFileButton_Click;
-			// 
-			// fileTextBox
-			// 
-			this.fileTextBox.Location = new Point(6, 60);
-			this.fileTextBox.Name = "fileTextBox";
-			this.fileTextBox.Size = new Size(277, 31);
-			this.fileTextBox.TabIndex = 2;
-			this.fileTextBox.Text = "Please Choose A FIle";
-			// 
-			// chooseFile
-			// 
-			this.chooseFile.Location = new Point(290, 60);
-			this.chooseFile.Name = "chooseFile";
-			this.chooseFile.Size = new Size(111, 38);
-			this.chooseFile.TabIndex = 3;
-			this.chooseFile.Text = "Choose File";
-			this.chooseFile.UseVisualStyleBackColor = true;
-			this.chooseFile.Click += chooseFile_Click;
-			// 
-			// openFileDialog
-			// 
-			this.openFileDialog.FileName = "openFileDialog";
+			this.memoryGrid.CellClick += MemoryGrid_CellClick;
+			this.memoryGrid.CellDoubleClick += MemoryGrid_CellDoubleClick;
+			this.memoryGrid.CellEndEdit += MemoryGrid_CellEndEdit;
+			this.memoryGrid.CellMouseEnter += MemoryGrid_CellMouseEnter;
+			this.memoryGrid.CellMouseLeave += MemoryGrid_CellMouseLeave;
+			this.memoryGrid.DragDrop += MemoryGrid_DragDrop;
+			this.memoryGrid.DragOver += MemoryGrid_DragOver;
+			this.memoryGrid.KeyDown += MemoryGrid_KeyDown;
+			this.memoryGrid.MouseMove += MemoryGrid_MouseMove;
 			// 
 			// memoryIndexColumn
 			// 
@@ -216,6 +167,7 @@
 			this.memoryContentsColumn.HeaderText = "Memory Contents";
 			this.memoryContentsColumn.MinimumWidth = 8;
 			this.memoryContentsColumn.Name = "memoryContentsColumn";
+			this.memoryContentsColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
 			// 
 			// startPointColumn
 			// 
@@ -261,6 +213,166 @@
 			this.memoryRemoveColumn.ToolTipText = "Deletes an element from memory";
 			this.memoryRemoveColumn.Width = 68;
 			// 
+			// groupBox3
+			// 
+			this.groupBox3.Controls.Add(this.saveAsButton);
+			this.groupBox3.Controls.Add(this.colorSchemeButton);
+			this.groupBox3.Controls.Add(this.runFromStartButton);
+			this.groupBox3.Controls.Add(this.resetButton);
+			this.groupBox3.Controls.Add(this.label1);
+			this.groupBox3.Controls.Add(this.accumulatorTextBox);
+			this.groupBox3.Controls.Add(this.stepButton);
+			this.groupBox3.Controls.Add(this.runButton);
+			this.groupBox3.Controls.Add(this.reloadFileButton);
+			this.groupBox3.Controls.Add(this.fileTextBox);
+			this.groupBox3.Controls.Add(this.chooseFileButton);
+			this.groupBox3.Dock = DockStyle.Fill;
+			this.groupBox3.Location = new Point(3, 3);
+			this.groupBox3.Name = "groupBox3";
+			this.groupBox3.Size = new Size(1125, 186);
+			this.groupBox3.TabIndex = 4;
+			this.groupBox3.TabStop = false;
+			this.groupBox3.Text = "Controls";
+			// 
+			// colorSchemeButton
+			// 
+			this.colorSchemeButton.Location = new Point(960, 32);
+			this.colorSchemeButton.Margin = new Padding(4, 5, 4, 5);
+			this.colorSchemeButton.Name = "colorSchemeButton";
+			this.colorSchemeButton.Size = new Size(159, 38);
+			this.colorSchemeButton.TabIndex = 11;
+			this.colorSchemeButton.Text = "Color Scheme";
+			this.colorSchemeButton.UseVisualStyleBackColor = true;
+			this.colorSchemeButton.Click += ColorSchemeButton_Click;
+			// 
+			// runFromStartButton
+			// 
+			this.runFromStartButton.Location = new Point(7, 80);
+			this.runFromStartButton.Margin = new Padding(4, 5, 4, 5);
+			this.runFromStartButton.Name = "runFromStartButton";
+			this.runFromStartButton.Size = new Size(227, 38);
+			this.runFromStartButton.TabIndex = 10;
+			this.runFromStartButton.Text = "Run From Start";
+			this.runFromStartButton.UseVisualStyleBackColor = true;
+			this.runFromStartButton.Click += RunFromStartButton_Click;
+			// 
+			// resetButton
+			// 
+			this.resetButton.Location = new Point(241, 127);
+			this.resetButton.Margin = new Padding(4, 5, 4, 5);
+			this.resetButton.Name = "resetButton";
+			this.resetButton.Size = new Size(107, 38);
+			this.resetButton.TabIndex = 9;
+			this.resetButton.Text = "Reset";
+			this.resetButton.UseVisualStyleBackColor = true;
+			this.resetButton.Click += ResetButton_Click;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Font = new Font("Segoe UI", 12F);
+			this.label1.Location = new Point(911, 88);
+			this.label1.Margin = new Padding(4, 0, 4, 0);
+			this.label1.Name = "label1";
+			this.label1.Size = new Size(213, 32);
+			this.label1.TabIndex = 8;
+			this.label1.Text = "Accumulator Value";
+			// 
+			// accumulatorTextBox
+			// 
+			this.accumulatorTextBox.Location = new Point(897, 128);
+			this.accumulatorTextBox.Margin = new Padding(4, 5, 4, 5);
+			this.accumulatorTextBox.Name = "accumulatorTextBox";
+			this.accumulatorTextBox.Size = new Size(221, 31);
+			this.accumulatorTextBox.TabIndex = 7;
+			this.accumulatorTextBox.KeyDown += AccumulatorTextBox_KeyDown;
+			// 
+			// stepButton
+			// 
+			this.stepButton.Location = new Point(123, 127);
+			this.stepButton.Name = "stepButton";
+			this.stepButton.Size = new Size(111, 38);
+			this.stepButton.TabIndex = 6;
+			this.stepButton.Text = "Step";
+			this.stepButton.UseVisualStyleBackColor = true;
+			this.stepButton.Click += StepButton_Click;
+			// 
+			// runButton
+			// 
+			this.runButton.Location = new Point(7, 128);
+			this.runButton.Name = "runButton";
+			this.runButton.Size = new Size(111, 38);
+			this.runButton.TabIndex = 5;
+			this.runButton.Text = "Run";
+			this.runButton.UseVisualStyleBackColor = true;
+			this.runButton.Click += RunButton_Click;
+			// 
+			// reloadFileButton
+			// 
+			this.reloadFileButton.Location = new Point(409, 33);
+			this.reloadFileButton.Name = "reloadFileButton";
+			this.reloadFileButton.Size = new Size(111, 38);
+			this.reloadFileButton.TabIndex = 4;
+			this.reloadFileButton.Text = "Reload";
+			this.reloadFileButton.UseVisualStyleBackColor = true;
+			this.reloadFileButton.Click += LoadFileButton_Click;
+			// 
+			// fileTextBox
+			// 
+			this.fileTextBox.Location = new Point(7, 33);
+			this.fileTextBox.Name = "fileTextBox";
+			this.fileTextBox.Size = new Size(277, 31);
+			this.fileTextBox.TabIndex = 2;
+			this.fileTextBox.Text = "Please Choose A FIle";
+			// 
+			// chooseFileButton
+			// 
+			this.chooseFileButton.Location = new Point(291, 33);
+			this.chooseFileButton.Name = "chooseFileButton";
+			this.chooseFileButton.Size = new Size(111, 38);
+			this.chooseFileButton.TabIndex = 3;
+			this.chooseFileButton.Text = "Choose File";
+			this.chooseFileButton.UseVisualStyleBackColor = true;
+			this.chooseFileButton.Click += ChooseFile_Click;
+			// 
+			// groupBox4
+			// 
+			this.groupBox4.Controls.Add(this.programOutputBox);
+			this.groupBox4.Dock = DockStyle.Fill;
+			this.groupBox4.Location = new Point(4, 651);
+			this.groupBox4.Margin = new Padding(4, 5, 4, 5);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Padding = new Padding(4, 5, 4, 5);
+			this.groupBox4.Size = new Size(1123, 285);
+			this.groupBox4.TabIndex = 5;
+			this.groupBox4.TabStop = false;
+			this.groupBox4.Text = "Program Output";
+			// 
+			// programOutputBox
+			// 
+			this.programOutputBox.Dock = DockStyle.Fill;
+			this.programOutputBox.Location = new Point(4, 29);
+			this.programOutputBox.Margin = new Padding(4, 5, 4, 5);
+			this.programOutputBox.Name = "programOutputBox";
+			this.programOutputBox.ReadOnly = true;
+			this.programOutputBox.Size = new Size(1115, 251);
+			this.programOutputBox.TabIndex = 0;
+			this.programOutputBox.Text = "";
+			// 
+			// openFileDialog
+			// 
+			this.openFileDialog.FileName = "openFileDialog";
+			// 
+			// saveAsButton
+			// 
+			this.saveAsButton.Location = new Point(841, 33);
+			this.saveAsButton.Name = "saveAsButton";
+			this.saveAsButton.Size = new Size(112, 34);
+			this.saveAsButton.TabIndex = 12;
+			this.saveAsButton.Text = "Save As";
+			this.saveAsButton.UseVisualStyleBackColor = true;
+			saveAsButton.Click += SaveAsButton_Click;
+			// 
 			// FormBasicML
 			// 
 			AutoScaleDimensions = new SizeF(10F, 25F);
@@ -276,6 +388,7 @@
 			((System.ComponentModel.ISupportInitialize)this.memoryGrid).EndInit();
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
+			this.groupBox4.ResumeLayout(false);
 			ResumeLayout(false);
 		}
 
@@ -286,18 +399,26 @@
         private GroupBox groupBox2;
 		private GroupBox groupBox3;
 		private TextBox fileTextBox;
-		private Button chooseFile;
+		private Button chooseFileButton;
 		private OpenFileDialog openFileDialog;
 		private Button stepButton;
 		private Button runButton;
-		private Button loadFileButton;
+		private Button reloadFileButton;
 		private DataGridView memoryGrid;
 		private RichTextBox loggingBox;
+		private Label label1;
+		private TextBox accumulatorTextBox;
+		private Button resetButton;
+		private Button runFromStartButton;
+		private GroupBox groupBox4;
+		private RichTextBox programOutputBox;
+		private Button colorSchemeButton;
 		private DataGridViewTextBoxColumn memoryIndexColumn;
 		private DataGridViewTextBoxColumn memoryContentsColumn;
 		private DataGridViewImageColumn startPointColumn;
 		private DataGridViewImageColumn breakPointColumn;
 		private DataGridViewImageColumn memoryAddColumn;
 		private DataGridViewImageColumn memoryRemoveColumn;
+		private Button saveAsButton;
 	}
 }

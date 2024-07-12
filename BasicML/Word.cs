@@ -26,7 +26,7 @@ namespace BasicML
 			get { return _rawValue; }
 			set 
 			{
-				if ((value > 9999) || (value < -9999))
+				while ((value > 9999) || (value < -9999))
 				{
 					Logging.LogLine("Overflow occured. Truncating word value");
 					value %= 10000;
@@ -121,6 +121,9 @@ namespace BasicML
 			return success;
 		}
 
+		// This returns a bool signifying whether or not a string value can be cleanly parsed to a word. It also has the option of additionally returning the parsed word as an out variable
+		public static bool TryParse(string s) { return TryParse(s, out Word word); }
+
 
 		// Returns the words value in a string format
 		public string ToString(bool includePositiveOperand = false)
@@ -143,10 +146,10 @@ namespace BasicML
 		public static Word operator /(Word a, Word b) { return new Word(a.RawValue / b.RawValue); }     // Defines how a division operator should be applied when used with two words
 
 		public static bool operator ==(Word a, Word b) { return a.RawValue == b.RawValue; }             // Defines how an equality operator should be applied when used with two words
-		public static bool operator !=(Word a, Word b) { return a.RawValue == b.RawValue; }             // Defines how an inequality operator should be applied when used with two words
+		public static bool operator !=(Word a, Word b) { return a.RawValue != b.RawValue; }             // Defines how an inequality operator should be applied when used with two words
 
 		public static bool operator ==(Word a, int i) { return a.RawValue == i; }                       // Defines how an equality operator should be applied when used with a word and an int
-		public static bool operator !=(Word a, int i) { return a.RawValue == i; }                       // Defines how an inequality operator should be applied when used with a word and an int
+		public static bool operator !=(Word a, int i) { return a.RawValue != i; }                       // Defines how an inequality operator should be applied when used with a word and an int
 
 		public static implicit operator Word(int i) => new(i);                                          // Allows implicit conversion to a Word from an int
 		public static implicit operator Word(string s) => new(s);                                       // Allows implicit conversion to a Word from a string

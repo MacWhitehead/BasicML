@@ -9,40 +9,30 @@ namespace BasicML
 	//  This class is used to simulate the CPU
 	public static class Cpu
 	{
-		/* - - - - - - - - - - Variables - - - - - - - - - - */
+		/* - - - - - - - - - - Variables! - - - - - - - - - - */
 
 		// Private variables
-		private static int _memoryAddress = 0;											// The memory address of the next instruction to be executed
-		private static bool _executing = false;                                        // Whether or not the CPU is currently excecuting
+		private static int _memoryAddress = 0;				// The memory address of the next instruction to be executed
+		private static bool _executing = false;				// Whether or not the CPU is currently excecuting
 
 
 
 		/* - - - - - - - - - - Properties - - - - - - - - - - */
+
 		public static bool Executing { get { return _executing; } set { _executing = value; } }
 
 
 		// Property for getting and setting the memory address
 		public static int MemoryAddress
 		{
-			get
-			{
-				return _memoryAddress;
-			}
+			get { return _memoryAddress; }
 
 			// The setter has error checking bulit in, so that the memory address cannot be set to an invalid location
 			set
 			{
-				if ((value < 0) || (value > Memory.TotalSize))
-				{
-					// Sets the memory address to 0 if an invalid index is given
-					Memory._log += "Invalid Index\n";
-					_memoryAddress = -1;
-					//throw new IndexOutOfRangeException();
-				}
-				else
-				{
-					_memoryAddress = value;
-				}
+				// Sets the memory address to -1 if an invalid index is given
+				if ((value < 0) || (value > Memory.MAX_SIZE)) { _memoryAddress = -1; }
+				else { _memoryAddress = value; }
 			}
 		}
 
@@ -56,19 +46,17 @@ namespace BasicML
 		public static InstructionType CurrentInstructionType { get { return CurrentWord.GetInstructionType(); } }       // Gets the operand from the word at the current memory address
 
 
+
 		/* - - - - - - - - - - Excecution - - - - - - - - - - */
 
 		// Starts excecuting instructions until the cpu is halted or runs into an error
 		public static void StartExecution()
 		{
 			// Resets the memory address location if it is invalid
-			if ((_memoryAddress < 0) || (_memoryAddress >= Memory.TotalSize))
-			{
-				MemoryAddress = 0;
-			}
+			if ((_memoryAddress < 0) || (_memoryAddress >= Memory.MAX_SIZE)) { MemoryAddress = 0; }
 
 			Logging.LogLine("Starting Excecution");
-			Logging.LogLine("Memory Size: " + Memory.TotalSize.ToString());
+			//Logging.LogLine("Memory Size: " + Memory.MAX_SIZE.ToString());
 			_executing = true;
 
 			// Excecutes until told to stop
@@ -83,6 +71,7 @@ namespace BasicML
 				}
 			}
 		}
+
 
 		// Excecutes a single instruction, then stops
 		public static void StepExecution()
@@ -103,6 +92,7 @@ namespace BasicML
 			}
 		}
 
+
 		// Stops the cpu from excecuting further instructions
 		public static void StopExecution() 
 		{ 
@@ -110,11 +100,13 @@ namespace BasicML
 			Logging.LogLine("Excecution Halted");
 		}
 
+
 		// Moves the memory address the cpu is pointing to forward 1
 		private static void StepMemoryAddresss() 
 		{
 			_memoryAddress++;
 		}
+
 
 		// Executes the instruction at the current memory address
 		public static void Execute()
@@ -164,6 +156,8 @@ namespace BasicML
 			}
 		}
 
+
+		// Returns a string with log information about the current instuction's excecution
 		public static string ExcecutionLog()
 		{
 			switch (CurrentWord.GetInstructionType())

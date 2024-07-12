@@ -34,17 +34,14 @@ namespace BasicML
         // Write to screen from memory
         public static bool Write(int location)
 		{
-			if (location < Memory.TotalSize)
-			{
-                Logging.LogLine($"Value at location {location}: {Memory.ElementAt(location).ToString()}");
-				return true;
-            }
-				
-			else
-			{
-				Logging.LogLine($"Location {location} is empty.");
-				return false;
-            }
+			if ((location < 0) || (location >= Memory.MAX_SIZE)) { return false; }
+
+			bool returnValue = location < Memory.Count;
+
+            Logging.LogLine($"Value at location {location}: {Memory.ElementAt(location).ToString()}", Logging.LoggingDestination.ProgramOutput);
+
+			return returnValue;
+
 
 		}
 

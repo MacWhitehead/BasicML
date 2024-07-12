@@ -2,10 +2,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BasicML;
 using Microsoft.VisualStudio.TestPlatform.Utilities;
 
-namespace Unittest_IOLoadSave
+namespace UnitTests_IO
 {
 	[TestClass]
-	public class UnitTest1
+	public class UnitTestIO
 	{
 		// READ
 
