@@ -47,13 +47,7 @@ namespace BasicML
 		{
 			List<int> fileContent = ReadFile(filePath, verbose);
 
-			Memory.Clear();
-
-			foreach (int word in fileContent)
-			{
-				Memory.Add(word);
-
-			}
+			Memory.InitMemory(fileContent.ToArray());
 		}
 	}
 }

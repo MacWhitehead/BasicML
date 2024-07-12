@@ -34,6 +34,9 @@ BRANCHNEG = 41 Branch to a specific location in memory if the accumulator is neg
 BRANCHZERO = 42 Branch to a specific location in memory if the accumulator is zero.
 HALT = 43 Stop the program
 
+## Installation:
+Download the program from the Releases tab and unzip it to the location of your choice. Run BasicML.exe from the folder.
+
 ## Instructions:
 1. Upload the text file to the program through the 'Load' option.
 2. Save the test file with this name in this location: C:\Users\<username>\Source\Repos\BasicML\BasicML\bin\Debug\net8.0-windows\Test2.txt

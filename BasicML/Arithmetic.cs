@@ -10,20 +10,17 @@ namespace BasicML
 	{
 		public static void Add(int address)
 		{
-			if (address < 0 || address > Memory.TotalSize)
+			if (address < 0 || address > Memory.MAX_SIZE)
 			{
 				throw new ArgumentOutOfRangeException("Address out of range");
 			}
 
-			int a = Accumulator._registerContent.RawValue;
-			int b = Memory.ElementAt(address).RawValue;
-
-			Accumulator._registerContent = a + b;
+			Accumulator._registerContent += Memory.ElementAt(address);
 		}
 
 		public static void Subtract(int address)
 		{
-			if (address < 0 || address > Memory.TotalSize)
+			if (address < 0 || address > Memory.MAX_SIZE)
 			{
 				throw new ArgumentOutOfRangeException("Address out of range");
 			}
@@ -32,7 +29,7 @@ namespace BasicML
 
 		public static void Divide(int address)
 		{
-			if (address < 0 || address > Memory.TotalSize)
+			if (address < 0 || address > Memory.MAX_SIZE)
 			{
 				throw new ArgumentOutOfRangeException("Address out of range");
 			}
@@ -41,7 +38,7 @@ namespace BasicML
 
 		public static void Multiply(int address)
 		{
-			if (address < 0 || address > Memory.TotalSize)
+			if (address < 0 || address > Memory.MAX_SIZE)
 			{
 				throw new ArgumentOutOfRangeException("Address out of range");
 			}
