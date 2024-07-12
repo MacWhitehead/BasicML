@@ -141,6 +141,27 @@ namespace BasicML
 				// If the mouse is over a valid row, start the drag-and-drop operation.
 				memoryGrid.DoDragDrop(memoryGrid.Rows, DragDropEffects.Move);
 			}
+			if (e.ColumnIndex == 1) 
+			{
+				List<int> selectedRows = new();
+
+				foreach (DataGridViewCell cell in memoryGrid.SelectedCells)
+				{
+					if (cell.ColumnIndex == 1)
+					{
+						selectedRows.Add (cell.RowIndex);
+					}
+				}
+
+				if (selectedRows.Contains(e.RowIndex))
+				{
+					memoryGrid.BeginEdit(true);
+				}
+				else
+				{
+					memoryGrid.BeginEdit(false);
+				}
+			}
 			else if (e.ColumnIndex == 2) 
 			{
 				Cpu.MemoryAddress = e.RowIndex;
