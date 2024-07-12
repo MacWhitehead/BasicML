@@ -8,7 +8,6 @@ namespace BasicML
 {
     internal static class FileWriter
     {
-        // Reads a file matching the format of the "Test1.txt" and "Test2.txt" files provided on the "Group Project Milestone 2" page
         public static void WriteMemoryToFile(string filePath)
         {
             var lines = new List<string>();
