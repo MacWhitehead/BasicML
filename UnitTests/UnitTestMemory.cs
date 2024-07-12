@@ -65,8 +65,8 @@ namespace UnitTests_Memory
 			// Assert
 			for (int i = 0; i < programLengthLessThan5.Length; i++)
             {
-                Assert.AreEqual(00, Memory.ElementAt(i).Instruction);
-                Assert.AreEqual(00, Memory.ElementAt(i).Operand);
+                Assert.AreEqual(int.Parse(programLengthLessThan5[i].Substring(1, 1)), Memory.ElementAt(i).Instruction);
+                Assert.AreEqual(int.Parse(programLengthLessThan5[i].Substring(2, 2)), Memory.ElementAt(i).Operand);
             }
 
             Assert.IsTrue(Memory.Log != "");
