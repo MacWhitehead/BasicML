@@ -18,8 +18,9 @@ namespace BasicML
 			{
 				runButton.Visible = true;
 				stepButton.Visible = true;
+                saveAsButton.Visible = true;
 
-				if (Cpu.MemoryAddress != 0) { runFromStartButton.Visible = true; }
+                if (Cpu.MemoryAddress != 0) { runFromStartButton.Visible = true; }
 				else { runFromStartButton.Visible = false; }
 
 				if ((Cpu.MemoryAddress != 0) || (Accumulator._registerContent != 0)) { resetButton.Visible = true; }
@@ -31,6 +32,7 @@ namespace BasicML
 				stepButton.Visible = false;
 				resetButton.Visible = false;
 				runFromStartButton.Visible = false;
+				saveAsButton.Visible = false;
 			}
 
 			if (fileLoaded) { reloadFileButton.Visible = true; }
@@ -57,9 +59,14 @@ namespace BasicML
 			RefreshMemory();
 		}
 
+        private void SaveAsButton_Click(object sender, EventArgs e)
+        {
+			SaveFile();
+        }
 
-		// Runs when the "Run" button is clicked
-		private void RunButton_Click(object sender, EventArgs e)
+
+        // Runs when the "Run" button is clicked
+        private void RunButton_Click(object sender, EventArgs e)
 		{
 			Cpu.StartExecution();
 			RefreshMemory();
@@ -119,5 +126,5 @@ namespace BasicML
 
 			// re-create window with the desired new colors
 		}
-	}
+    }
 }

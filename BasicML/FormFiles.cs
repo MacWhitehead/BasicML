@@ -52,5 +52,30 @@ namespace BasicML
 
 			Cpu.MemoryAddress = 0;
 		}
-	}
+
+        // Save the memory to file
+        private void SaveFile()
+        {
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
+                saveFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                saveFileDialog.FilterIndex = 1;
+                saveFileDialog.RestoreDirectory = true;
+
+                var result = saveFileDialog.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    try { FileWriter.WriteMemoryToFile(saveFileDialog.FileName); }
+                    catch { Logging.Log("Could not save file"); }
+                    Logging.LogLine("File Saved");
+                }
+                else
+                {
+                    Logging.LogLine("Error Saving File (" + result.ToString() + ")");
+                }
+            }
+        }
+    }
 }
