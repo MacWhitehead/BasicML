@@ -21,7 +21,7 @@ namespace BasicML
             base.Dispose(disposing);
         }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
 		/// <summary>
 		///  Required method for Designer support - do not modify
@@ -378,11 +378,22 @@ namespace BasicML
 			groupBox3.PerformLayout();
 			groupBox4.ResumeLayout(false);
 			ResumeLayout(false);
-		}
+            // 
+            // saveAsButton
+            // 
+            saveAsButton.Location = new Point(368, 20);
+            saveAsButton.Margin = new Padding(2);
+            saveAsButton.Name = "saveAsButton";
+            saveAsButton.Size = new Size(78, 23);
+            saveAsButton.TabIndex = 13;
+            saveAsButton.Text = "Save As...";
+            saveAsButton.Click += SaveAsButton_Click;
+            saveAsButton.UseVisualStyleBackColor = true;
+        }
 
-		#endregion
+        #endregion
 
-		private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel tableLayoutPanel1;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
 		private GroupBox groupBox3;
@@ -407,5 +418,6 @@ namespace BasicML
 		private DataGridViewImageColumn breakPointColumn;
 		private DataGridViewImageColumn memoryAddColumn;
 		private DataGridViewImageColumn memoryRemoveColumn;
-	}
+        private Button saveAsButton;
+    }
 }

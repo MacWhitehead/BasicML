@@ -38,6 +38,14 @@ namespace BasicML
             }
         }
 
+		public static List<Word> memory
+		{
+			get
+			{
+				return wordList;
+			}
+		}
+
 
 	    // Returns the Word stored at the given index
 	    public static Word ElementAt(int index)
