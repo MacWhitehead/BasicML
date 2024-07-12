@@ -98,6 +98,11 @@ namespace BasicML
 			// Will not add if index is out of range
 			if (index < 0) { return; }
 
+			
+			Add(0);
+
+			while (Count <= index) { Add(0); }
+
 			for (int i = Count - 1; i > index; i--) { wordList[i] = wordList[i - 1]; }
 
 			wordList[index] = word;
@@ -107,7 +112,7 @@ namespace BasicML
         // Removes a word at a given index
         public static void RemoveAt(int index)
         {
-			for (int i = index; i < Count; i++) { wordList[i] = wordList[i + 1]; }
+			wordList.RemoveAt(index);
 		}
 
 

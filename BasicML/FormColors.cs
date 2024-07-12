@@ -43,6 +43,7 @@ namespace BasicML
 			runFromStartButton.BackColor = color;
 			stepButton.BackColor = color;
 			resetButton.BackColor = color;
+			colorSchemeButton.BackColor = color;
 		}
 
 
