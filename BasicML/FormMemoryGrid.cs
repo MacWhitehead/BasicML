@@ -123,8 +123,6 @@ namespace BasicML
 			lastRemoveCell.Value = BLANK_IMAGE;
 		}
 
-
-
 		/* - - - - - - - - - - Event Functions - - - - - - - - - - */
 
 		// Runs when the mouse clicks a cell in the memoryGrid
@@ -140,27 +138,6 @@ namespace BasicML
 				dragging = true;
 				// If the mouse is over a valid row, start the drag-and-drop operation.
 				memoryGrid.DoDragDrop(memoryGrid.Rows, DragDropEffects.Move);
-			}
-			if (e.ColumnIndex == 1) 
-			{
-				List<int> selectedRows = new();
-
-				foreach (DataGridViewCell cell in memoryGrid.SelectedCells)
-				{
-					if (cell.ColumnIndex == 1)
-					{
-						selectedRows.Add (cell.RowIndex);
-					}
-				}
-
-				if (selectedRows.Contains(e.RowIndex))
-				{
-					memoryGrid.BeginEdit(true);
-				}
-				else
-				{
-					memoryGrid.BeginEdit(false);
-				}
 			}
 			else if (e.ColumnIndex == 2) 
 			{
@@ -182,8 +159,11 @@ namespace BasicML
 				Memory.RemoveAt(e.RowIndex);
 				RefreshMemory();
 			}
+		}
 
-			// Refreshes the display so that the action's result is shown
+		private void MemoryGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.ColumnIndex == 1) { memoryGrid.BeginEdit(true); }
 		}
 
 
@@ -297,21 +277,19 @@ namespace BasicML
 
 			SortedDictionary<int, Word> selectedRows = new();
 
-			Logging.Log("Selected Rows: ");
-
 			foreach (DataGridViewCell cell in memoryGrid.SelectedCells)
 			{
 				int row = cell.RowIndex;
 
 				if (!selectedRows.ContainsKey(row))
 				{
-					Logging.Log(row.ToString() + " ");
 					selectedRows.Add(row, Memory.ElementAt(row));
 				}
 			}
-			Logging.Log("\n");
 
 			int rowCount = selectedRows.Count;
+
+			if (rowCount <= 0) { return; }
 
 			// Move the row.
 			if (e.Effect == DragDropEffects.Move)
@@ -337,6 +315,38 @@ namespace BasicML
 
 				MemoryGrid_Refresh(false);
 			}
+		}
+
+		// Runs when enter is pressed in the accumulator text box
+		private void MemoryGrid_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Control && e.KeyCode == Keys.V)
+			{
+				PasteClipboardValue();
+				e.Handled = true;
+			}
+		}
+
+		private void PasteClipboardValue()
+		{
+			if (!Clipboard.ContainsText()) { return; }
+
+			string[] clipboardContents = Clipboard.GetText().Split('\n');
+
+			List<DataGridViewCell> selectedCells = memoryGrid.SelectedCells.OfType<DataGridViewCell>().ToList();
+
+			selectedCells.Sort((cell1, cell2) => cell1.RowIndex.CompareTo(cell2.RowIndex));
+
+			int i = 0;
+
+			foreach (DataGridViewCell cell in selectedCells)
+			{
+				Memory.SetElement(cell.RowIndex, clipboardContents[i]);
+				i++;
+
+				if (i == clipboardContents.Length) { i = 0; }
+			}
+			MemoryGrid_Refresh(false);
 		}
 	}
 }

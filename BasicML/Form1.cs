@@ -17,7 +17,7 @@ namespace BasicML
 		/* - - - - - - - - - - Variables! - - - - - - - - - - */
 
 		// These are used to access the form's controls from other classes
-		public static RichTextBox? _formLoggingBox;				// The box labeled "Log" in the form
+		public static RichTextBox? _formLoggingBox;             // The box labeled "Log" in the form
 		public static RichTextBox? _formProgramOutputBox;       // The box labeled "ProgramOutput" in the form
 
 
@@ -68,8 +68,8 @@ namespace BasicML
 			if (e.KeyCode == Keys.Enter)
 			{
 				Accumulator._registerContent = accumulatorTextBox.Text;
-				RefreshMemory();
 			}
 		}
+
 	}
 }
