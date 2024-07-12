@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BasicML
 {
@@ -41,22 +43,48 @@ namespace BasicML
 		// Updates the memory grid's display so it shows the current state of the memory
 		private void MemoryGrid_Refresh(bool repopulateCells = true)
 		{
-			// Deselets any selected cells
+			// Deselects any selected cells
 			memoryGrid.ClearSelection();
 
 			// Repopulates the memory grid if needed
-			if (repopulateCells)
-			{
-				memoryGrid.Rows.Clear();
-				for (int i = 0; i < Memory.Count; i++) { memoryGrid.Rows.Add(); }
-			}
+			if (repopulateCells) { memoryGrid.Rows.Clear(); }
+
+			while(memoryGrid.Rows.Count <= Memory.Count) { memoryGrid.Rows.Add(); }
+
+			// Updates the values of the memory grid
+			MemoryGrid_RefreshValues();
+
+			// Sets the icons that are displayed
+			MemoryGrid_SetIcons();
+		}
 
 
+		private void Memory_Grid_Repopulate()
+		{
+			memoryGrid.Rows.Clear();
+			for (int i = 0; i < Memory.Count; i++) { memoryGrid.Rows.Add(); }
+		}
+
+
+		// Refreshes the word values that are displayed
+		private void MemoryGrid_RefreshValues()
+		{
 			// Updates the values of the memory grid
 			for (int i = 0; i < Memory.Count; i++)
 			{
 				memoryGrid.Rows[i].Cells[0].Value = i.ToString();
 				memoryGrid.Rows[i].Cells[1].Value = Memory.ElementAt(i).ToString(true);
+			}
+		}
+
+
+		// Sets the icons that should be displayed in the memory grid
+		private void MemoryGrid_SetIcons()
+		{
+
+			// Updates the icons for the breakpoints
+			for (int i = 0; i < Memory.Count; i++)
+			{
 				if (Memory.ElementAt(i)._isBreakpoint)
 				{
 					DataGridViewImageCell cell = (DataGridViewImageCell)memoryGrid.Rows[i].Cells[3];
@@ -64,6 +92,7 @@ namespace BasicML
 					cell.Value = BREAK_POINT_ICON;
 				}
 			}
+
 
 			// Updates the StartPoint icon location
 			if (Memory.Count >= Cpu.MemoryAddress)
@@ -99,20 +128,41 @@ namespace BasicML
 		/* - - - - - - - - - - Event Functions - - - - - - - - - - */
 
 		// Runs when the mouse clicks a cell in the memoryGrid
-		private void MemoryGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+		private void MemoryGrid_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
 			// Returns early if the cell is out of bounds
 			if ((e.RowIndex < 0) || (e.RowIndex >= memoryGrid.Rows.Count)) { return; }
 			if ((e.ColumnIndex < 0) || (e.ColumnIndex >= memoryGrid.Columns.Count)) { return; }
 
 			// Preforms the action that corresponds to the cell that was clicked
-			if (e.ColumnIndex == 2) { Cpu.MemoryAddress = e.RowIndex; }
-			else if (e.ColumnIndex == 3) { Memory.ElementAt(e.RowIndex)._isBreakpoint = !Memory.ElementAt(e.RowIndex)._isBreakpoint; }
-			else if (e.ColumnIndex == 4) { Memory.AddAt(e.RowIndex, 0000); }
-			else if ((e.ColumnIndex == 5) && (e.RowIndex < memoryGrid.Rows.Count - 1)) { Memory.RemoveAt(e.RowIndex); }
+			if (e.ColumnIndex == 0)
+			{
+				dragging = true;
+				// If the mouse is over a valid row, start the drag-and-drop operation.
+				memoryGrid.DoDragDrop(memoryGrid.Rows, DragDropEffects.Move);
+			}
+			else if (e.ColumnIndex == 2) 
+			{
+				Cpu.MemoryAddress = e.RowIndex;
+				RefreshMemory();
+			}
+			else if (e.ColumnIndex == 3) 
+			{
+				Memory.ElementAt(e.RowIndex)._isBreakpoint = !Memory.ElementAt(e.RowIndex)._isBreakpoint;
+				RefreshMemory();
+			}
+			else if (e.ColumnIndex == 4) 
+			{
+				Memory.AddAt(e.RowIndex, 0000);
+				RefreshMemory();
+			}
+			else if ((e.ColumnIndex == 5) && (e.RowIndex < memoryGrid.Rows.Count - 1)) 
+			{
+				Memory.RemoveAt(e.RowIndex);
+				RefreshMemory();
+			}
 
 			// Refreshes the display so that the action's result is shown
-			RefreshMemory();
 		}
 
 
@@ -190,6 +240,81 @@ namespace BasicML
 
 					RefreshMemory(false);
 				}
+			}
+		}
+
+		private bool dragging = false;
+
+		private void MemoryGrid_MouseMove(object sender, MouseEventArgs e)
+		{
+			if (dragging)
+			{
+				if ((e.Button & MouseButtons.Left) == MouseButtons.Left)
+				{
+					memoryGrid.DoDragDrop(memoryGrid.Rows, DragDropEffects.Move);
+				}
+			}	
+		}
+
+		private void MemoryGrid_DragOver(object sender, DragEventArgs e)
+		{
+			e.Effect = DragDropEffects.Move;
+		}
+
+		private void MemoryGrid_DragDrop(object sender, DragEventArgs e)
+		{
+			dragging = false;
+
+			// The mouse locations are relative to the screen, so they must be converted to client coordinates
+			Point clientPoint = memoryGrid.PointToClient(new Point(e.X, e.Y));
+
+			// Get the row index of the item the mouse is below
+			int rowIndexOfItemUnderMouseToDrop = memoryGrid.HitTest(clientPoint.X, clientPoint.Y).RowIndex;
+
+			// If the drag operation is not within a valid row, return
+			if (rowIndexOfItemUnderMouseToDrop == -1) { return; }
+
+			SortedDictionary<int, Word> selectedRows = new();
+
+			Logging.Log("Selected Rows: ");
+
+			foreach (DataGridViewCell cell in memoryGrid.SelectedCells)
+			{
+				int row = cell.RowIndex;
+
+				if (!selectedRows.ContainsKey(row))
+				{
+					Logging.Log(row.ToString() + " ");
+					selectedRows.Add(row, Memory.ElementAt(row));
+				}
+			}
+			Logging.Log("\n");
+
+			int rowCount = selectedRows.Count;
+
+			// Move the row.
+			if (e.Effect == DragDropEffects.Move)
+			{
+				for (int i = 0; i < rowCount; i++)
+				{
+					Memory.RemoveAt(selectedRows.First().Key);
+				}
+
+				if (selectedRows.First().Key < rowIndexOfItemUnderMouseToDrop) { rowIndexOfItemUnderMouseToDrop -= rowCount; }
+
+				foreach (KeyValuePair<int, Word> row in selectedRows)
+				{
+					Memory.AddAt(rowIndexOfItemUnderMouseToDrop, 0);
+				}
+
+				foreach (KeyValuePair<int, Word> row in selectedRows)
+				{
+					Memory.SetElement(rowIndexOfItemUnderMouseToDrop, row.Value);
+
+					rowIndexOfItemUnderMouseToDrop++;
+				}
+
+				MemoryGrid_Refresh(false);
 			}
 		}
 	}
