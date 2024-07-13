@@ -1,4 +1,4 @@
-# BasicML Program
+# BasicML Program (Group Project for UVU 2450)
 
 ## Summary:
 The BasicML program is a simple software that introduces computer architecture and the underlying functions to interested computer science students, professors and hobbyists alike. The program allows you to send inputs and watch how they move around in memory to achieve a desired output. The memory will open up with 100 addresses minimum to prevent overloading.
@@ -37,12 +37,24 @@ HALT = 43 Stop the program
 ## Installation:
 Download the program from the Releases tab and unzip it to the location of your choice. Run BasicML.exe from the folder.
 
-## Instructions:
+## Instructions on starting program:
 1. Upload the text file to the program through the 'Load' option.
-2. Save the test file with this name in this location: C:\Users\<username>\Source\Repos\BasicML\BasicML\bin\Debug\net8.0-windows\Test2.txt
-3. Click on either Run or Step button
+   After uploading, the 'Run' and 'Stop' options will appear.
+3. Save the test file with this name in this location: C:\Users\<username>\Source\Repos\BasicML\BasicML\bin\Debug\net8.0-windows\Test2.txt
+4. Click on either Run or Step button
     - Run will run the program without breakpoints unless the user toggles a breakpoint at some point.
-    - Step will run the program step by step. User can keep pressing the step button to continue the program
-4. The user will see the memory contents and can add a line or delete a line if needed
-5. The user can also see a log that will display errors or processes during the run.
-6. Upload a new text file to start a new program.
+    - Step will run the program step by step. User can keep pressing the step button to continue the program.
+5. The user will see the memory contents and can add a line or delete a line if needed.
+    - Break will set a dot at the line and tells the program to stop at that line when running. This allows the user to see what is happening at that moment
+    - CPU sets the pointer for the CPU at that line to start running the program from.
+    - Add will add an extra register before the line clicked on. Ex: Adding on register 3 will add a new register to the spot '3', making the old register 3 to be register 4
+6. The user can also see a log that will display errors or processes during the run.
+7. Click on 'Save As' to save your contents within a directory of your choice
+8. Upload a new text file, then press 'Reload' to start a new program with the file.
+
+## Changing Color Scheme:
+1. Open up the BasicML program
+2. Click on the 'ColorScheme' button on the right hand side
+3. Type in a hexadecimal code for a color of your choice
+     - NOTE: The program requires you to write a '#' sign with 6 characters right after, otherwise an error comes up requiring you to input again.
+4. The program will change for the buttons and for the background color of the GUI.
