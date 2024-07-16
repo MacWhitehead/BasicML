@@ -70,6 +70,7 @@ namespace BasicML
 			if (e.KeyCode == Keys.Enter)
 			{
 				InstanceHandler.GetCpu(0).accumulator = accumulatorTextBox.Text;
+				accumulatorTextBox.Text = InstanceHandler.GetCpu(0).accumulator.ToString(true);
 			}
 		}
 
