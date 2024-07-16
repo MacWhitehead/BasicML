@@ -15,15 +15,15 @@ using System.Windows.Forms;
 namespace BasicML
 {
     // This class represents the memory for the BasicML simulator
-	public static class Memory
+	public class Memory
     {
-        public static string Log;                       // This is an internal log used for debugging
+		public string Log = "";                       // This is an internal log used for debugging
 
         public const int MAX_SIZE = 100;                // This is the maximum ammount of space that can be allocated
 
-        private static List<Word> wordList = new();     // This is where the underlying data is all stored
+        private List<Word> wordList = new();     // This is where the underlying data is all stored
 
-        public static int Count 
+        public int Count 
         { 
             get { return wordList.Count; }
             set 
@@ -38,7 +38,7 @@ namespace BasicML
             }
         }
 
-		public static List<Word> memory
+		public List<Word> memory
 		{
 			get
 			{
@@ -48,7 +48,7 @@ namespace BasicML
 
 
 	    // Returns the Word stored at the given index
-	    public static Word ElementAt(int index)
+	    public Word ElementAt(int index)
         {
 			if ((index >= MAX_SIZE) || (index < 0)) { return new Word(0); }
 
@@ -59,7 +59,7 @@ namespace BasicML
 
 
         // Sets the word at the chosen index
-        public static bool SetElement(int index, Word word)
+        public bool SetElement(int index, Word word)
         {
             if ((index >= MAX_SIZE) || (index < 0)) { return false; }
 
@@ -71,7 +71,7 @@ namespace BasicML
             return true;
 		}
 
-		public static bool SetElement(int index, string word)
+		public bool SetElement(int index, string word)
 		{
 			if ((index >= MAX_SIZE) || (index < 0)) { return false; }
 
@@ -88,7 +88,7 @@ namespace BasicML
 
 
 		// Adds a word to the end of the word list
-		public static void Add(Word word)
+		public void Add(Word word)
         {
             // Will not add if memory is full
             if (Count >= MAX_SIZE) { return; }
@@ -98,7 +98,7 @@ namespace BasicML
 
 
         // Inserts a word at the chosen index
-        public static void AddAt(int index, Word word)
+        public void AddAt(int index, Word word)
         {
 			// Will not add if memory is full
 			if (Count >= MAX_SIZE) { return; }
@@ -115,18 +115,18 @@ namespace BasicML
 
 
         // Removes a word at a given index
-        public static void RemoveAt(int index)
+        public void RemoveAt(int index)
         {
 			wordList.RemoveAt(index);
 		}
 
 
         // Clears the contents of the wordList
-        public static void Clear() { wordList.Clear(); }
+        public void Clear() { wordList.Clear(); }
 
 
 		// Initialize memory from an array
-		public static void InitMemory(params Word[] memoryContents)
+		public void InitMemory(params Word[] memoryContents)
 		{
             Clear();
             foreach (Word word in memoryContents) { Add(word); }
@@ -134,20 +134,20 @@ namespace BasicML
 
 
 		// Initialize memory from an array
-		public static void InitMemory(params int[] memoryContents)
+		public void InitMemory(params int[] memoryContents)
 		{
             InitMemory(Array.ConvertAll(memoryContents, item => (Word)item));
 		}
 
 		// Initialize memory from an array
-		public static void InitMemory(params string[] memoryContents)
+		public void InitMemory(params string[] memoryContents)
 		{
 			InitMemory(Array.ConvertAll(memoryContents, item => (Word)item));
 		}
 
 
 		// Initialize memory from text file
-		public static void InitMemory(string filePath)
+		public void InitMemory(string filePath)
         {
             int[] lines = FileReader.ReadFile(filePath).ToArray();
 			InitMemory(lines);

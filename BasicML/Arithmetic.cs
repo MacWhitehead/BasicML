@@ -6,43 +6,43 @@ using System.Threading.Tasks;
 
 namespace BasicML
 {
-	public class Arithmetic
+	public static class Arithmetic
 	{
-		public static void Add(int address)
+		public static void Add(this Cpu cpu, int address)
 		{
 			if (address < 0 || address > Memory.MAX_SIZE)
 			{
 				throw new ArgumentOutOfRangeException("Address out of range");
 			}
 
-			Accumulator._registerContent += Memory.ElementAt(address);
+			cpu.accumulator += cpu.memory.ElementAt(address);
 		}
 
-		public static void Subtract(int address)
+		public static void Subtract(this Cpu cpu, int address)
 		{
 			if (address < 0 || address > Memory.MAX_SIZE)
 			{
 				throw new ArgumentOutOfRangeException("Address out of range");
 			}
-			Accumulator._registerContent -= Memory.ElementAt(address);
+			cpu.accumulator -= cpu.memory.ElementAt(address);
 		}
 
-		public static void Divide(int address)
+		public static void Divide(this Cpu cpu, int address)
 		{
 			if (address < 0 || address > Memory.MAX_SIZE)
 			{
 				throw new ArgumentOutOfRangeException("Address out of range");
 			}
-			Accumulator._registerContent /= Memory.ElementAt(address);
+			cpu.accumulator /= cpu.memory.ElementAt(address);
 		}
 
-		public static void Multiply(int address)
+		public static void Multiply(this Cpu cpu, int address)
 		{
 			if (address < 0 || address > Memory.MAX_SIZE)
 			{
 				throw new ArgumentOutOfRangeException("Address out of range");
 			}
-			Accumulator._registerContent *= Memory.ElementAt(address);
+			cpu.accumulator *= cpu.memory.ElementAt(address);
 		}
 
 	}

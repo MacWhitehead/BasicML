@@ -30,6 +30,8 @@ namespace BasicML
             // Initializes the form
             InitializeComponent();
 
+            InstanceHandler.AddInstance();
+
             // Sets the variables for the logging objects
             _formLoggingBox = loggingBox;
             _formProgramOutputBox = programOutputBox;
@@ -55,7 +57,7 @@ namespace BasicML
 
             Buttons_Refresh();
 
-            accumulatorTextBox.Text = Accumulator._registerContent.ToString(true);
+            accumulatorTextBox.Text = InstanceHandler.GetCpu(0).accumulator.ToString(true);
         }
 
 
@@ -67,7 +69,7 @@ namespace BasicML
 		{
 			if (e.KeyCode == Keys.Enter)
 			{
-				Accumulator._registerContent = accumulatorTextBox.Text;
+				InstanceHandler.GetCpu(0).accumulator = accumulatorTextBox.Text;
 			}
 		}
 

@@ -44,13 +44,13 @@ namespace BasicML
 		// Loads the chosen file into memory
 		private void LoadFile()
 		{
-			try { FileReader.ReadFileToMemory(fileTextBox.Text, false); }
+			try { InstanceHandler.GetCpu(0).ReadFileToMemory(fileTextBox.Text, false); }
 			catch { Logging.Log("Could not read file"); }
 
 			// Resets the value in the accumulator
-			Accumulator._registerContent = 0;
+			InstanceHandler.GetCpu(0).accumulator = 0;
 
-			Cpu.MemoryAddress = 0;
+			InstanceHandler.GetCpu(0).MemoryAddress = 0;
 		}
 
         // Save the memory to file
@@ -67,7 +67,7 @@ namespace BasicML
 
                 if (result == DialogResult.OK)
                 {
-                    try { FileWriter.WriteMemoryToFile(saveFileDialog.FileName); }
+                    try { InstanceHandler.GetCpu(0).WriteMemoryToFile(saveFileDialog.FileName); }
                     catch { Logging.Log("Could not save file"); }
                     Logging.LogLine("File Saved");
                 }

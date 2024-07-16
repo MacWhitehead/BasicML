@@ -8,10 +8,10 @@ namespace BasicML
 {
     internal static class FileWriter
     {
-        public static void WriteMemoryToFile(string filePath)
+        public static void WriteMemoryToFile(this Cpu cpu, string filePath)
         {
             var lines = new List<string>();
-            Memory.memory.ForEach(memory =>
+            cpu.memory.memory.ForEach(memory =>
             {
                 lines.Add(memory.ToString(true));
             });

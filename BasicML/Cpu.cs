@@ -7,23 +7,26 @@ using System.Threading.Tasks;
 namespace BasicML
 {
 	//  This class is used to simulate the CPU
-	public static class Cpu
+	public class Cpu
 	{
 		/* - - - - - - - - - - Variables! - - - - - - - - - - */
 
 		// Private variables
-		private static int _memoryAddress = 0;				// The memory address of the next instruction to be executed
-		private static bool _executing = false;				// Whether or not the CPU is currently excecuting
+		private int _memoryAddress = 0;				// The memory address of the next instruction to be executed
+		private bool _executing = false;				// Whether or not the CPU is currently excecuting
+
+		public Memory memory = new();
+		public Word accumulator = new();
 
 
 
 		/* - - - - - - - - - - Properties - - - - - - - - - - */
 
-		public static bool Executing { get { return _executing; } set { _executing = value; } }
+		public bool Executing { get { return _executing; } set { _executing = value; } }
 
 
 		// Property for getting and setting the memory address
-		public static int MemoryAddress
+		public int MemoryAddress
 		{
 			get { return _memoryAddress; }
 
@@ -38,19 +41,19 @@ namespace BasicML
 
 
 		// Properties that are used as convient ways to refer to commonly used variables
-		public static Word CurrentWord { get { return Memory.ElementAt(_memoryAddress); } }		// Gets the word at the current memory address
-		public static int CurrentOperand { get { return CurrentWord.Operand; } }       // Gets the operand from the word at the current memory address
+		public Word CurrentWord { get { return memory.ElementAt(_memoryAddress); } }		// Gets the word at the current memory address
+		public int CurrentOperand { get { return CurrentWord.Operand; } }       // Gets the operand from the word at the current memory address
 
-		public static int CurrentInstruction { get { return CurrentWord.Instruction; } }       // Gets the operand from the word at the current memory address
+		public int CurrentInstruction { get { return CurrentWord.Instruction; } }       // Gets the operand from the word at the current memory address
 
-		public static InstructionType CurrentInstructionType { get { return CurrentWord.GetInstructionType(); } }       // Gets the operand from the word at the current memory address
+		public InstructionType CurrentInstructionType { get { return CurrentWord.GetInstructionType(); } }       // Gets the operand from the word at the current memory address
 
 
 
 		/* - - - - - - - - - - Excecution - - - - - - - - - - */
 
 		// Starts excecuting instructions until the cpu is halted or runs into an error
-		public static void StartExecution()
+		public void StartExecution()
 		{
 			// Resets the memory address location if it is invalid
 			if ((_memoryAddress < 0) || (_memoryAddress >= Memory.MAX_SIZE)) { MemoryAddress = 0; }
@@ -74,7 +77,7 @@ namespace BasicML
 
 
 		// Excecutes a single instruction, then stops
-		public static void StepExecution()
+		public void StepExecution()
 		{
 			try
 			{
@@ -94,7 +97,7 @@ namespace BasicML
 
 
 		// Stops the cpu from excecuting further instructions
-		public static void StopExecution() 
+		public void StopExecution() 
 		{ 
 			_executing = false;
 			Logging.LogLine("Excecution Halted");
@@ -102,54 +105,54 @@ namespace BasicML
 
 
 		// Moves the memory address the cpu is pointing to forward 1
-		private static void StepMemoryAddresss() 
+		private void StepMemoryAddresss() 
 		{
 			_memoryAddress++;
 		}
 
 
 		// Executes the instruction at the current memory address
-		public static void Execute()
+		public void Execute()
 		{
 			Logging.LogLine("Current Memory Location: " + MemoryAddress.ToString() + " (" + CurrentWord.ToString() + ")	" + ExcecutionLog());
 
 			switch (CurrentWord.GetInstructionType())
 			{
 				case InstructionType.Read:
-					IO.Read(CurrentWord.Operand);
+					this.Read(CurrentWord.Operand);
 					break;
 				case InstructionType.Write:
-					IO.Write(CurrentWord.Operand);
+					this.Write(CurrentWord.Operand);
 					break;
 				case InstructionType.Load:
-					LoadStore.Load(CurrentWord.Operand);
+					this.Load(CurrentWord.Operand);
 					break;
 				case InstructionType.Store:
-					LoadStore.Store(CurrentWord.Operand);
+					this.Store(CurrentWord.Operand);
 					break;
 				case InstructionType.Add:
-					Arithmetic.Add(CurrentWord.Operand);
+					this.Add(CurrentWord.Operand);
 					break;
 				case InstructionType.Subtract:
-					Arithmetic.Subtract(CurrentWord.Operand);
+					this.Subtract(CurrentWord.Operand);
 					break;
 				case InstructionType.Multiply:
-					Arithmetic.Multiply(CurrentWord.Operand);
+					this.Multiply(CurrentWord.Operand);
 					break;
 				case InstructionType.Divide:
-					Arithmetic.Divide(CurrentWord.Operand);
+					this.Divide(CurrentWord.Operand);
 					break;
 				case InstructionType.Branch:
-					Control.Branch(CurrentWord.Operand);
+					this.Branch(CurrentWord.Operand);
 					break;
 				case InstructionType.BranchNeg:
-					Control.BranchNegative(CurrentWord.Operand);
+					this.BranchNegative(CurrentWord.Operand);
 					break;
 				case InstructionType.BranchZero:
-					Control.BranchZero(CurrentWord.Operand);
+					this.BranchZero(CurrentWord.Operand);
 					break;
 				case InstructionType.Halt:
-					Control.Halt();
+					this.Halt();
 					break;
 				default:
 					throw new InvalidOperationException("Invalid instruction");
@@ -158,7 +161,7 @@ namespace BasicML
 
 
 		// Returns a string with log information about the current instuction's excecution
-		public static string ExcecutionLog()
+		public string ExcecutionLog()
 		{
 			switch (CurrentWord.GetInstructionType())
 			{
@@ -169,21 +172,21 @@ namespace BasicML
 				case InstructionType.Load:
 					return "Loading value from memory at [" + CurrentWord.Operand.ToString() + "] into the accumulator";
 				case InstructionType.Store:
-					return "Store value from accumulator (" + Accumulator._registerContent.ToString() + ") into memory at [" + CurrentWord.Operand.ToString() + "] (" + Memory.ElementAt(CurrentWord.Operand).ToString() + ")";
+					return "Store value from accumulator (" + accumulator.ToString() + ") into memory at [" + CurrentWord.Operand.ToString() + "] (" + memory.ElementAt(CurrentWord.Operand).ToString() + ")";
 				case InstructionType.Add:
-					return "Add value from accumulator (" + Accumulator._registerContent.ToString() + ") to value from memory at [" + CurrentWord.Operand.ToString() + "] (" + Memory.ElementAt(CurrentWord.Operand).ToString() + ")";
+					return "Add value from accumulator (" + accumulator.ToString() + ") to value from memory at [" + CurrentWord.Operand.ToString() + "] (" + memory.ElementAt(CurrentWord.Operand).ToString() + ")";
 				case InstructionType.Subtract:
-					return "Subtract value from accumulator (" + Accumulator._registerContent.ToString() + ") from value from memory at [" + CurrentWord.Operand.ToString() + "] (" + Memory.ElementAt(CurrentWord.Operand).ToString() + ")";
+					return "Subtract value from accumulator (" + accumulator.ToString() + ") from value from memory at [" + CurrentWord.Operand.ToString() + "] (" + memory.ElementAt(CurrentWord.Operand).ToString() + ")";
 				case InstructionType.Multiply:
-					return "Multiply value from accumulator (" + Accumulator._registerContent.ToString() + ") with value from memory at [" + CurrentWord.Operand.ToString() + "] (" + Memory.ElementAt(CurrentWord.Operand).ToString() + ")";
+					return "Multiply value from accumulator (" + accumulator.ToString() + ") with value from memory at [" + CurrentWord.Operand.ToString() + "] (" + memory.ElementAt(CurrentWord.Operand).ToString() + ")";
 				case InstructionType.Divide:
-					return "Divide value from accumulator (" + Accumulator._registerContent.ToString() + ") by value from memory at [" + CurrentWord.Operand.ToString() + "] (" + Memory.ElementAt(CurrentWord.Operand).ToString() + ")";
+					return "Divide value from accumulator (" + accumulator.ToString() + ") by value from memory at [" + CurrentWord.Operand.ToString() + "] (" + memory.ElementAt(CurrentWord.Operand).ToString() + ")";
 				case InstructionType.Branch:
 					return "Branch to the memory location [" + CurrentWord.Operand.ToString() + "]";
 				case InstructionType.BranchNeg:
-					return "Branch to the memory location [" + CurrentWord.Operand.ToString() + "] if the value in the accumulator (" + Accumulator._registerContent.ToString() + ") is negative";
+					return "Branch to the memory location [" + CurrentWord.Operand.ToString() + "] if the value in the accumulator (" + accumulator.ToString() + ") is negative";
 				case InstructionType.BranchZero:
-					return "Branch to the memory location [" + CurrentWord.Operand.ToString() + "] if the value in the accumulator (" + Accumulator._registerContent.ToString() + ") is non-zero";
+					return "Branch to the memory location [" + CurrentWord.Operand.ToString() + "] if the value in the accumulator (" + accumulator.ToString() + ") is non-zero";
 				case InstructionType.Halt:
 					return "Halt further operations";
 				default:

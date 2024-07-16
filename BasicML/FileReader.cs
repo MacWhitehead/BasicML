@@ -43,11 +43,11 @@ namespace BasicML
 			return _numbers;
 		}
 
-		public static void ReadFileToMemory(string filePath, bool verbose = true)
+		public static void ReadFileToMemory(this Cpu cpu, string filePath, bool verbose = true)
 		{
 			List<int> fileContent = ReadFile(filePath, verbose);
 
-			Memory.InitMemory(fileContent.ToArray());
+			cpu.memory.InitMemory(fileContent.ToArray());
 		}
 	}
 }

@@ -14,16 +14,16 @@ namespace BasicML
 		// Updates the visibility of the buttons
 		private void Buttons_Refresh()
 		{
-			if (Memory.Count > 0)
+			if (InstanceHandler.GetCpu(0).memory.Count > 0)
 			{
 				runButton.Visible = true;
 				stepButton.Visible = true;
                 saveAsButton.Visible = true;
 
-                if (Cpu.MemoryAddress != 0) { runFromStartButton.Visible = true; }
+                if (InstanceHandler.GetCpu(0).MemoryAddress != 0) { runFromStartButton.Visible = true; }
 				else { runFromStartButton.Visible = false; }
 
-				if ((Cpu.MemoryAddress != 0) || (Accumulator._registerContent != 0)) { resetButton.Visible = true; }
+				if ((InstanceHandler.GetCpu(0).MemoryAddress != 0) || (InstanceHandler.GetCpu(0).accumulator != 0)) { resetButton.Visible = true; }
 				else { resetButton.Visible = false; }
 			}
 			else
@@ -68,7 +68,7 @@ namespace BasicML
         // Runs when the "Run" button is clicked
         private void RunButton_Click(object sender, EventArgs e)
 		{
-			Cpu.StartExecution();
+			InstanceHandler.GetCpu(0).StartExecution();
 			RefreshMemory();
 		}
 
@@ -76,7 +76,7 @@ namespace BasicML
 		// Runs when the "Step" button is clicked
 		private void StepButton_Click(object sender, EventArgs e)
 		{
-			Cpu.StepExecution();
+			InstanceHandler.GetCpu(0).StepExecution();
 			RefreshMemory();
 		}
 
@@ -84,16 +84,16 @@ namespace BasicML
 		// Runs when the "Run From Start" button is clicked
 		private void RunFromStartButton_Click(object sender, EventArgs e)
 		{
-			Cpu.MemoryAddress = 0;
-			Cpu.StartExecution();
+			InstanceHandler.GetCpu(0).MemoryAddress = 0;
+			InstanceHandler.GetCpu(0).StartExecution();
 		}
 
 
 		// Runs when the "Reset" button is clicked
 		private void ResetButton_Click(object sender, EventArgs e)
 		{
-			Cpu.MemoryAddress = 0;
-			Accumulator._registerContent = 0;
+			InstanceHandler.GetCpu(0).MemoryAddress = 0;
+			InstanceHandler.GetCpu(0).accumulator = 0;
 			programOutputBox.Clear();
 			RefreshMemory();
 		}
