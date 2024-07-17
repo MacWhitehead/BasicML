@@ -16,22 +16,22 @@ namespace UnitTests_Control
 		[TestMethod]
 		public void TestBranch()
 		{
-			SetupSystem.RunSetup();
-			Control.Branch(0);
-			Control.Branch(4);
+			SetupSystem.RunSetup(InstanceHandler.GetCpu(0));
+			InstanceHandler.GetCpu(0).Branch(0);
+			InstanceHandler.GetCpu(0).Branch(4);
 
-			Assert.AreEqual(Cpu.MemoryAddress, 4);
+			Assert.AreEqual(InstanceHandler.GetCpu(0).MemoryAddress, 4);
 		}
 
 		// Returns true if the CPU address returns to zero if an out of index branch location is given
 		[TestMethod]
 		public void TestBranchOutOfRange()
 		{
-			SetupSystem.RunSetup();
-			Control.Branch(0);
-			Control.Branch(1000);
+			SetupSystem.RunSetup(InstanceHandler.GetCpu(0));
+			InstanceHandler.GetCpu(0).Branch(0);
+			InstanceHandler.GetCpu(0).Branch(1000);
 
-			Assert.AreEqual(Cpu.MemoryAddress, -1);
+			Assert.AreEqual(InstanceHandler.GetCpu(0).MemoryAddress, -1);
 		}
 
 
@@ -39,26 +39,26 @@ namespace UnitTests_Control
 		[TestMethod]
 		public void TestBranchNegative()
 		{
-			SetupSystem.RunSetup();
-			Accumulator._registerContent = new Word(-0001);
+			SetupSystem.RunSetup(InstanceHandler.GetCpu(0));
+			InstanceHandler.GetCpu(0).Accumulator = new Word4(-0001);
 
-			Control.Branch(0);
-			Control.BranchNegative(4);
+			InstanceHandler.GetCpu(0).Branch(0);
+			InstanceHandler.GetCpu(0).BranchNegative(4);
 
-			Assert.AreEqual(Cpu.MemoryAddress, 4);
+			Assert.AreEqual(InstanceHandler.GetCpu(0).MemoryAddress, 4);
 		}
 
 		// Returns true if the CPU does not branch when the BranchNegative function is run
 		[TestMethod]
 		public void TestBranchNegativeContradiction()
 		{
-			SetupSystem.RunSetup();
-			Accumulator._registerContent = new Word(0001);
+			SetupSystem.RunSetup(InstanceHandler.GetCpu(0));
+			InstanceHandler.GetCpu(0).Accumulator = new Word4(0001);
 
-			Control.Branch(0);
-			Control.BranchNegative(4);
+			InstanceHandler.GetCpu(0).Branch(0);
+			InstanceHandler.GetCpu(0).BranchNegative(4);
 
-			Assert.AreEqual(Cpu.MemoryAddress, 0);
+			Assert.AreEqual(InstanceHandler.GetCpu(0).MemoryAddress, 0);
 		}
 
 
@@ -66,26 +66,26 @@ namespace UnitTests_Control
 		[TestMethod]
 		public void TestBranchZero()
 		{
-			SetupSystem.RunSetup();
-			Accumulator._registerContent = new Word(0000);
+			SetupSystem.RunSetup(InstanceHandler.GetCpu(0));
+			InstanceHandler.GetCpu(0).Accumulator = new Word4(0000);
 
-			Control.Branch(0);
-			Control.BranchZero(4);
+			InstanceHandler.GetCpu(0).Branch(0);
+			InstanceHandler.GetCpu(0).BranchZero(4);
 
-			Assert.AreEqual(Cpu.MemoryAddress, 4);
+			Assert.AreEqual(InstanceHandler.GetCpu(0).MemoryAddress, 4);
 		}
 
 		// Returns true if the CPU does not branch when the BranchZero function is run
 		[TestMethod]
 		public void TestBranchZeroContradiction()
 		{
-			SetupSystem.RunSetup();
-			Accumulator._registerContent = new Word(0001);
+			SetupSystem.RunSetup(InstanceHandler.GetCpu(0));
+			InstanceHandler.GetCpu(0).Accumulator = new Word4(0001);
 
-			Control.Branch(0);
-			Control.BranchZero(4);
+			InstanceHandler.GetCpu(0).Branch(0);
+			InstanceHandler.GetCpu(0).BranchZero(4);
 
-			Assert.AreEqual(Cpu.MemoryAddress, 0);
+			Assert.AreEqual(InstanceHandler.GetCpu(0).MemoryAddress, 0);
 		}
 
 
@@ -93,22 +93,22 @@ namespace UnitTests_Control
 		[TestMethod]
 		public void TestHalt()
 		{
-			SetupSystem.RunSetup();
-			Cpu.Executing = true;
-			Control.Halt();
+			SetupSystem.RunSetup(InstanceHandler.GetCpu(0));
+			InstanceHandler.GetCpu(0).Executing = true;
+			InstanceHandler.GetCpu(0).Halt();
 
-			Assert.AreEqual(Cpu.Executing, false);
+			Assert.AreEqual(InstanceHandler.GetCpu(0).Executing, false);
 		}
 
 		// Returns true if the cpu state remains as non-excecuting when running halt
 		[TestMethod]
 		public void TestHaltContradiction()
 		{
-			SetupSystem.RunSetup();
-			Cpu.Executing = false;
-			Control.Halt();
+			SetupSystem.RunSetup(InstanceHandler.GetCpu(0));
+			InstanceHandler.GetCpu(0).Executing = false;
+			InstanceHandler.GetCpu(0).Halt();
 
-			Assert.AreEqual(Cpu.Executing, false);
+			Assert.AreEqual(InstanceHandler.GetCpu(0).Executing, false);
 		}
 	}
 }

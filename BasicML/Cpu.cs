@@ -13,16 +13,43 @@ namespace BasicML
 
 		// Private variables
 		private int _memoryAddress = 0;				// The memory address of the next instruction to be executed
-		private bool _executing = false;				// Whether or not the CPU is currently excecuting
+		private bool _executing = false;			// Whether or not the CPU is currently excecuting
 
 		public Memory memory = new();
-		public Word accumulator = new();
+		private Word? accumulator;
+
+		public Word Accumulator
+		{
+			get
+			{
+				if (accumulator is null)
+				{
+					if (UsingWord6) { accumulator = new Word6(0); }
+					else { accumulator = new Word4(0); }
+				}
+
+				return accumulator;
+			}
+			set
+			{
+				if (accumulator is null)
+				{
+					if (UsingWord6) { accumulator = new Word6(0); }
+					else { accumulator = new Word4(0); }
+				}
+
+				accumulator = value;
+			}
+		}
+
 
 
 
 		/* - - - - - - - - - - Properties - - - - - - - - - - */
 
 		public bool Executing { get { return _executing; } set { _executing = value; } }
+
+		public bool UsingWord6 { get { return memory.usingWord6; } }
 
 
 		// Property for getting and setting the memory address

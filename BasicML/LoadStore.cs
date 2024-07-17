@@ -16,7 +16,7 @@ namespace BasicML
 			{
 				bool returnValue = location < cpu.memory.Count;
 
-				cpu.accumulator = cpu.memory.ElementAt(location);
+				cpu.Accumulator = cpu.memory.ElementAt(location);
 
 				return returnValue;
 			}
@@ -37,7 +37,7 @@ namespace BasicML
 
 			bool returnValue = location < cpu.memory.Count;
 
-			cpu.memory.SetElement(location, cpu.accumulator);
+			cpu.memory.SetElement(location, cpu.Accumulator);
 
             return returnValue;
         }

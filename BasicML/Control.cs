@@ -19,7 +19,7 @@ namespace BasicML
 		// Branch to a specific location in memory if the accumulator is positive
 		public static void BranchNegative(this Cpu cpu, int operand)
 		{
-			if (cpu.accumulator.IsNegative()) 
+			if (cpu.Accumulator.IsNegative()) 
 			{
 				cpu.Branch(operand);
 			}
@@ -29,7 +29,7 @@ namespace BasicML
 		// Branch to a specific location in memory if the accumulator is negative
 		public static void BranchZero(this Cpu cpu, int operand)
 		{
-			if (cpu.accumulator.IsZero())
+			if (cpu.Accumulator.IsZero())
 			{
 				cpu.Branch(operand);
 			}

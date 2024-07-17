@@ -15,7 +15,7 @@ namespace BasicML
 				throw new ArgumentOutOfRangeException("Address out of range");
 			}
 
-			cpu.accumulator += cpu.memory.ElementAt(address);
+			cpu.Accumulator += cpu.memory.ElementAt(address);
 		}
 
 		public static void Subtract(this Cpu cpu, int address)
@@ -24,7 +24,7 @@ namespace BasicML
 			{
 				throw new ArgumentOutOfRangeException("Address out of range");
 			}
-			cpu.accumulator -= cpu.memory.ElementAt(address);
+			cpu.Accumulator -= cpu.memory.ElementAt(address);
 		}
 
 		public static void Divide(this Cpu cpu, int address)
@@ -33,7 +33,7 @@ namespace BasicML
 			{
 				throw new ArgumentOutOfRangeException("Address out of range");
 			}
-			cpu.accumulator /= cpu.memory.ElementAt(address);
+			cpu.Accumulator /= cpu.memory.ElementAt(address);
 		}
 
 		public static void Multiply(this Cpu cpu, int address)
@@ -42,7 +42,7 @@ namespace BasicML
 			{
 				throw new ArgumentOutOfRangeException("Address out of range");
 			}
-			cpu.accumulator *= cpu.memory.ElementAt(address);
+			cpu.Accumulator *= cpu.memory.ElementAt(address);
 		}
 
 	}

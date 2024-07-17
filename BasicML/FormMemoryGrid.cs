@@ -41,15 +41,15 @@ namespace BasicML
 
 
 		// Updates the memory grid's display so it shows the current state of the memory
-		private void MemoryGrid_Refresh(bool repopulateCells = true)
+		private void MemoryGrid_Refresh()
 		{
 			// Deselects any selected cells
 			memoryGrid.ClearSelection();
 
 			// Repopulates the memory grid if needed
-			if (repopulateCells) { memoryGrid.Rows.Clear(); }
+			if (memoryGrid.Rows.Count > InstanceHandler.GetCpu(0).memory.Count) { memoryGrid.Rows.Clear(); }
 
-			while(memoryGrid.Rows.Count <= InstanceHandler.GetCpu(0).memory.Count) { memoryGrid.Rows.Add(); }
+			while (memoryGrid.Rows.Count <= InstanceHandler.GetCpu(0).memory.Count) { memoryGrid.Rows.Add(); }
 
 			// Updates the values of the memory grid
 			MemoryGrid_RefreshValues();
@@ -151,7 +151,7 @@ namespace BasicML
 			}
 			else if (e.ColumnIndex == 4) 
 			{
-				InstanceHandler.GetCpu(0).memory.AddAt(e.RowIndex, 0000);
+				InstanceHandler.GetCpu(0).memory.AddAt(e.RowIndex);
 				RefreshMemory();
 			}
 			else if ((e.ColumnIndex == 5) && (e.RowIndex < memoryGrid.Rows.Count - 1)) 
@@ -239,7 +239,8 @@ namespace BasicML
 					if (e.RowIndex >= Memory.MAX_SIZE) { InstanceHandler.GetCpu(0).memory.Add(cellValue); }
 					else { InstanceHandler.GetCpu(0).memory.SetElement(e.RowIndex, cellValue); }
 
-					RefreshMemory(false);
+
+					BeginInvoke(new MethodInvoker(MemoryGrid_Refresh));
 				}
 			}
 		}
@@ -303,7 +304,7 @@ namespace BasicML
 
 				foreach (KeyValuePair<int, Word> row in selectedRows)
 				{
-					InstanceHandler.GetCpu(0).memory.AddAt(rowIndexOfItemUnderMouseToDrop, 0);
+					InstanceHandler.GetCpu(0).memory.AddAt(rowIndexOfItemUnderMouseToDrop);
 				}
 
 				foreach (KeyValuePair<int, Word> row in selectedRows)
@@ -313,7 +314,7 @@ namespace BasicML
 					rowIndexOfItemUnderMouseToDrop++;
 				}
 
-				MemoryGrid_Refresh(false);
+				MemoryGrid_Refresh();
 			}
 		}
 
@@ -346,7 +347,7 @@ namespace BasicML
 
 				if (i == clipboardContents.Length) { i = 0; }
 			}
-			MemoryGrid_Refresh(false);
+			MemoryGrid_Refresh();
 		}
 	}
 }

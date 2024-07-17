@@ -48,7 +48,7 @@ namespace BasicML
 			catch { Logging.Log("Could not read file"); }
 
 			// Resets the value in the accumulator
-			InstanceHandler.GetCpu(0).accumulator = 0;
+			InstanceHandler.GetCpu(0).Accumulator.Clear();
 
 			InstanceHandler.GetCpu(0).MemoryAddress = 0;
 		}

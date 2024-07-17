@@ -51,13 +51,13 @@ namespace BasicML
         /* - - - - - - - - - - Display Functions - - - - - - - - - - */
 
         // Updates the display so it shows the current state of the memory
-        private void RefreshMemory(bool repopulateCells = true)
+        private void RefreshMemory()
         {
-            MemoryGrid_Refresh(repopulateCells);
+            MemoryGrid_Refresh();
 
             Buttons_Refresh();
 
-            accumulatorTextBox.Text = InstanceHandler.GetCpu(0).accumulator.ToString(true);
+            accumulatorTextBox.Text = InstanceHandler.GetCpu(0).Accumulator.ToString(true);
         }
 
 
@@ -69,8 +69,8 @@ namespace BasicML
 		{
 			if (e.KeyCode == Keys.Enter)
 			{
-				InstanceHandler.GetCpu(0).accumulator = accumulatorTextBox.Text;
-				accumulatorTextBox.Text = InstanceHandler.GetCpu(0).accumulator.ToString(true);
+				InstanceHandler.GetCpu(0).Accumulator.SetValue(accumulatorTextBox.Text);
+				accumulatorTextBox.Text = InstanceHandler.GetCpu(0).Accumulator.ToString(true);
 			}
 		}
 

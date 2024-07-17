@@ -19,6 +19,13 @@ namespace BasicML
 
 		public static void AddInstance() { instances.Add(new()); }
 
+		public static void RemoveInstance() 
+		{
+			if (instances.Count > 0) { instances.RemoveAt(instances.Count - 1); }
+		}
+
+		public static void RemoveInstanceAt(int index) { instances.RemoveAt(index); }
+
 		public static Cpu GetCpu(int instanceIndex) { return InstanceWithIndex(instanceIndex); }
 	}
 }

@@ -23,7 +23,7 @@ namespace BasicML
                 if (InstanceHandler.GetCpu(0).MemoryAddress != 0) { runFromStartButton.Visible = true; }
 				else { runFromStartButton.Visible = false; }
 
-				if ((InstanceHandler.GetCpu(0).MemoryAddress != 0) || (InstanceHandler.GetCpu(0).accumulator != 0)) { resetButton.Visible = true; }
+				if ((InstanceHandler.GetCpu(0).MemoryAddress != 0) || (InstanceHandler.GetCpu(0).Accumulator != 0)) { resetButton.Visible = true; }
 				else { resetButton.Visible = false; }
 			}
 			else
@@ -93,7 +93,7 @@ namespace BasicML
 		private void ResetButton_Click(object sender, EventArgs e)
 		{
 			InstanceHandler.GetCpu(0).MemoryAddress = 0;
-			InstanceHandler.GetCpu(0).accumulator = 0;
+			InstanceHandler.GetCpu(0).Accumulator.Clear();
 			programOutputBox.Clear();
 			RefreshMemory();
 		}
