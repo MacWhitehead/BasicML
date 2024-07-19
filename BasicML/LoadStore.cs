@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace BasicML
 {
-	public class LoadStore
+	public static class LoadStore
 	{
 		// Load value from memory into accumulator
-		public static bool Load(int location)
+		public static bool Load(this Cpu cpu, int location)
 		{
 			if (location < Memory.MAX_SIZE)
 			{
-				bool returnValue = location < Memory.Count;
+				bool returnValue = location < cpu.memory.Count;
 
-				Accumulator._registerContent = Memory.ElementAt(location);
+				cpu.Accumulator = cpu.memory.ElementAt(location);
 
 				return returnValue;
 			}
@@ -29,17 +29,20 @@ namespace BasicML
 			}
 		}
 
+
 		// Store accumulator value into memory
-		public static bool Store(int location)
+		public static bool Store(this Cpu cpu, int location)
 		{
 			if ((location < 0) || (location >= Memory.MAX_SIZE)) { return false; }
 
-			bool returnValue = location < Memory.Count;
+			bool returnValue = location < cpu.memory.Count;
 
-            Memory.SetElement(location, Accumulator._registerContent);
+			cpu.memory.SetElement(location, cpu.Accumulator);
 
             return returnValue;
         }
-		
+
+
+
 	}
 }

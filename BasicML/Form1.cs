@@ -30,6 +30,8 @@ namespace BasicML
             // Initializes the form
             InitializeComponent();
 
+            InstanceHandler.AddInstance();
+
             // Sets the variables for the logging objects
             _formLoggingBox = loggingBox;
             _formProgramOutputBox = programOutputBox;
@@ -49,13 +51,13 @@ namespace BasicML
         /* - - - - - - - - - - Display Functions - - - - - - - - - - */
 
         // Updates the display so it shows the current state of the memory
-        private void RefreshMemory(bool repopulateCells = true)
+        private void RefreshMemory()
         {
-            MemoryGrid_Refresh(repopulateCells);
+            MemoryGrid_Refresh();
 
             Buttons_Refresh();
 
-            accumulatorTextBox.Text = Accumulator._registerContent.ToString(true);
+            accumulatorTextBox.Text = InstanceHandler.GetCpu(0).Accumulator.ToString(true);
         }
 
 
@@ -67,7 +69,8 @@ namespace BasicML
 		{
 			if (e.KeyCode == Keys.Enter)
 			{
-				Accumulator._registerContent = accumulatorTextBox.Text;
+				InstanceHandler.GetCpu(0).Accumulator.SetValue(accumulatorTextBox.Text);
+				accumulatorTextBox.Text = InstanceHandler.GetCpu(0).Accumulator.ToString(true);
 			}
 		}
 

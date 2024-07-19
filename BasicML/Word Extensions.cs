@@ -21,6 +21,10 @@ namespace BasicML
 		public static bool IsZero(this Word word) { return word.RawValue == 0; }
 
 
+		// Clears the value stored in the word
+		public static void Clear(this Word word) { word.RawValue = 0; }
+
+
 		// Returns an enum which represents the instruction type stored in the word
 		public static InstructionType GetInstructionType(this Word word)
 		{

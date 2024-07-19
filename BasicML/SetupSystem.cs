@@ -8,9 +8,11 @@ namespace BasicML
 {
 	public static class SetupSystem
 	{
-		public static void RunSetup()
+		private static readonly int[] memoryContents = [1009, 1010, 2009, 3110, 4107, 1109, 4300, 1110, 4300, 0000, 0000];
+
+		public static void RunSetup(this Cpu cpu)
 		{
-			Memory.InitMemory("+1009", "+1010", "+2009", "+3110", "+4107", "+1109", "+4300", "+1110", "+4300", "+0000", "+0000");
+			cpu.memory.InitMemory(memoryContents);
 		}
 	}
 }

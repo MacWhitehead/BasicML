@@ -9,24 +9,25 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace BasicML
 {
 	// This class represents the data stored in one block of memory used by the BasicML Language
-	public class Word
+	public abstract class Word
 	{
 		/* - - - - - - - - - - Variables! - - - - - - - - - - */
 
 		public bool _isBreakpoint = false;		// This is true if the CPU should halt before excecuting this instruction
-		private int _rawValue = 0;              // This is the data stored by the cpu
+		protected int _rawValue = 0;              // This is the data stored by the cpu
+
+		public abstract int MaxValue { get; }
 
 
 
 		/* - - - - - - - - - - Parameters - - - - - - - - - - */
 
-		// This is used to safely interface with the _rawValue variable as it does not allow invalid values to be set
 		public int RawValue
 		{
 			get { return _rawValue; }
-			set 
+			set
 			{
-				while ((value > 9999) || (value < -9999))
+				while (Math.Abs(value) > MaxValue)
 				{
 					Logging.LogLine("Overflow occured. Truncating word value");
 					value %= 10000;
@@ -38,46 +39,23 @@ namespace BasicML
 
 
 		// This is a convient way to read or write only the first two digits of the word
-		public int Instruction
-		{
-			get { return Math.Abs(RawValue / 100); }
-			set
-			{
-				int sign = Math.Sign(RawValue);
-				if (sign == 0) { sign = 1; }
-
-				if ((value > 99) || (value < 0)) { value = 0; }
-
-				RawValue = ((value * 100) + Operand) * sign;
-			}
-		}
+		public abstract int Instruction { get; set; }
 
 
 		// This is a convient way to read or write only the last two digits of the word
-		public int Operand
-		{
-			get { return RawValue % 100; }
-			set
-			{
-				int sign = Math.Sign(RawValue);
-				if (sign == 0) { sign = 1; }
-
-				if ((value > 99) || (value < 0)) { value = 0; }
-
-				RawValue = ((Instruction * 100) + value) * sign;
-			}
-		}
+		public abstract int Operand { get; set; }
 
 
 
 		/* - - - - - - - - - - Constructors - - - - - - - - - - */
 
 		// Default Constuctor
-		public Word() { }
+		public Word() { RawValue = 0; }
 
 
 		// Creates a Word object with its value equal to a given int
 		public Word(int rawValue) { RawValue = rawValue; }
+
 
 
 		// Creates a Word object with its value parsed from a string
@@ -90,6 +68,14 @@ namespace BasicML
 
 
 		/* - - - - - - - - - - Parsing/Casting Functions - - - - - - - - - - */
+
+		public void SetValue(int i) { RawValue = i; }
+
+		public void SetValue(string s)
+		{
+			if (TryParseLocal(s, out Word word)) { RawValue = word.RawValue; }
+			else { RawValue = 0; }
+		}
 
 		// This returns a word object with it's value parsed from a string
 		public static Word Parse(string s)
@@ -117,33 +103,53 @@ namespace BasicML
 				else { success = int.TryParse(s, out value); }
 			}
 
-			word = new Word(value);
+			if (Math.Abs(value) <= Word4.MAX_VALUE) { word = new Word4(value); }
+			else { word = new Word6(value); }
+
 			return success;
 		}
+
+		// This returns a bool signifying whether or not a string value can be cleanly parsed to a word. It also has the option of additionally returning the parsed word as an out variable
+		public abstract bool TryParseLocal(string s, out Word word);
 
 		// This returns a bool signifying whether or not a string value can be cleanly parsed to a word. It also has the option of additionally returning the parsed word as an out variable
 		public static bool TryParse(string s) { return TryParse(s, out Word word); }
 
 
 		// Returns the words value in a string format
-		public string ToString(bool includePositiveOperand = false)
-		{
-			string output = Math.Abs(RawValue).ToString().PadLeft(4, '0');
-
-			if (RawValue < 0) { output = "-" + output; }
-			else if (includePositiveOperand) { output = "+" + output; }
-
-			return output;
-		}
+		public abstract string ToString(bool includePositiveOperand = false);
 
 
 
 		/* - - - - - - - - - - Operator Overloads - - - - - - - - - - */
 
-		public static Word operator +(Word a, Word b) { return new Word(a.RawValue + b.RawValue); }		// Defines how an addition operator should be applied when used with two words
-		public static Word operator -(Word a, Word b) { return new Word(a.RawValue - b.RawValue); }     // Defines how a subtraction operator should be applied when used with two words
-		public static Word operator *(Word a, Word b) { return new Word(a.RawValue * b.RawValue); }     // Defines how a multiplication operator should be applied when used with two words
-		public static Word operator /(Word a, Word b) { return new Word(a.RawValue / b.RawValue); }     // Defines how a division operator should be applied when used with two words
+		// Defines how an addition operator should be applied when used with two words
+		public static Word operator +(Word a, Word b) 
+		{
+			if ((a.GetType() == typeof(Word6)) || (b.GetType() == typeof(Word6))) { return new Word6(a.RawValue + b.RawValue); }
+			return new Word4(a.RawValue + b.RawValue);
+		}
+
+		// Defines how a subtraction operator should be applied when used with two words
+		public static Word operator -(Word a, Word b)
+		{
+			if ((a.GetType() == typeof(Word6)) || (b.GetType() == typeof(Word6))) { return new Word6(a.RawValue + b.RawValue); }
+			return new Word4(a.RawValue - b.RawValue);
+		}
+
+		// Defines how a multiplication operator should be applied when used with two words
+		public static Word operator *(Word a, Word b)
+		{
+			if ((a.GetType() == typeof(Word6)) || (b.GetType() == typeof(Word6))) { return new Word6(a.RawValue + b.RawValue); }
+			return new Word4(a.RawValue * b.RawValue);
+		}
+
+		// Defines how a division operator should be applied when used with two words
+		public static Word operator /(Word a, Word b)
+		{
+			if ((a.GetType() == typeof(Word6)) || (b.GetType() == typeof(Word6))) { return new Word6(a.RawValue + b.RawValue); }
+			return new Word4(a.RawValue / b.RawValue);
+		}
 
 		public static bool operator ==(Word a, Word b) { return a.RawValue == b.RawValue; }             // Defines how an equality operator should be applied when used with two words
 		public static bool operator !=(Word a, Word b) { return a.RawValue != b.RawValue; }             // Defines how an inequality operator should be applied when used with two words
@@ -151,8 +157,7 @@ namespace BasicML
 		public static bool operator ==(Word a, int i) { return a.RawValue == i; }                       // Defines how an equality operator should be applied when used with a word and an int
 		public static bool operator !=(Word a, int i) { return a.RawValue != i; }                       // Defines how an inequality operator should be applied when used with a word and an int
 
-		public static implicit operator Word(int i) => new(i);                                          // Allows implicit conversion to a Word from an int
-		public static implicit operator Word(string s) => new(s);                                       // Allows implicit conversion to a Word from a string
+
 
 	}
 }
