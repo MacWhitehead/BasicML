@@ -9,6 +9,24 @@ namespace BasicML
 	//  This class is used to simulate the CPU
 	public class Cpu
 	{
+		/* - - - - - - - - - - Note From Jaiden - - - - - - - - - - */
+
+		// The way you interact with some of the commands changed slightly.
+		// Some of the static functions were made into extention functions for the Cpu class.
+
+		// Previously you would call functions in the format:  "IO.Read();"  or  "Control.Branch();".
+		// Now since there are multiple memory pools that can be accessed you have to declare which cpu you are calling the function on.
+
+		// The new syntax is as follows:
+
+		// You have to obtain a cpu object somehow.
+		// "Cpu rufusTheRobot = new Cpu();"   or   "Cpu rufusTheRobot = InstanceHandler.GetCpu(42);"
+
+		// You then call the function from the cpu object
+		// "rufusTheRobot.Read();"   or   "rufusTheRobot.Branch();"
+
+
+
 		/* - - - - - - - - - - Variables! - - - - - - - - - - */
 
 		// Private variables
