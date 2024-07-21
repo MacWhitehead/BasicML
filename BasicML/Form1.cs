@@ -16,9 +16,9 @@ namespace BasicML
     {
         /* - - - - - - - - - - Variables! - - - - - - - - - - */
 
-		// These are used to access the form's controls from other classes
-		public static RichTextBox? _formLoggingBox;             // The box labeled "Log" in the form
-		public static RichTextBox? _formProgramOutputBox;       // The box labeled "ProgramOutput" in the form
+        // These are used to access the form's controls from other classes
+        public static RichTextBox? _formLoggingBox;             // The box labeled "Log" in the form
+        public static RichTextBox? _formProgramOutputBox;       // The box labeled "ProgramOutput" in the form
 
 
 
@@ -64,15 +64,19 @@ namespace BasicML
 
         /* - - - - - - - - - - Event Functions - - - - - - - - - - */
 
-		// Runs when enter is pressed in the accumulator text box
-		private void AccumulatorTextBox_KeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.KeyCode == Keys.Enter)
-			{
-				InstanceHandler.GetCpu(0).Accumulator.SetValue(accumulatorTextBox.Text);
-				accumulatorTextBox.Text = InstanceHandler.GetCpu(0).Accumulator.ToString(true);
-			}
-		}
+        // Runs when enter is pressed in the accumulator text box
+        private void AccumulatorTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                InstanceHandler.GetCpu(0).Accumulator.SetValue(accumulatorTextBox.Text);
+                accumulatorTextBox.Text = InstanceHandler.GetCpu(0).Accumulator.ToString(true);
+            }
+        }
 
-	}
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 }
