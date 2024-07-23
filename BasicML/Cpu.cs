@@ -36,15 +36,7 @@ namespace BasicML
 		public Memory memory = new();
 		private Word? accumulator;
 
-		private MemoryGrid? _memoryGrid;
-		public MemoryGrid memoryGrid
-		{
-			get
-			{
-				if (_memoryGrid is null) { _memoryGrid = new MemoryGrid(this); }
-				return _memoryGrid;
-			}
-		}
+		public string output = "";					// The output of the CPU
 
 		public Word Accumulator
 		{

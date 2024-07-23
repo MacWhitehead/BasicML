@@ -16,7 +16,7 @@ namespace BasicML
 		}
 
 
-		public static void Log(string s, LoggingDestination destination = LoggingDestination.LogBox)
+		public static void Log(string s, LoggingDestination destination = LoggingDestination.LogBox, int tabIndex = 0)
 		{
 			switch(destination)
 			{
@@ -28,9 +28,9 @@ namespace BasicML
 					}
 					break;
 				case LoggingDestination.ProgramOutput:
-					if (FormBasicML._formProgramOutputBox != null)
+					if (FormBasicML.TabCount > tabIndex)
 					{
-						FormBasicML._formProgramOutputBox.AppendText(s);
+						FormBasicML.TabWithIndex(tabIndex).LogToOutputBox(s);
 						return;
 					}
 					break;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BasicML
 {
-	public partial class FormBasicML : Form
+	public partial class FormTab : UserControl
 	{
 		/* - - - - - - - - - - Variables! - - - - - - - - - - */
 

@@ -88,6 +88,6 @@ namespace BasicML
 		public static implicit operator Word6(int i) => new(i);                                          // Allows implicit conversion to a Word from an int
 		public static implicit operator Word6(string s) => new(s);                                       // Allows implicit conversion to a Word from a string
 
-		public static implicit operator Word6(Word4 w) => new(w.RawValue);								 // Allows implicit conversion to a Word from a string
+		//public static implicit operator Word6(Word4 w) => new(w.RawValue);								 // Allows implicit conversion to a Word from a string
 	}
 }

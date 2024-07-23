@@ -13,13 +13,13 @@ namespace UnitTests_Memory
 			string[] program = ["+1234", "+5678", "+9012"];
 
             // Act
-            InstanceHandler.GetCpu(0).memory.InitMemory(program);
+            FormBasicML.GetCpu(0).memory.InitMemory(program);
 
             // Assert
             for (int i = 0; i < program.Length; i++)
             {
-                Assert.AreEqual(int.Parse(program[i].Substring(1, 2)), InstanceHandler.GetCpu(0).memory.ElementAt(i).Instruction);
-                Assert.AreEqual(int.Parse(program[i].Substring(3, 2)), InstanceHandler.GetCpu(0).memory.ElementAt(i).Operand);
+                Assert.AreEqual(int.Parse(program[i].Substring(1, 2)), FormBasicML.GetCpu(0).memory.ElementAt(i).Instruction);
+                Assert.AreEqual(int.Parse(program[i].Substring(3, 2)), FormBasicML.GetCpu(0).memory.ElementAt(i).Operand);
             }
         }
 
@@ -30,16 +30,16 @@ namespace UnitTests_Memory
             var programWithChar = new string[] { "+aaaa", "+bbbb", "+cccc" };
 
             // Act
-            InstanceHandler.GetCpu(0).memory.InitMemory(programWithChar);
+            FormBasicML.GetCpu(0).memory.InitMemory(programWithChar);
 
             // Assert
             for (int i = 0; i < programWithChar.Length; i++)
             {
-                Assert.AreEqual(00, InstanceHandler.GetCpu(0).memory.ElementAt(i).Instruction);
-                Assert.AreEqual(00, InstanceHandler.GetCpu(0).memory.ElementAt(i).Operand);
+                Assert.AreEqual(00, FormBasicML.GetCpu(0).memory.ElementAt(i).Instruction);
+                Assert.AreEqual(00, FormBasicML.GetCpu(0).memory.ElementAt(i).Operand);
             }
 
-            Assert.IsTrue(InstanceHandler.GetCpu(0).memory.Log != "");
+            Assert.IsTrue(FormBasicML.GetCpu(0).memory.Log != "");
         }
 
         [TestMethod]
@@ -49,7 +49,7 @@ namespace UnitTests_Memory
             var programLengthLessThan5 = new string[] { "+111", "+222", "+333" };
 
             // Act
-            InstanceHandler.GetCpu(0).memory.InitMemory(programLengthLessThan5);
+            FormBasicML.GetCpu(0).memory.InitMemory(programLengthLessThan5);
 
 
 
@@ -65,11 +65,11 @@ namespace UnitTests_Memory
 			// Assert
 			for (int i = 0; i < programLengthLessThan5.Length; i++)
             {
-                Assert.AreEqual(int.Parse(programLengthLessThan5[i].Substring(1, 1)), InstanceHandler.GetCpu(0).memory.ElementAt(i).Instruction);
-                Assert.AreEqual(int.Parse(programLengthLessThan5[i].Substring(2, 2)), InstanceHandler.GetCpu(0).memory.ElementAt(i).Operand);
+                Assert.AreEqual(int.Parse(programLengthLessThan5[i].Substring(1, 1)), FormBasicML.GetCpu(0).memory.ElementAt(i).Instruction);
+                Assert.AreEqual(int.Parse(programLengthLessThan5[i].Substring(2, 2)), FormBasicML.GetCpu(0).memory.ElementAt(i).Operand);
             }
 
-            Assert.IsTrue(InstanceHandler.GetCpu(0).memory.Log != "");
+            Assert.IsTrue(FormBasicML.GetCpu(0).memory.Log != "");
         }
 
         [TestMethod]
@@ -79,7 +79,7 @@ namespace UnitTests_Memory
             var programLengthMoreThan5 = new string[] { "+11111", "+22222", "+33333" };
 
             // Act
-            InstanceHandler.GetCpu(0).memory.InitMemory(programLengthMoreThan5);
+            FormBasicML.GetCpu(0).memory.InitMemory(programLengthMoreThan5);
 
 			// Assert
 
@@ -95,12 +95,12 @@ namespace UnitTests_Memory
 			/*
             for (int i = 0; i < programLengthMoreThan5.Length; i++)
             {
-                Assert.AreEqual(00, InstanceHandler.GetCpu(0).memory.ElementAt(i).Instruction);
-                Assert.AreEqual(00, InstanceHandler.GetCpu(0).memory.ElementAt(i).Operand);
+                Assert.AreEqual(00, FormBasicML.GetCpu(0).memory.ElementAt(i).Instruction);
+                Assert.AreEqual(00, FormBasicML.GetCpu(0).memory.ElementAt(i).Operand);
             }
             */
 
-			Assert.IsTrue(InstanceHandler.GetCpu(0).memory.Log != "");
+			Assert.IsTrue(FormBasicML.GetCpu(0).memory.Log != "");
         }
 
         [TestMethod]
@@ -114,11 +114,11 @@ namespace UnitTests_Memory
             var address = 0;
 
 			// Act
-			InstanceHandler.GetCpu(0).memory.SetElement(address, word);
+			FormBasicML.GetCpu(0).memory.SetElement(address, word);
 
 			// Assert
-			Assert.AreEqual(program.Instruction, InstanceHandler.GetCpu(0).memory.ElementAt(address).Instruction);
-            Assert.AreEqual(program.Operand, InstanceHandler.GetCpu(0).memory.ElementAt(address).Operand);
+			Assert.AreEqual(program.Instruction, FormBasicML.GetCpu(0).memory.ElementAt(address).Instruction);
+            Assert.AreEqual(program.Operand, FormBasicML.GetCpu(0).memory.ElementAt(address).Operand);
         }
 
         [TestMethod]
@@ -132,13 +132,13 @@ namespace UnitTests_Memory
             var address = 50;
 
 			// Act
-			InstanceHandler.GetCpu(0).memory.SetElement(address, word);
+			FormBasicML.GetCpu(0).memory.SetElement(address, word);
 
 			// Assert
-			//Assert.AreEqual(00, InstanceHandler.GetCpu(0).memory.ElementAt(address).Instruction);
-            //Assert.AreEqual(00, InstanceHandler.GetCpu(0).memory.ElementAt(address).Operand);
+			//Assert.AreEqual(00, FormBasicML.GetCpu(0).memory.ElementAt(address).Instruction);
+            //Assert.AreEqual(00, FormBasicML.GetCpu(0).memory.ElementAt(address).Operand);
 
-            Assert.IsTrue(InstanceHandler.GetCpu(0).memory.Log != "");
+            Assert.IsTrue(FormBasicML.GetCpu(0).memory.Log != "");
         }
 
         [TestMethod]
@@ -152,13 +152,13 @@ namespace UnitTests_Memory
             var address = 999;
 
             // Act
-            InstanceHandler.GetCpu(0).memory.SetElement(address, word);
+            FormBasicML.GetCpu(0).memory.SetElement(address, word);
 
             // Assert
-            Assert.AreEqual(00, InstanceHandler.GetCpu(0).memory.ElementAt(address).Instruction);
-            Assert.AreEqual(00, InstanceHandler.GetCpu(0).memory.ElementAt(address).Operand);
+            Assert.AreEqual(00, FormBasicML.GetCpu(0).memory.ElementAt(address).Instruction);
+            Assert.AreEqual(00, FormBasicML.GetCpu(0).memory.ElementAt(address).Operand);
 
-            Assert.IsTrue(InstanceHandler.GetCpu(0).memory.Log != "");
+            Assert.IsTrue(FormBasicML.GetCpu(0).memory.Log != "");
         }
 
         [TestMethod]
@@ -169,17 +169,17 @@ namespace UnitTests_Memory
             var wordList = new List<Word>();
 
             // Act
-            InstanceHandler.GetCpu(0).memory.InitMemory(program);
+            FormBasicML.GetCpu(0).memory.InitMemory(program);
             for (int i = 0; i < program.Length; i++)
             {
-                wordList.Add(InstanceHandler.GetCpu(0).memory.ElementAt(i));
+                wordList.Add(FormBasicML.GetCpu(0).memory.ElementAt(i));
             }
 
             // Assert
             for (int i = 0; i < program.Length; i++)
             {
-                Assert.AreEqual(wordList.ElementAt(i).Instruction, InstanceHandler.GetCpu(0).memory.ElementAt(i).Instruction);
-                Assert.AreEqual(wordList.ElementAt(i).Operand, InstanceHandler.GetCpu(0).memory.ElementAt(i).Operand);
+                Assert.AreEqual(wordList.ElementAt(i).Instruction, FormBasicML.GetCpu(0).memory.ElementAt(i).Instruction);
+                Assert.AreEqual(wordList.ElementAt(i).Operand, FormBasicML.GetCpu(0).memory.ElementAt(i).Operand);
             }
         }
 
@@ -191,13 +191,13 @@ namespace UnitTests_Memory
             var address = 999;
 
             // Act
-            InstanceHandler.GetCpu(0).memory.InitMemory(program);
+            FormBasicML.GetCpu(0).memory.InitMemory(program);
 
             // Assert
-            Assert.AreEqual(00, InstanceHandler.GetCpu(0).memory.ElementAt(address).Instruction);
-            Assert.AreEqual(00, InstanceHandler.GetCpu(0).memory.ElementAt(address).Operand);
+            Assert.AreEqual(00, FormBasicML.GetCpu(0).memory.ElementAt(address).Instruction);
+            Assert.AreEqual(00, FormBasicML.GetCpu(0).memory.ElementAt(address).Operand);
 
-            Assert.IsTrue(InstanceHandler.GetCpu(0).memory.Log != "");
+            Assert.IsTrue(FormBasicML.GetCpu(0).memory.Log != "");
         }
 
         [TestMethod]
@@ -214,12 +214,12 @@ namespace UnitTests_Memory
             var address = 2;
 
             // Act
-            InstanceHandler.GetCpu(0).memory.InitMemory(program);
-            InstanceHandler.GetCpu(0).memory.SetElement(address, wordTest);
+            FormBasicML.GetCpu(0).memory.InitMemory(program);
+            FormBasicML.GetCpu(0).memory.SetElement(address, wordTest);
 
             // Assert
-            Assert.AreEqual(wordTest.Instruction, InstanceHandler.GetCpu(0).memory.ElementAt(address).Instruction);
-            Assert.AreEqual(wordTest.Operand, InstanceHandler.GetCpu(0).memory.ElementAt(address).Operand);
+            Assert.AreEqual(wordTest.Instruction, FormBasicML.GetCpu(0).memory.ElementAt(address).Instruction);
+            Assert.AreEqual(wordTest.Operand, FormBasicML.GetCpu(0).memory.ElementAt(address).Operand);
         }
 
         [TestMethod]
@@ -236,14 +236,14 @@ namespace UnitTests_Memory
             var address = 2;
 
             // Act
-            InstanceHandler.GetCpu(0).memory.InitMemory(program);
-            InstanceHandler.GetCpu(0).memory.SetElement(address, wordTest);
+            FormBasicML.GetCpu(0).memory.InitMemory(program);
+            FormBasicML.GetCpu(0).memory.SetElement(address, wordTest);
 
             // Assert
-            Assert.AreEqual(00, InstanceHandler.GetCpu(0).memory.ElementAt(address).Instruction);
-            Assert.AreEqual(00, InstanceHandler.GetCpu(0).memory.ElementAt(address).Operand);
+            Assert.AreEqual(00, FormBasicML.GetCpu(0).memory.ElementAt(address).Instruction);
+            Assert.AreEqual(00, FormBasicML.GetCpu(0).memory.ElementAt(address).Operand);
 
-            Assert.IsTrue(InstanceHandler.GetCpu(0).memory.Log != "");
+            Assert.IsTrue(FormBasicML.GetCpu(0).memory.Log != "");
         }
 
         [TestMethod]
@@ -254,11 +254,11 @@ namespace UnitTests_Memory
             var memorySize = 10;
 
             // Act
-            InstanceHandler.GetCpu(0).memory.InitMemory(program);
-            InstanceHandler.GetCpu(0).memory.Count = memorySize;
+            FormBasicML.GetCpu(0).memory.InitMemory(program);
+            FormBasicML.GetCpu(0).memory.Count = memorySize;
 
             // Assert
-            Assert.AreEqual(memorySize, InstanceHandler.GetCpu(0).memory.Count);
+            Assert.AreEqual(memorySize, FormBasicML.GetCpu(0).memory.Count);
         }
 
         [TestMethod]
@@ -269,11 +269,11 @@ namespace UnitTests_Memory
             var memorySize = 999;
 
             // Act
-            InstanceHandler.GetCpu(0).memory.InitMemory(program);
-            InstanceHandler.GetCpu(0).memory.Count = memorySize;
+            FormBasicML.GetCpu(0).memory.InitMemory(program);
+            FormBasicML.GetCpu(0).memory.Count = memorySize;
 
             // Assert
-            Assert.AreEqual(Memory.MAX_SIZE, InstanceHandler.GetCpu(0).memory.Count);
+            Assert.AreEqual(Memory.MAX_SIZE, FormBasicML.GetCpu(0).memory.Count);
         }
 
         [TestMethod]
@@ -284,11 +284,11 @@ namespace UnitTests_Memory
             var memorySize = -999;
 
             // Act
-            InstanceHandler.GetCpu(0).memory.InitMemory(program);
-            InstanceHandler.GetCpu(0).memory.Count = memorySize;
+            FormBasicML.GetCpu(0).memory.InitMemory(program);
+            FormBasicML.GetCpu(0).memory.Count = memorySize;
 
             // Assert
-            Assert.AreEqual(0, InstanceHandler.GetCpu(0).memory.Count);
+            Assert.AreEqual(0, FormBasicML.GetCpu(0).memory.Count);
         }
     }
 }

@@ -16,22 +16,22 @@ namespace UnitTests_Control
 		[TestMethod]
 		public void TestBranch()
 		{
-			SetupSystem.RunSetup(InstanceHandler.GetCpu(0));
-			InstanceHandler.GetCpu(0).Branch(0);
-			InstanceHandler.GetCpu(0).Branch(4);
+			SetupSystem.RunSetup(FormBasicML.GetCpu(0));
+			FormBasicML.GetCpu(0).Branch(0);
+			FormBasicML.GetCpu(0).Branch(4);
 
-			Assert.AreEqual(InstanceHandler.GetCpu(0).MemoryAddress, 4);
+			Assert.AreEqual(FormBasicML.GetCpu(0).MemoryAddress, 4);
 		}
 
 		// Returns true if the CPU address returns to zero if an out of index branch location is given
 		[TestMethod]
 		public void TestBranchOutOfRange()
 		{
-			SetupSystem.RunSetup(InstanceHandler.GetCpu(0));
-			InstanceHandler.GetCpu(0).Branch(0);
-			InstanceHandler.GetCpu(0).Branch(1000);
+			SetupSystem.RunSetup(FormBasicML.GetCpu(0));
+			FormBasicML.GetCpu(0).Branch(0);
+			FormBasicML.GetCpu(0).Branch(1000);
 
-			Assert.AreEqual(InstanceHandler.GetCpu(0).MemoryAddress, -1);
+			Assert.AreEqual(FormBasicML.GetCpu(0).MemoryAddress, -1);
 		}
 
 
@@ -39,26 +39,26 @@ namespace UnitTests_Control
 		[TestMethod]
 		public void TestBranchNegative()
 		{
-			SetupSystem.RunSetup(InstanceHandler.GetCpu(0));
-			InstanceHandler.GetCpu(0).Accumulator = new Word4(-0001);
+			SetupSystem.RunSetup(FormBasicML.GetCpu(0));
+			FormBasicML.GetCpu(0).Accumulator = new Word4(-0001);
 
-			InstanceHandler.GetCpu(0).Branch(0);
-			InstanceHandler.GetCpu(0).BranchNegative(4);
+			FormBasicML.GetCpu(0).Branch(0);
+			FormBasicML.GetCpu(0).BranchNegative(4);
 
-			Assert.AreEqual(InstanceHandler.GetCpu(0).MemoryAddress, 4);
+			Assert.AreEqual(FormBasicML.GetCpu(0).MemoryAddress, 4);
 		}
 
 		// Returns true if the CPU does not branch when the BranchNegative function is run
 		[TestMethod]
 		public void TestBranchNegativeContradiction()
 		{
-			SetupSystem.RunSetup(InstanceHandler.GetCpu(0));
-			InstanceHandler.GetCpu(0).Accumulator = new Word4(0001);
+			SetupSystem.RunSetup(FormBasicML.GetCpu(0));
+			FormBasicML.GetCpu(0).Accumulator = new Word4(0001);
 
-			InstanceHandler.GetCpu(0).Branch(0);
-			InstanceHandler.GetCpu(0).BranchNegative(4);
+			FormBasicML.GetCpu(0).Branch(0);
+			FormBasicML.GetCpu(0).BranchNegative(4);
 
-			Assert.AreEqual(InstanceHandler.GetCpu(0).MemoryAddress, 0);
+			Assert.AreEqual(FormBasicML.GetCpu(0).MemoryAddress, 0);
 		}
 
 
@@ -66,26 +66,26 @@ namespace UnitTests_Control
 		[TestMethod]
 		public void TestBranchZero()
 		{
-			SetupSystem.RunSetup(InstanceHandler.GetCpu(0));
-			InstanceHandler.GetCpu(0).Accumulator = new Word4(0000);
+			SetupSystem.RunSetup(FormBasicML.GetCpu(0));
+			FormBasicML.GetCpu(0).Accumulator = new Word4(0000);
 
-			InstanceHandler.GetCpu(0).Branch(0);
-			InstanceHandler.GetCpu(0).BranchZero(4);
+			FormBasicML.GetCpu(0).Branch(0);
+			FormBasicML.GetCpu(0).BranchZero(4);
 
-			Assert.AreEqual(InstanceHandler.GetCpu(0).MemoryAddress, 4);
+			Assert.AreEqual(FormBasicML.GetCpu(0).MemoryAddress, 4);
 		}
 
 		// Returns true if the CPU does not branch when the BranchZero function is run
 		[TestMethod]
 		public void TestBranchZeroContradiction()
 		{
-			SetupSystem.RunSetup(InstanceHandler.GetCpu(0));
-			InstanceHandler.GetCpu(0).Accumulator = new Word4(0001);
+			SetupSystem.RunSetup(FormBasicML.GetCpu(0));
+			FormBasicML.GetCpu(0).Accumulator = new Word4(0001);
 
-			InstanceHandler.GetCpu(0).Branch(0);
-			InstanceHandler.GetCpu(0).BranchZero(4);
+			FormBasicML.GetCpu(0).Branch(0);
+			FormBasicML.GetCpu(0).BranchZero(4);
 
-			Assert.AreEqual(InstanceHandler.GetCpu(0).MemoryAddress, 0);
+			Assert.AreEqual(FormBasicML.GetCpu(0).MemoryAddress, 0);
 		}
 
 
@@ -93,22 +93,22 @@ namespace UnitTests_Control
 		[TestMethod]
 		public void TestHalt()
 		{
-			SetupSystem.RunSetup(InstanceHandler.GetCpu(0));
-			InstanceHandler.GetCpu(0).Executing = true;
-			InstanceHandler.GetCpu(0).Halt();
+			SetupSystem.RunSetup(FormBasicML.GetCpu(0));
+			FormBasicML.GetCpu(0).Executing = true;
+			FormBasicML.GetCpu(0).Halt();
 
-			Assert.AreEqual(InstanceHandler.GetCpu(0).Executing, false);
+			Assert.AreEqual(FormBasicML.GetCpu(0).Executing, false);
 		}
 
 		// Returns true if the cpu state remains as non-excecuting when running halt
 		[TestMethod]
 		public void TestHaltContradiction()
 		{
-			SetupSystem.RunSetup(InstanceHandler.GetCpu(0));
-			InstanceHandler.GetCpu(0).Executing = false;
-			InstanceHandler.GetCpu(0).Halt();
+			SetupSystem.RunSetup(FormBasicML.GetCpu(0));
+			FormBasicML.GetCpu(0).Executing = false;
+			FormBasicML.GetCpu(0).Halt();
 
-			Assert.AreEqual(InstanceHandler.GetCpu(0).Executing, false);
+			Assert.AreEqual(FormBasicML.GetCpu(0).Executing, false);
 		}
 	}
 }

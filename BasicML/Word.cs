@@ -30,7 +30,7 @@ namespace BasicML
 				while (Math.Abs(value) > MaxValue)
 				{
 					Logging.LogLine("Overflow occured. Truncating word value");
-					value %= 10000;
+					value /= 10;
 				}
 
 				_rawValue = value;

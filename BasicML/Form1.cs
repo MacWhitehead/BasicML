@@ -18,10 +18,7 @@ namespace BasicML
 		/* - - - - - - - - - - Variables! - - - - - - - - - - */
 
 		// These are used to access the form's controls from other classes
-		public static RichTextBox? _formLoggingBox;             // The box labeled "Log" in the form
-		public static RichTextBox? _formProgramOutputBox;       // The box labeled "ProgramOutput" in the form
-
-		private static System.Timers.Timer timer;
+		public static RichTextBox? _formLoggingBox;       // The box labeled "Log" in the form
 
 
 
@@ -33,19 +30,12 @@ namespace BasicML
 			// Initializes the form
 			InitializeComponent();
 
-			InstanceHandler.AddInstance();
+			RefreshTabContent();
+
+			//InstanceHandler.AddInstance();
 
 			// Sets the variables for the logging objects
 			_formLoggingBox = loggingBox;
-			_formProgramOutputBox = programOutputBox;
-
-			// Sets the initial colors for the form
-			SetColors(UVU_GREEN, UVU_WHITE);
-
-			// Updates the display so it is ready for use
-			RefreshMemory();
-
-			this.memoryGroupBox.Controls.Add(InstanceHandler.GetCpu(0).memoryGrid.grid);
 
 			// Updates the display so it is ready for use
 			RefreshMemory();
@@ -58,6 +48,7 @@ namespace BasicML
 		// Updates the display so it shows the current state of the memory
 		private void RefreshMemory()
 		{
+			/*
 			int i = 0;
 			do
 			{
@@ -69,21 +60,9 @@ namespace BasicML
 			Buttons_Refresh();
 
 			accumulatorTextBox.Text = InstanceHandler.GetCpu(0).Accumulator.ToString(true);
+			*/
 		}
 
 
-
-
-		/* - - - - - - - - - - Event Functions - - - - - - - - - - */
-
-		// Runs when enter is pressed in the accumulator text box
-		private void AccumulatorTextBox_KeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.KeyCode == Keys.Enter)
-			{
-				InstanceHandler.GetCpu(0).Accumulator.SetValue(accumulatorTextBox.Text);
-				accumulatorTextBox.Text = InstanceHandler.GetCpu(0).Accumulator.ToString(true);
-			}
-		}
 	}
 }
