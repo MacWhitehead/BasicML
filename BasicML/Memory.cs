@@ -19,7 +19,7 @@ namespace BasicML
     {
 		public string Log = "";                       // This is an internal log used for debugging
 
-        public const int MAX_SIZE = 100;             // This is the maximum ammount of space that can be allocated
+        public const int MAX_SIZE = 250;             // This is the maximum ammount of space that can be allocated
 
         private List<Word> wordList = new();		// This is where the underlying data is all stored
 

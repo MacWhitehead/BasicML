@@ -11,7 +11,7 @@ namespace BasicML
 	{
 		private static List<Cpu> instances = new();
 
-		private static Cpu InstanceWithIndex(int index) 
+        private static Cpu InstanceWithIndex(int index) 
 		{
 			while (instances.Count <= index) { AddInstance(); }
 			return instances[index];
@@ -27,5 +27,5 @@ namespace BasicML
 		public static void RemoveInstanceAt(int index) { instances.RemoveAt(index); }
 
 		public static Cpu GetCpu(int instanceIndex) { return InstanceWithIndex(instanceIndex); }
-	}
+    }
 }

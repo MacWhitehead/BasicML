@@ -8,7 +8,7 @@ namespace BasicML
 {
 	public class Word6 : Word
 	{
-		public static readonly int MAX_VALUE = 9999;
+		public static readonly int MAX_VALUE = 999999;
 
 		public override int MaxValue { get { return MAX_VALUE; } }
 
@@ -18,9 +18,24 @@ namespace BasicML
 
 		public Word6(int rawValue) : base(rawValue) { }
 
+        public override int RawValue
+        {
+            get { return _rawValue; }
+            set
+            {
+                while (Math.Abs(value) > MaxValue)
+                {
+                    Logging.LogLine("Overflow occured. Truncating word value");
+                    value %= 1000000;
+                }
 
-		// This is a convient way to read or write only the first three digits of the word
-		public override int Instruction
+                _rawValue = value;
+            }
+        }
+
+
+        // This is a convient way to read or write only the first three digits of the word
+        public override int Instruction
 		{
 			get { return Math.Abs(RawValue / 1000); }
 			set
@@ -44,7 +59,7 @@ namespace BasicML
 				int sign = Math.Sign(RawValue);
 				if (sign == 0) { sign = 1; }
 
-				if ((value > 999) || (value < 0)) { value = 0; }
+				if ((value > 250) || (value < 0)) { value = 0; }
 
 				RawValue = ((Instruction * 1000) + value) * sign;
 			}
