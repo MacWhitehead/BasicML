@@ -36,6 +36,8 @@ namespace BasicML
 		public Memory memory = new();
 		private Word? accumulator;
 
+		public string output = "";					// The output of the CPU
+
 		public Word Accumulator
 		{
 			get

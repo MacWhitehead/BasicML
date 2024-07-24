@@ -25,6 +25,7 @@ namespace BasicML
 
 		public bool usingWord6 = false;
 
+
 		public int Count 
         { 
             get { return wordList.Count; }
@@ -39,6 +40,7 @@ namespace BasicML
                 }
             }
         }
+
 
 		public List<Word> memory
 		{
@@ -79,6 +81,7 @@ namespace BasicML
             return true;
 		}
 
+
 		public bool SetElement(int index, string word)
 		{
 			if ((index >= MAX_SIZE) || (index < 0)) { return false; }
@@ -102,6 +105,7 @@ namespace BasicML
 			return true;
 		}
 
+
 		// Adds a word to the end of the word list
 		public void Add()
 		{
@@ -113,6 +117,7 @@ namespace BasicML
 			wordList.Add(word);
 		}
 
+
 		// Adds a word to the end of the word list
 		public void Add(int i)
 		{
@@ -120,12 +125,14 @@ namespace BasicML
 			else { wordList.Add(new Word4(i)); }
 		}
 
+
 		// Adds a word to the end of the word list
 		public void Add(string s)
 		{
 			if (usingWord6) { wordList.Add(new Word6(s)); }
 			else { wordList.Add(new Word4(s)); }
 		}
+
 
 		// Adds a word to the end of the word list
 		public void Add(Word word)
@@ -147,6 +154,7 @@ namespace BasicML
 
 			AddAt(index, word);
 		}
+
 
 		// Inserts a word at the chosen index
 		public void AddAt(int index, Word word)
@@ -198,6 +206,7 @@ namespace BasicML
 
             InitMemory(wordArray);
 		}
+
 
 		public void InitMemory(string[] memoryContents, bool usingWord6 = false)
 		{

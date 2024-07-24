@@ -19,9 +19,22 @@ namespace BasicML
         // Places a value into memory
         public static bool Read(this Cpu cpu, int operand, string s, bool setDefaultOnFail = true)
         {
-			bool success = Word.TryParse(s, out Word word);
-			if (success) { return cpu.Read(operand, word); }
-			else if (setDefaultOnFail) { cpu.Read(operand, word); }
+			Logging.LogLine($"Reading {s} into memory at location {operand}");
+
+			bool success = false;
+
+			if (cpu.UsingWord6)
+			{
+				success = Word6.TryParse(s, out Word6 word);
+				if (success) { return cpu.Read(operand, word); }
+				else if (setDefaultOnFail) { cpu.Read(operand, word); }
+			}
+			else
+			{
+				success = Word4.TryParse(s, out Word4 word);
+				if (success) { return cpu.Read(operand, word); }
+				else if (setDefaultOnFail) { cpu.Read(operand, word); }
+			}
 			return success;
         }
 
@@ -39,7 +52,7 @@ namespace BasicML
 
 			bool returnValue = location < cpu.memory.Count;
 
-            Logging.LogLine($"Value at location {location}: {cpu.memory.ElementAt(location).ToString()}", Logging.LoggingDestination.ProgramOutput);
+            cpu.output += ($"Value at location {location}: {cpu.memory.ElementAt(location).ToString()}\n");
 
 			return returnValue;
 		}

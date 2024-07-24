@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 namespace BasicML
 {
 	// This file contains the functions that are used to control the buttons in the form
-	public partial class FormBasicML : Form
+	public partial class FormTab : UserControl
 	{
 		/* - - - - - - - - - - Display Functions - - - - - - - - - - */
 
 		// Updates the visibility of the buttons
 		private void Buttons_Refresh()
 		{
-			if (InstanceHandler.GetCpu(0).memory.Count > 0)
+			if (cpu.memory.Count > 0)
 			{
 				runButton.Visible = true;
 				stepButton.Visible = true;
                 saveAsButton.Visible = true;
 
-                if (InstanceHandler.GetCpu(0).MemoryAddress != 0) { runFromStartButton.Visible = true; }
+                if (cpu.MemoryAddress != 0) { runFromStartButton.Visible = true; }
 				else { runFromStartButton.Visible = false; }
 
-				if ((InstanceHandler.GetCpu(0).MemoryAddress != 0) || (InstanceHandler.GetCpu(0).Accumulator != 0)) { resetButton.Visible = true; }
+				if ((cpu.MemoryAddress != 0) || (cpu.Accumulator != 0)) { resetButton.Visible = true; }
 				else { resetButton.Visible = false; }
 			}
 			else
@@ -48,7 +48,7 @@ namespace BasicML
 		{
 			ChooseFile();
 			LoadFile();
-			RefreshMemory();
+			RefreshTab();
 		}
 
 
@@ -56,7 +56,7 @@ namespace BasicML
 		private void LoadFileButton_Click(object sender, EventArgs e)
 		{
 			LoadFile();
-			RefreshMemory();
+			RefreshTab();
 		}
 
         private void SaveAsButton_Click(object sender, EventArgs e)
@@ -68,34 +68,34 @@ namespace BasicML
         // Runs when the "Run" button is clicked
         private void RunButton_Click(object sender, EventArgs e)
 		{
-			InstanceHandler.GetCpu(0).StartExecution();
-			RefreshMemory();
+			cpu.StartExecution();
+			RefreshTab();
 		}
 
 
 		// Runs when the "Step" button is clicked
 		private void StepButton_Click(object sender, EventArgs e)
 		{
-			InstanceHandler.GetCpu(0).StepExecution();
-			RefreshMemory();
+			cpu.StepExecution();
+			RefreshTab();
 		}
 
 
 		// Runs when the "Run From Start" button is clicked
 		private void RunFromStartButton_Click(object sender, EventArgs e)
 		{
-			InstanceHandler.GetCpu(0).MemoryAddress = 0;
-			InstanceHandler.GetCpu(0).StartExecution();
+			cpu.MemoryAddress = 0;
+			cpu.StartExecution();
 		}
 
 
 		// Runs when the "Reset" button is clicked
 		private void ResetButton_Click(object sender, EventArgs e)
 		{
-			InstanceHandler.GetCpu(0).MemoryAddress = 0;
-			InstanceHandler.GetCpu(0).Accumulator.Clear();
+			cpu.MemoryAddress = 0;
+			cpu.Accumulator.Clear();
 			programOutputBox.Clear();
-			RefreshMemory();
+			RefreshTab();
 		}
 
 

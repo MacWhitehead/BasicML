@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BasicML
 {
 	// This file contains the functions that are used to control the file dialog
-	public partial class FormBasicML : Form
+	public partial class FormTab : UserControl
 	{
 		// Data about the file dialog
 		private static bool fileLoaded = false;
@@ -17,6 +17,7 @@ namespace BasicML
 		// Opens a file dialog to choose a file
 		private void ChooseFile()
 		{
+			Logging.LogLine("Opening File Dialog");
 			using (OpenFileDialog openFileDialog = new OpenFileDialog())
 			{
 				openFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
@@ -44,13 +45,13 @@ namespace BasicML
 		// Loads the chosen file into memory
 		private void LoadFile()
 		{
-			try { InstanceHandler.GetCpu(0).ReadFileToMemory(fileTextBox.Text, false); }
+			try { cpu.ReadFileToMemory(fileTextBox.Text, false); }
 			catch { Logging.Log("Could not read file"); }
 
 			// Resets the value in the accumulator
-			InstanceHandler.GetCpu(0).Accumulator.Clear();
+			cpu.Accumulator.Clear();
 
-			InstanceHandler.GetCpu(0).MemoryAddress = 0;
+			cpu.MemoryAddress = 0;
 		}
 
         // Save the memory to file
@@ -67,7 +68,7 @@ namespace BasicML
 
                 if (result == DialogResult.OK)
                 {
-                    try { InstanceHandler.GetCpu(0).WriteMemoryToFile(saveFileDialog.FileName); }
+                    try { cpu.WriteMemoryToFile(saveFileDialog.FileName); }
                     catch { Logging.Log("Could not save file"); }
                     Logging.LogLine("File Saved");
                 }

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace BasicML
 {
 	// This file contains the functions that are used to control the data grid that displays the memory
-	public partial class FormBasicML : Form
+	public partial class FormTab : UserControl
 	{
 		/* - - - - - - - - - - Variables! - - - - - - - - - - */
 
@@ -19,6 +19,8 @@ namespace BasicML
 		private readonly Icon ADD_COULUMN_ICON = SystemIcons.GetStockIcon(StockIconId.Stack, 20);				// This is the icon that is used to add a row to the memory grid
 		private readonly Icon REMOVE_COULUMN_ICON = SystemIcons.GetStockIcon(StockIconId.Delete, 20);           // This is the icon that is used to remove a row from the memory grid
 
+		public Cpu cpu = new();
+
 
 
 		/* - - - - - - - - - - General Functions - - - - - - - - - - */
@@ -26,6 +28,7 @@ namespace BasicML
 		// Preforms setup the memory grid
 		private void MemoryGrid_Initialize()
 		{
+			// Sets the default icons for the memory grid
 			startPointColumn.Image = BLANK_IMAGE;
 			breakPointColumn.Image = BLANK_IMAGE;
 
@@ -41,51 +44,43 @@ namespace BasicML
 
 
 		// Updates the memory grid's display so it shows the current state of the memory
-		private void MemoryGrid_Refresh()
+		public void MemoryGrid_Refresh()
 		{
 			// Deselects any selected cells
 			memoryGrid.ClearSelection();
 
 			// Repopulates the memory grid if needed
-			if (memoryGrid.Rows.Count > InstanceHandler.GetCpu(0).memory.Count) { memoryGrid.Rows.Clear(); }
-
-			while (memoryGrid.Rows.Count <= InstanceHandler.GetCpu(0).memory.Count) { memoryGrid.Rows.Add(); }
+			if (memoryGrid.Rows.Count > cpu.memory.Count + 1) { memoryGrid.Rows.Clear(); }
+			while (memoryGrid.Rows.Count <= cpu.memory.Count) { memoryGrid.Rows.Add(); }
 
 			// Updates the values of the memory grid
-			MemoryGrid_RefreshValues();
+			RefreshValues();
 
 			// Sets the icons that are displayed
-			MemoryGrid_SetIcons();
-		}
-
-
-		private void Memory_Grid_Repopulate()
-		{
-			memoryGrid.Rows.Clear();
-			for (int i = 0; i < InstanceHandler.GetCpu(0).memory.Count; i++) { memoryGrid.Rows.Add(); }
+			SetIcons();
 		}
 
 
 		// Refreshes the word values that are displayed
-		private void MemoryGrid_RefreshValues()
+		private void RefreshValues()
 		{
 			// Updates the values of the memory grid
-			for (int i = 0; i < InstanceHandler.GetCpu(0).memory.Count; i++)
+			for (int i = 0; i < cpu.memory.Count; i++)
 			{
 				memoryGrid.Rows[i].Cells[0].Value = i.ToString();
-				memoryGrid.Rows[i].Cells[1].Value = InstanceHandler.GetCpu(0).memory.ElementAt(i).ToString(true);
+				memoryGrid.Rows[i].Cells[1].Value = cpu.memory.ElementAt(i).ToString(true);
 			}
 		}
 
 
 		// Sets the icons that should be displayed in the memory grid
-		private void MemoryGrid_SetIcons()
+		private void SetIcons()
 		{
 
 			// Updates the icons for the breakpoints
-			for (int i = 0; i < InstanceHandler.GetCpu(0).memory.Count; i++)
+			for (int i = 0; i < cpu.memory.Count; i++)
 			{
-				if (InstanceHandler.GetCpu(0).memory.ElementAt(i)._isBreakpoint)
+				if (cpu.memory.ElementAt(i)._isBreakpoint)
 				{
 					DataGridViewImageCell cell = (DataGridViewImageCell)memoryGrid.Rows[i].Cells[3];
 					cell.ValueIsIcon = true;
@@ -93,14 +88,33 @@ namespace BasicML
 				}
 			}
 
-
+			/*
 			// Updates the StartPoint icon location
-			if (InstanceHandler.GetCpu(0).memory.Count >= InstanceHandler.GetCpu(0).MemoryAddress)
+			if (cpu.memory.Count >= cpu.MemoryAddress)
 			{
-				DataGridViewImageCell selectedStartPointCell = (DataGridViewImageCell)memoryGrid.Rows[InstanceHandler.GetCpu(0).MemoryAddress].Cells[2];
+				DataGridViewImageCell selectedStartPointCell = (DataGridViewImageCell)memoryGrid.Rows[cpu.MemoryAddress].Cells[2];
 
 				selectedStartPointCell.ValueIsIcon = true;
 				selectedStartPointCell.Value = START_POINT_ICON;
+			}
+			*/
+
+			// Updates the StartPoint icon location
+			for (int i = 0; i < memoryGrid.Rows.Count; i++)
+			{
+				DataGridViewImageCell cell = (DataGridViewImageCell)memoryGrid.Rows[i].Cells[2];
+				if (i == cpu.MemoryAddress)
+				{
+					cell.ValueIsIcon = true;
+					cell.Value = START_POINT_ICON;
+				}
+				else
+				{
+
+					cell.ValueIsIcon = false;
+					cell.Value = BLANK_IMAGE;
+				}
+
 			}
 
 			// Variables that represent specific cells in the memory grid (These are decalared for readability purposes)
@@ -125,7 +139,7 @@ namespace BasicML
 
 		/* - - - - - - - - - - Event Functions - - - - - - - - - - */
 
-		// Runs when the mouse clicks a cell in the memoryGrid
+		// Runs when the mouse clicks a cell in the grid
 		private void MemoryGrid_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
 			// Returns early if the cell is out of bounds
@@ -141,23 +155,23 @@ namespace BasicML
 			}
 			else if (e.ColumnIndex == 2) 
 			{
-				InstanceHandler.GetCpu(0).MemoryAddress = e.RowIndex;
-				RefreshMemory();
+				cpu.MemoryAddress = e.RowIndex;
+				MemoryGrid_Refresh();
 			}
 			else if (e.ColumnIndex == 3) 
 			{
-				InstanceHandler.GetCpu(0).memory.ElementAt(e.RowIndex)._isBreakpoint = !InstanceHandler.GetCpu(0).memory.ElementAt(e.RowIndex)._isBreakpoint;
-				RefreshMemory();
+				cpu.memory.ElementAt(e.RowIndex)._isBreakpoint = !cpu.memory.ElementAt(e.RowIndex)._isBreakpoint;
+				MemoryGrid_Refresh();
 			}
 			else if (e.ColumnIndex == 4) 
 			{
-				InstanceHandler.GetCpu(0).memory.AddAt(e.RowIndex);
-				RefreshMemory();
+				cpu.memory.AddAt(e.RowIndex);
+				MemoryGrid_Refresh();
 			}
 			else if ((e.ColumnIndex == 5) && (e.RowIndex < memoryGrid.Rows.Count - 1)) 
 			{
-				InstanceHandler.GetCpu(0).memory.RemoveAt(e.RowIndex);
-				RefreshMemory();
+				cpu.memory.RemoveAt(e.RowIndex);
+				MemoryGrid_Refresh();
 			}
 		}
 
@@ -167,7 +181,7 @@ namespace BasicML
 		}
 
 
-		// Runs when the mouse enters a cell in the memoryGrid
+		// Runs when the mouse enters a cell in the grid
 		private void MemoryGrid_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
 		{
 			// Returns early if the cell is out of bounds
@@ -191,7 +205,7 @@ namespace BasicML
 		}
 
 
-		// Runs when the mouse leaves a cell in the memoryGrid
+		// Runs when the mouse leaves a cell in the grid
 		private void MemoryGrid_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
 		{
 			// Returns early if the cell is out of bounds
@@ -199,8 +213,8 @@ namespace BasicML
 			if ((e.ColumnIndex < 0) || (e.ColumnIndex >= memoryGrid.Columns.Count)) { return; }
 
 			// Returns early if the cell contents should not be changed on leave
-			if ((e.ColumnIndex == 2) && (e.RowIndex == InstanceHandler.GetCpu(0).MemoryAddress)) { return; }
-			if ((e.ColumnIndex == 3) && (InstanceHandler.GetCpu(0).memory.ElementAt(e.RowIndex)._isBreakpoint)) { return; }
+			if ((e.ColumnIndex == 2) && (e.RowIndex == cpu.MemoryAddress)) { return; }
+			if ((e.ColumnIndex == 3) && (e.RowIndex < cpu.memory.Count) && (cpu.memory.ElementAt(e.RowIndex)._isBreakpoint)) { return; }
 
 			// Clears the icon from the startPoint and breakPoint cells on mouse leave
 			if ((e.ColumnIndex == 2) || (e.ColumnIndex == 3))
@@ -215,7 +229,7 @@ namespace BasicML
 		}
 
 
-		// Runs when the user finishes editing a cell in the memoryGrid
+		// Runs when the user finishes editing a cell in the grid
 		private void MemoryGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
 		{
 			// Returns early if the cell is out of bounds
@@ -236,11 +250,11 @@ namespace BasicML
 
 
 					// Sets the value of the corresponding memory element to the value of the cell
-					if (e.RowIndex >= Memory.MAX_SIZE) { InstanceHandler.GetCpu(0).memory.Add(cellValue); }
-					else { InstanceHandler.GetCpu(0).memory.SetElement(e.RowIndex, cellValue); }
+					if (e.RowIndex >= Memory.MAX_SIZE) { cpu.memory.Add(cellValue); }
+					else { cpu.memory.SetElement(e.RowIndex, cellValue); }
 
 
-					BeginInvoke(new MethodInvoker(MemoryGrid_Refresh));
+					MemoryGrid_Refresh();
 				}
 			}
 		}
@@ -284,7 +298,7 @@ namespace BasicML
 
 				if (!selectedRows.ContainsKey(row))
 				{
-					selectedRows.Add(row, InstanceHandler.GetCpu(0).memory.ElementAt(row));
+					selectedRows.Add(row, cpu.memory.ElementAt(row));
 				}
 			}
 
@@ -297,19 +311,19 @@ namespace BasicML
 			{
 				for (int i = 0; i < rowCount; i++)
 				{
-					InstanceHandler.GetCpu(0).memory.RemoveAt(selectedRows.First().Key);
+					cpu.memory.RemoveAt(selectedRows.First().Key);
 				}
 
 				if (selectedRows.First().Key < rowIndexOfItemUnderMouseToDrop) { rowIndexOfItemUnderMouseToDrop -= rowCount; }
 
 				foreach (KeyValuePair<int, Word> row in selectedRows)
 				{
-					InstanceHandler.GetCpu(0).memory.AddAt(rowIndexOfItemUnderMouseToDrop);
+					cpu.memory.AddAt(rowIndexOfItemUnderMouseToDrop);
 				}
 
 				foreach (KeyValuePair<int, Word> row in selectedRows)
 				{
-					InstanceHandler.GetCpu(0).memory.SetElement(rowIndexOfItemUnderMouseToDrop, row.Value);
+					cpu.memory.SetElement(rowIndexOfItemUnderMouseToDrop, row.Value);
 
 					rowIndexOfItemUnderMouseToDrop++;
 				}
@@ -342,7 +356,7 @@ namespace BasicML
 
 			foreach (DataGridViewCell cell in selectedCells)
 			{
-				InstanceHandler.GetCpu(0).memory.SetElement(cell.RowIndex, clipboardContents[i]);
+				cpu.memory.SetElement(cell.RowIndex, clipboardContents[i]);
 				i++;
 
 				if (i == clipboardContents.Length) { i = 0; }
