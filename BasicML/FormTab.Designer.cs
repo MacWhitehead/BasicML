@@ -39,6 +39,8 @@
 			this.memoryAddColumn = new DataGridViewImageColumn();
 			this.memoryRemoveColumn = new DataGridViewImageColumn();
 			this.groupBoxOfCoolness = new GroupBox();
+			this.removeTabButton = new Button();
+			this.addTabButton = new Button();
 			this.chooseFile6Button = new Button();
 			this.saveAsButton = new Button();
 			this.colorSchemeButton = new Button();
@@ -194,6 +196,8 @@
 			// groupBoxOfCoolness
 			// 
 			this.groupBoxOfCoolness.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+			this.groupBoxOfCoolness.Controls.Add(this.removeTabButton);
+			this.groupBoxOfCoolness.Controls.Add(this.addTabButton);
 			this.groupBoxOfCoolness.Controls.Add(this.chooseFile6Button);
 			this.groupBoxOfCoolness.Controls.Add(this.saveAsButton);
 			this.groupBoxOfCoolness.Controls.Add(this.colorSchemeButton);
@@ -214,9 +218,31 @@
 			this.groupBoxOfCoolness.TabStop = false;
 			this.groupBoxOfCoolness.Text = "Controls";
 			// 
+			// removeTabButton
+			// 
+			this.removeTabButton.Location = new Point(175, 32);
+			this.removeTabButton.Margin = new Padding(4, 5, 4, 5);
+			this.removeTabButton.Name = "removeTabButton";
+			this.removeTabButton.Size = new Size(159, 38);
+			this.removeTabButton.TabIndex = 15;
+			this.removeTabButton.Text = "Remove Tab";
+			this.removeTabButton.UseVisualStyleBackColor = true;
+			this.removeTabButton.Click += RemoveTab_Click;
+			// 
+			// addTabButton
+			// 
+			this.addTabButton.Location = new Point(8, 32);
+			this.addTabButton.Margin = new Padding(4, 5, 4, 5);
+			this.addTabButton.Name = "addTabButton";
+			this.addTabButton.Size = new Size(159, 38);
+			this.addTabButton.TabIndex = 14;
+			this.addTabButton.Text = "Add Tab";
+			this.addTabButton.UseVisualStyleBackColor = true;
+			this.addTabButton.Click += AddTab_Click;
+			// 
 			// chooseFile6Button
 			// 
-			this.chooseFile6Button.Location = new Point(496, 28);
+			this.chooseFile6Button.Location = new Point(497, 90);
 			this.chooseFile6Button.Name = "chooseFile6Button";
 			this.chooseFile6Button.Size = new Size(200, 38);
 			this.chooseFile6Button.TabIndex = 13;
@@ -227,7 +253,7 @@
 			// saveAsButton
 			// 
 			this.saveAsButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			this.saveAsButton.Location = new Point(958, 28);
+			this.saveAsButton.Location = new Point(703, 90);
 			this.saveAsButton.Name = "saveAsButton";
 			this.saveAsButton.Size = new Size(159, 38);
 			this.saveAsButton.TabIndex = 12;
@@ -238,7 +264,7 @@
 			// colorSchemeButton
 			// 
 			this.colorSchemeButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			this.colorSchemeButton.Location = new Point(958, 80);
+			this.colorSchemeButton.Location = new Point(958, 17);
 			this.colorSchemeButton.Margin = new Padding(4, 5, 4, 5);
 			this.colorSchemeButton.Name = "colorSchemeButton";
 			this.colorSchemeButton.Size = new Size(159, 38);
@@ -249,7 +275,7 @@
 			// 
 			// runFromStartButton
 			// 
-			this.runFromStartButton.Location = new Point(7, 80);
+			this.runFromStartButton.Location = new Point(8, 136);
 			this.runFromStartButton.Margin = new Padding(4, 5, 4, 5);
 			this.runFromStartButton.Name = "runFromStartButton";
 			this.runFromStartButton.Size = new Size(227, 38);
@@ -316,7 +342,7 @@
 			// 
 			// reloadFileButton
 			// 
-			this.reloadFileButton.Location = new Point(702, 28);
+			this.reloadFileButton.Location = new Point(243, 136);
 			this.reloadFileButton.Name = "reloadFileButton";
 			this.reloadFileButton.Size = new Size(111, 38);
 			this.reloadFileButton.TabIndex = 4;
@@ -326,7 +352,7 @@
 			// 
 			// fileTextBox
 			// 
-			this.fileTextBox.Location = new Point(7, 33);
+			this.fileTextBox.Location = new Point(8, 97);
 			this.fileTextBox.Name = "fileTextBox";
 			this.fileTextBox.Size = new Size(277, 31);
 			this.fileTextBox.TabIndex = 2;
@@ -334,7 +360,7 @@
 			// 
 			// chooseFileButton
 			// 
-			this.chooseFileButton.Location = new Point(290, 28);
+			this.chooseFileButton.Location = new Point(291, 90);
 			this.chooseFileButton.Name = "chooseFileButton";
 			this.chooseFileButton.Size = new Size(200, 38);
 			this.chooseFileButton.TabIndex = 3;
@@ -384,6 +410,7 @@
 			ResumeLayout(false);
 		}
 
+
 		#endregion
 
 		private System.ComponentModel.BackgroundWorker backgroundWorker1;
@@ -411,5 +438,7 @@
 		private DataGridViewImageColumn memoryAddColumn;
 		private DataGridViewImageColumn memoryRemoveColumn;
 		private Button chooseFile6Button;
+		private Button removeTabButton;
+		private Button addTabButton;
 	}
 }

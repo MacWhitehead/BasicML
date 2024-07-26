@@ -14,6 +14,17 @@ namespace BasicML
 		// Updates the visibility of the buttons
 		private void Buttons_Refresh()
 		{
+			if (index == 0)
+			{
+				removeTabButton.Visible = false;
+				removeTabButton.Enabled = false;
+			}
+			else
+			{
+				removeTabButton.Visible = true;
+				removeTabButton.Enabled = true;
+			}
+
 			if (cpu.memory.Count > 0)
 			{
 				runButton.Visible = true;
@@ -111,6 +122,18 @@ namespace BasicML
 			cpu.Accumulator.Clear();
 			programOutputBox.Clear();
 			RefreshTab();
+		}
+
+		private void AddTab_Click(object sender, EventArgs e)
+		{
+			FormBasicML.AddInstance();
+			FormBasicML.RefreshTabContent();
+		}
+
+		private void RemoveTab_Click(object sender, EventArgs e)
+		{
+			FormBasicML.RemoveInstanceAt(index);
+			FormBasicML.RefreshTabContent();
 		}
 
 
