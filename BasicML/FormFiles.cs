@@ -57,13 +57,13 @@ namespace BasicML
         // Loads the chosen file into memory
         private void LoadFile6()
         {
-            try { InstanceHandler.GetCpu(0).ReadFileToMemory6(fileTextBox.Text, false); }
+            try { cpu.ReadFileToMemory6(fileTextBox.Text, false); }
             catch { Logging.Log("Could not read file"); }
 
             // Resets the value in the accumulator
-            InstanceHandler.GetCpu(0).Accumulator.Clear();
+            cpu.Accumulator.Clear();
 
-            InstanceHandler.GetCpu(0).MemoryAddress = 0;
+            cpu.MemoryAddress = 0;
         }
 
         // Save the memory to file

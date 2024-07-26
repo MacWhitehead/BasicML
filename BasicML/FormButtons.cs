@@ -55,22 +55,22 @@ namespace BasicML
         {
             ChooseFile();
             LoadFile6();
-            RefreshMemory();
-        }
+			RefreshTab();
+		}
 
 
         // Runs when the "Reload File" button is clicked
         private void LoadFileButton_Click(object sender, EventArgs e)
 		{
-			if (InstanceHandler.GetCpu(0).UsingWord6)
+			if (cpu.UsingWord6)
 			{
                 LoadFile6();
-                RefreshMemory();
+				MemoryGrid_Refresh();
             }
 			else
 			{
                 LoadFile();
-                RefreshMemory();
+				MemoryGrid_Refresh();
             }
 		}
 

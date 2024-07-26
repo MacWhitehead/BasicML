@@ -38,7 +38,8 @@
 			this.breakPointColumn = new DataGridViewImageColumn();
 			this.memoryAddColumn = new DataGridViewImageColumn();
 			this.memoryRemoveColumn = new DataGridViewImageColumn();
-			this.groupBox3 = new GroupBox();
+			this.groupBoxOfCoolness = new GroupBox();
+			this.chooseFile6Button = new Button();
 			this.saveAsButton = new Button();
 			this.colorSchemeButton = new Button();
 			this.runFromStartButton = new Button();
@@ -55,7 +56,7 @@
 			this.tableLayoutPanel1.SuspendLayout();
 			this.memoryGroupBox.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)this.memoryGrid).BeginInit();
-			this.groupBox3.SuspendLayout();
+			this.groupBoxOfCoolness.SuspendLayout();
 			this.groupBox4.SuspendLayout();
 			SuspendLayout();
 			// 
@@ -69,26 +70,29 @@
 			this.tableLayoutPanel1.ColumnCount = 1;
 			this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
 			this.tableLayoutPanel1.Controls.Add(this.memoryGroupBox, 0, 1);
-			this.tableLayoutPanel1.Controls.Add(this.groupBox3, 0, 0);
+			this.tableLayoutPanel1.Controls.Add(this.groupBoxOfCoolness, 0, 0);
 			this.tableLayoutPanel1.Controls.Add(this.groupBox4, 0, 2);
 			this.tableLayoutPanel1.Dock = DockStyle.Fill;
 			this.tableLayoutPanel1.Location = new Point(0, 0);
+			this.tableLayoutPanel1.Margin = new Padding(4, 5, 4, 5);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
 			this.tableLayoutPanel1.RowCount = 3;
 			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 17F));
 			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
 			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 26F));
 			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 17F));
-			this.tableLayoutPanel1.Size = new Size(800, 750);
+			this.tableLayoutPanel1.Size = new Size(1143, 1250);
 			this.tableLayoutPanel1.TabIndex = 1;
 			// 
 			// memoryGroupBox
 			// 
 			this.memoryGroupBox.Controls.Add(this.memoryGrid);
 			this.memoryGroupBox.Dock = DockStyle.Fill;
-			this.memoryGroupBox.Location = new Point(3, 156);
+			this.memoryGroupBox.Location = new Point(4, 261);
+			this.memoryGroupBox.Margin = new Padding(4, 5, 4, 5);
 			this.memoryGroupBox.Name = "memoryGroupBox";
-			this.memoryGroupBox.Size = new Size(794, 355);
+			this.memoryGroupBox.Padding = new Padding(4, 5, 4, 5);
+			this.memoryGroupBox.Size = new Size(1135, 592);
 			this.memoryGroupBox.TabIndex = 1;
 			this.memoryGroupBox.TabStop = false;
 			this.memoryGroupBox.Text = "Memory";
@@ -104,7 +108,8 @@
 			this.memoryGrid.Columns.AddRange(new DataGridViewColumn[] { this.memoryIndexColumn, this.memoryContentsColumn, this.startPointColumn, this.breakPointColumn, this.memoryAddColumn, this.memoryRemoveColumn });
 			this.memoryGrid.Dock = DockStyle.Fill;
 			this.memoryGrid.EditMode = DataGridViewEditMode.EditProgrammatically;
-			this.memoryGrid.Location = new Point(3, 19);
+			this.memoryGrid.Location = new Point(4, 29);
+			this.memoryGrid.Margin = new Padding(4, 5, 4, 5);
 			this.memoryGrid.Name = "memoryGrid";
 			this.memoryGrid.RightToLeft = RightToLeft.No;
 			this.memoryGrid.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
@@ -112,7 +117,7 @@
 			this.memoryGrid.RowHeadersWidth = 62;
 			this.memoryGrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.memoryGrid.SelectionMode = DataGridViewSelectionMode.CellSelect;
-			this.memoryGrid.Size = new Size(788, 333);
+			this.memoryGrid.Size = new Size(1127, 558);
 			this.memoryGrid.TabIndex = 9;
 			this.memoryGrid.CellClick += MemoryGrid_CellClick;
 			this.memoryGrid.CellDoubleClick += MemoryGrid_CellDoubleClick;
@@ -132,7 +137,7 @@
 			this.memoryIndexColumn.Name = "memoryIndexColumn";
 			this.memoryIndexColumn.ReadOnly = true;
 			this.memoryIndexColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
-			this.memoryIndexColumn.Width = 42;
+			this.memoryIndexColumn.Width = 61;
 			// 
 			// memoryContentsColumn
 			// 
@@ -151,7 +156,7 @@
 			this.startPointColumn.ReadOnly = true;
 			this.startPointColumn.Resizable = DataGridViewTriState.True;
 			this.startPointColumn.ToolTipText = "The location in memory that the CPU is at";
-			this.startPointColumn.Width = 36;
+			this.startPointColumn.Width = 51;
 			// 
 			// breakPointColumn
 			// 
@@ -162,7 +167,7 @@
 			this.breakPointColumn.ReadOnly = true;
 			this.breakPointColumn.Resizable = DataGridViewTriState.True;
 			this.breakPointColumn.ToolTipText = "Breakpoints";
-			this.breakPointColumn.Width = 42;
+			this.breakPointColumn.Width = 61;
 			// 
 			// memoryAddColumn
 			// 
@@ -173,7 +178,7 @@
 			this.memoryAddColumn.ReadOnly = true;
 			this.memoryAddColumn.Resizable = DataGridViewTriState.True;
 			this.memoryAddColumn.ToolTipText = "Adds a new element to memory";
-			this.memoryAddColumn.Width = 35;
+			this.memoryAddColumn.Width = 52;
 			// 
 			// memoryRemoveColumn
 			// 
@@ -184,39 +189,47 @@
 			this.memoryRemoveColumn.ReadOnly = true;
 			this.memoryRemoveColumn.Resizable = DataGridViewTriState.True;
 			this.memoryRemoveColumn.ToolTipText = "Deletes an element from memory";
-			this.memoryRemoveColumn.Width = 46;
+			this.memoryRemoveColumn.Width = 68;
 			// 
-			// groupBox3
+			// groupBoxOfCoolness
 			// 
-			this.groupBox3.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-			this.groupBox3.Controls.Add(this.saveAsButton);
-			this.groupBox3.Controls.Add(this.colorSchemeButton);
-			this.groupBox3.Controls.Add(this.runFromStartButton);
-			this.groupBox3.Controls.Add(this.resetButton);
-			this.groupBox3.Controls.Add(this.label1);
-			this.groupBox3.Controls.Add(this.accumulatorTextBox);
-			this.groupBox3.Controls.Add(this.stepButton);
-			this.groupBox3.Controls.Add(this.runButton);
-			this.groupBox3.Controls.Add(this.reloadFileButton);
-			this.groupBox3.Controls.Add(this.fileTextBox);
-			this.groupBox3.Controls.Add(this.chooseFileButton);
-			this.groupBox3.Dock = DockStyle.Fill;
-			this.groupBox3.Location = new Point(2, 2);
-			this.groupBox3.Margin = new Padding(2);
-			this.groupBox3.Name = "groupBox3";
-			this.groupBox3.Padding = new Padding(2);
-			this.groupBox3.Size = new Size(796, 149);
-			this.groupBox3.TabIndex = 4;
-			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = "Controls";
+			this.groupBoxOfCoolness.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+			this.groupBoxOfCoolness.Controls.Add(this.chooseFile6Button);
+			this.groupBoxOfCoolness.Controls.Add(this.saveAsButton);
+			this.groupBoxOfCoolness.Controls.Add(this.colorSchemeButton);
+			this.groupBoxOfCoolness.Controls.Add(this.runFromStartButton);
+			this.groupBoxOfCoolness.Controls.Add(this.resetButton);
+			this.groupBoxOfCoolness.Controls.Add(this.label1);
+			this.groupBoxOfCoolness.Controls.Add(this.accumulatorTextBox);
+			this.groupBoxOfCoolness.Controls.Add(this.stepButton);
+			this.groupBoxOfCoolness.Controls.Add(this.runButton);
+			this.groupBoxOfCoolness.Controls.Add(this.reloadFileButton);
+			this.groupBoxOfCoolness.Controls.Add(this.fileTextBox);
+			this.groupBoxOfCoolness.Controls.Add(this.chooseFileButton);
+			this.groupBoxOfCoolness.Dock = DockStyle.Fill;
+			this.groupBoxOfCoolness.Location = new Point(3, 3);
+			this.groupBoxOfCoolness.Name = "groupBoxOfCoolness";
+			this.groupBoxOfCoolness.Size = new Size(1137, 250);
+			this.groupBoxOfCoolness.TabIndex = 4;
+			this.groupBoxOfCoolness.TabStop = false;
+			this.groupBoxOfCoolness.Text = "Controls";
+			// 
+			// chooseFile6Button
+			// 
+			this.chooseFile6Button.Location = new Point(496, 28);
+			this.chooseFile6Button.Name = "chooseFile6Button";
+			this.chooseFile6Button.Size = new Size(200, 38);
+			this.chooseFile6Button.TabIndex = 13;
+			this.chooseFile6Button.Text = "Choose File (6 Digit)";
+			this.chooseFile6Button.UseVisualStyleBackColor = true;
+			this.chooseFile6Button.Click += chooseFile6Button_Click;
 			// 
 			// saveAsButton
 			// 
 			this.saveAsButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			this.saveAsButton.Location = new Point(589, 20);
-			this.saveAsButton.Margin = new Padding(2);
+			this.saveAsButton.Location = new Point(958, 28);
 			this.saveAsButton.Name = "saveAsButton";
-			this.saveAsButton.Size = new Size(78, 20);
+			this.saveAsButton.Size = new Size(159, 38);
 			this.saveAsButton.TabIndex = 12;
 			this.saveAsButton.Text = "Save As";
 			this.saveAsButton.UseVisualStyleBackColor = true;
@@ -225,9 +238,10 @@
 			// colorSchemeButton
 			// 
 			this.colorSchemeButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			this.colorSchemeButton.Location = new Point(672, 19);
+			this.colorSchemeButton.Location = new Point(958, 80);
+			this.colorSchemeButton.Margin = new Padding(4, 5, 4, 5);
 			this.colorSchemeButton.Name = "colorSchemeButton";
-			this.colorSchemeButton.Size = new Size(111, 23);
+			this.colorSchemeButton.Size = new Size(159, 38);
 			this.colorSchemeButton.TabIndex = 11;
 			this.colorSchemeButton.Text = "Color Scheme";
 			this.colorSchemeButton.UseVisualStyleBackColor = true;
@@ -235,9 +249,10 @@
 			// 
 			// runFromStartButton
 			// 
-			this.runFromStartButton.Location = new Point(5, 48);
+			this.runFromStartButton.Location = new Point(7, 80);
+			this.runFromStartButton.Margin = new Padding(4, 5, 4, 5);
 			this.runFromStartButton.Name = "runFromStartButton";
-			this.runFromStartButton.Size = new Size(159, 23);
+			this.runFromStartButton.Size = new Size(227, 38);
 			this.runFromStartButton.TabIndex = 10;
 			this.runFromStartButton.Text = "Run From Start";
 			this.runFromStartButton.UseVisualStyleBackColor = true;
@@ -246,9 +261,10 @@
 			// resetButton
 			// 
 			this.resetButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			this.resetButton.Location = new Point(170, 108);
+			this.resetButton.Location = new Point(243, 182);
+			this.resetButton.Margin = new Padding(4, 5, 4, 5);
 			this.resetButton.Name = "resetButton";
-			this.resetButton.Size = new Size(75, 23);
+			this.resetButton.Size = new Size(107, 38);
 			this.resetButton.TabIndex = 9;
 			this.resetButton.Text = "Reset";
 			this.resetButton.UseVisualStyleBackColor = true;
@@ -259,28 +275,29 @@
 			this.label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			this.label1.AutoSize = true;
 			this.label1.Font = new Font("Segoe UI", 12F);
-			this.label1.Location = new Point(627, 84);
+			this.label1.Location = new Point(896, 142);
+			this.label1.Margin = new Padding(4, 0, 4, 0);
 			this.label1.Name = "label1";
-			this.label1.Size = new Size(140, 21);
+			this.label1.Size = new Size(213, 32);
 			this.label1.TabIndex = 8;
 			this.label1.Text = "Accumulator Value";
 			// 
 			// accumulatorTextBox
 			// 
 			this.accumulatorTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			this.accumulatorTextBox.Location = new Point(627, 108);
+			this.accumulatorTextBox.Location = new Point(896, 182);
+			this.accumulatorTextBox.Margin = new Padding(4, 5, 4, 5);
 			this.accumulatorTextBox.Name = "accumulatorTextBox";
-			this.accumulatorTextBox.Size = new Size(156, 23);
+			this.accumulatorTextBox.Size = new Size(221, 31);
 			this.accumulatorTextBox.TabIndex = 7;
 			this.accumulatorTextBox.KeyDown += AccumulatorTextBox_KeyDown;
 			// 
 			// stepButton
 			// 
 			this.stepButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			this.stepButton.Location = new Point(87, 108);
-			this.stepButton.Margin = new Padding(2);
+			this.stepButton.Location = new Point(124, 182);
 			this.stepButton.Name = "stepButton";
-			this.stepButton.Size = new Size(78, 23);
+			this.stepButton.Size = new Size(111, 38);
 			this.stepButton.TabIndex = 6;
 			this.stepButton.Text = "Step";
 			this.stepButton.UseVisualStyleBackColor = true;
@@ -289,10 +306,9 @@
 			// runButton
 			// 
 			this.runButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			this.runButton.Location = new Point(5, 108);
-			this.runButton.Margin = new Padding(2);
+			this.runButton.Location = new Point(7, 182);
 			this.runButton.Name = "runButton";
-			this.runButton.Size = new Size(78, 23);
+			this.runButton.Size = new Size(111, 38);
 			this.runButton.TabIndex = 5;
 			this.runButton.Text = "Run";
 			this.runButton.UseVisualStyleBackColor = true;
@@ -300,10 +316,9 @@
 			// 
 			// reloadFileButton
 			// 
-			this.reloadFileButton.Location = new Point(286, 20);
-			this.reloadFileButton.Margin = new Padding(2);
+			this.reloadFileButton.Location = new Point(702, 28);
 			this.reloadFileButton.Name = "reloadFileButton";
-			this.reloadFileButton.Size = new Size(78, 23);
+			this.reloadFileButton.Size = new Size(111, 38);
 			this.reloadFileButton.TabIndex = 4;
 			this.reloadFileButton.Text = "Reload";
 			this.reloadFileButton.UseVisualStyleBackColor = true;
@@ -311,21 +326,19 @@
 			// 
 			// fileTextBox
 			// 
-			this.fileTextBox.Location = new Point(5, 20);
-			this.fileTextBox.Margin = new Padding(2);
+			this.fileTextBox.Location = new Point(7, 33);
 			this.fileTextBox.Name = "fileTextBox";
-			this.fileTextBox.Size = new Size(195, 23);
+			this.fileTextBox.Size = new Size(277, 31);
 			this.fileTextBox.TabIndex = 2;
 			this.fileTextBox.Text = "Please Choose A FIle";
 			// 
 			// chooseFileButton
 			// 
-			this.chooseFileButton.Location = new Point(204, 20);
-			this.chooseFileButton.Margin = new Padding(2);
+			this.chooseFileButton.Location = new Point(290, 28);
 			this.chooseFileButton.Name = "chooseFileButton";
-			this.chooseFileButton.Size = new Size(78, 23);
+			this.chooseFileButton.Size = new Size(200, 38);
 			this.chooseFileButton.TabIndex = 3;
-			this.chooseFileButton.Text = "Choose File";
+			this.chooseFileButton.Text = "Choose File (4 Digit)";
 			this.chooseFileButton.UseVisualStyleBackColor = true;
 			this.chooseFileButton.Click += ChooseFile_Click;
 			// 
@@ -333,9 +346,11 @@
 			// 
 			this.groupBox4.Controls.Add(this.programOutputBox);
 			this.groupBox4.Dock = DockStyle.Fill;
-			this.groupBox4.Location = new Point(3, 517);
+			this.groupBox4.Location = new Point(4, 863);
+			this.groupBox4.Margin = new Padding(4, 5, 4, 5);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new Size(794, 230);
+			this.groupBox4.Padding = new Padding(4, 5, 4, 5);
+			this.groupBox4.Size = new Size(1135, 382);
 			this.groupBox4.TabIndex = 5;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Program Output";
@@ -343,26 +358,28 @@
 			// programOutputBox
 			// 
 			this.programOutputBox.Dock = DockStyle.Fill;
-			this.programOutputBox.Location = new Point(3, 19);
+			this.programOutputBox.Location = new Point(4, 29);
+			this.programOutputBox.Margin = new Padding(4, 5, 4, 5);
 			this.programOutputBox.Name = "programOutputBox";
 			this.programOutputBox.ReadOnly = true;
-			this.programOutputBox.Size = new Size(788, 208);
+			this.programOutputBox.Size = new Size(1127, 348);
 			this.programOutputBox.TabIndex = 0;
 			this.programOutputBox.Text = "";
 			// 
 			// FormTab
 			// 
-			AutoScaleDimensions = new SizeF(7F, 15F);
+			AutoScaleDimensions = new SizeF(10F, 25F);
 			AutoScaleMode = AutoScaleMode.Font;
 			AutoSizeMode = AutoSizeMode.GrowAndShrink;
 			Controls.Add(this.tableLayoutPanel1);
+			Margin = new Padding(4, 5, 4, 5);
 			Name = "FormTab";
-			Size = new Size(800, 750);
+			Size = new Size(1143, 1250);
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.memoryGroupBox.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)this.memoryGrid).EndInit();
-			this.groupBox3.ResumeLayout(false);
-			this.groupBox3.PerformLayout();
+			this.groupBoxOfCoolness.ResumeLayout(false);
+			this.groupBoxOfCoolness.PerformLayout();
 			this.groupBox4.ResumeLayout(false);
 			ResumeLayout(false);
 		}
@@ -372,7 +389,7 @@
 		private System.ComponentModel.BackgroundWorker backgroundWorker1;
 		private TableLayoutPanel tableLayoutPanel1;
 		private GroupBox memoryGroupBox;
-		private GroupBox groupBox3;
+		private GroupBox groupBoxOfCoolness;
 		private Button saveAsButton;
 		private Button colorSchemeButton;
 		private Button runFromStartButton;
@@ -393,5 +410,6 @@
 		private DataGridViewImageColumn breakPointColumn;
 		private DataGridViewImageColumn memoryAddColumn;
 		private DataGridViewImageColumn memoryRemoveColumn;
+		private Button chooseFile6Button;
 	}
 }
