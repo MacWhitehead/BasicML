@@ -18,6 +18,21 @@ namespace BasicML
 
 		public Word4(int rawValue) : base(rawValue) { }
 
+		public override int RawValue
+		{
+			get { return _rawValue; }
+			set
+			{
+				while (Math.Abs(value) > MaxValue)
+				{
+					Logging.LogLine("Overflow occured. Truncating word value");
+					value %= 10000;
+				}
+
+				_rawValue = value;
+			}
+		}
+
 
 		// This is a convient way to read or write only the first two digits of the word
 		public override int Instruction

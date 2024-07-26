@@ -22,24 +22,25 @@ namespace BasicML
 
 		/* - - - - - - - - - - Parameters - - - - - - - - - - */
 
-		public int RawValue
-		{
-			get { return _rawValue; }
-			set
-			{
-				while (Math.Abs(value) > MaxValue)
-				{
-					Logging.LogLine("Overflow occured. Truncating word value");
-					value /= 10;
-				}
+		//public int RawValue
+		//{
+		//	get { return _rawValue; }
+		//	set
+		//	{
+		//		while (Math.Abs(value) > MaxValue)
+		//		{
+		//			Logging.LogLine("Overflow occured. Truncating word value");
+		//			value %= 10000;
+		//		}
 
-				_rawValue = value;
-			}
-		}
+		//		_rawValue = value;
+		//	}
+		//}
+        public abstract int RawValue { get; set; }
 
 
-		// This is a convient way to read or write only the first two digits of the word
-		public abstract int Instruction { get; set; }
+        // This is a convient way to read or write only the first two digits of the word
+        public abstract int Instruction { get; set; }
 
 
 		// This is a convient way to read or write only the last two digits of the word
@@ -133,21 +134,21 @@ namespace BasicML
 		// Defines how a subtraction operator should be applied when used with two words
 		public static Word operator -(Word a, Word b)
 		{
-			if ((a.GetType() == typeof(Word6)) || (b.GetType() == typeof(Word6))) { return new Word6(a.RawValue + b.RawValue); }
+			if ((a.GetType() == typeof(Word6)) || (b.GetType() == typeof(Word6))) { return new Word6(a.RawValue - b.RawValue); }
 			return new Word4(a.RawValue - b.RawValue);
 		}
 
 		// Defines how a multiplication operator should be applied when used with two words
 		public static Word operator *(Word a, Word b)
 		{
-			if ((a.GetType() == typeof(Word6)) || (b.GetType() == typeof(Word6))) { return new Word6(a.RawValue + b.RawValue); }
+			if ((a.GetType() == typeof(Word6)) || (b.GetType() == typeof(Word6))) { return new Word6(a.RawValue * b.RawValue); }
 			return new Word4(a.RawValue * b.RawValue);
 		}
 
 		// Defines how a division operator should be applied when used with two words
 		public static Word operator /(Word a, Word b)
 		{
-			if ((a.GetType() == typeof(Word6)) || (b.GetType() == typeof(Word6))) { return new Word6(a.RawValue + b.RawValue); }
+			if ((a.GetType() == typeof(Word6)) || (b.GetType() == typeof(Word6))) { return new Word6(a.RawValue / b.RawValue); }
 			return new Word4(a.RawValue / b.RawValue);
 		}
 

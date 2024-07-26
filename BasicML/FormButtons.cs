@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,12 +51,27 @@ namespace BasicML
 			RefreshTab();
 		}
 
+        private void chooseFile6Button_Click(object sender, EventArgs e)
+        {
+            ChooseFile();
+            LoadFile6();
+            RefreshMemory();
+        }
 
-		// Runs when the "Reload File" button is clicked
-		private void LoadFileButton_Click(object sender, EventArgs e)
+
+        // Runs when the "Reload File" button is clicked
+        private void LoadFileButton_Click(object sender, EventArgs e)
 		{
-			LoadFile();
-			RefreshTab();
+			if (InstanceHandler.GetCpu(0).UsingWord6)
+			{
+                LoadFile6();
+                RefreshMemory();
+            }
+			else
+			{
+                LoadFile();
+                RefreshMemory();
+            }
 		}
 
         private void SaveAsButton_Click(object sender, EventArgs e)
