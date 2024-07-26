@@ -34,6 +34,9 @@
             HexValueButtonInput = new TextBox();
             HexButtonSubmit = new Button();
             CancelBtn = new Button();
+            colorPreviewButton = new Button();
+            previewBackground = new Label();
+            previewButton = new Label();
             SuspendLayout();
             // 
             // HexvalueBackground
@@ -88,11 +91,42 @@
             CancelBtn.UseVisualStyleBackColor = true;
             CancelBtn.Click += CancelBtn_Click;
             // 
+            // colorPreviewButton
+            // 
+            colorPreviewButton.Location = new Point(235, 223);
+            colorPreviewButton.Name = "colorPreviewButton";
+            colorPreviewButton.Size = new Size(95, 23);
+            colorPreviewButton.TabIndex = 6;
+            colorPreviewButton.Text = "Preview Colors";
+            colorPreviewButton.UseVisualStyleBackColor = true;
+            colorPreviewButton.Click += colorPreviewButton_Click;
+            // 
+            // previewBackground
+            // 
+            previewBackground.AutoSize = true;
+            previewBackground.Location = new Point(222, 73);
+            previewBackground.Name = "previewBackground";
+            previewBackground.Size = new Size(123, 15);
+            previewBackground.TabIndex = 7;
+            previewBackground.Text = "(Preview Background)";
+            // 
+            // previewButton
+            // 
+            previewButton.AutoSize = true;
+            previewButton.Location = new Point(235, 174);
+            previewButton.Name = "previewButton";
+            previewButton.Size = new Size(95, 15);
+            previewButton.TabIndex = 8;
+            previewButton.Text = "(Preview Button)";
+            // 
             // ColorSchemePopUp
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(258, 271);
+            ClientSize = new Size(359, 271);
+            Controls.Add(previewButton);
+            Controls.Add(previewBackground);
+            Controls.Add(colorPreviewButton);
             Controls.Add(CancelBtn);
             Controls.Add(HexButtonSubmit);
             Controls.Add(HexValueButtonInput);
@@ -113,5 +147,8 @@
         private TextBox HexValueButtonInput;
         private Button HexButtonSubmit;
         private Button CancelBtn;
+        private Button colorPreviewButton;
+        private Label previewBackground;
+        private Label previewButton;
     }
 }
