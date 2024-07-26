@@ -30,12 +30,14 @@ namespace BasicML
 			// Initializes the form
 			InitializeComponent();
 
-			RefreshTabContent();
-
 			//InstanceHandler.AddInstance();
 
 			// Sets the variables for the logging objects
 			_formLoggingBox = loggingBox;
+			tabControlStatic = tabControl;
+
+			AddInstance();
+			RefreshTabContent();
 
 			// Updates the display so it is ready for use
 			RefreshMemory();

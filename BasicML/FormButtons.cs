@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +14,17 @@ namespace BasicML
 		// Updates the visibility of the buttons
 		private void Buttons_Refresh()
 		{
+			if (index == 0)
+			{
+				removeTabButton.Visible = false;
+				removeTabButton.Enabled = false;
+			}
+			else
+			{
+				removeTabButton.Visible = true;
+				removeTabButton.Enabled = true;
+			}
+
 			if (cpu.memory.Count > 0)
 			{
 				runButton.Visible = true;
@@ -51,12 +62,27 @@ namespace BasicML
 			RefreshTab();
 		}
 
-
-		// Runs when the "Reload File" button is clicked
-		private void LoadFileButton_Click(object sender, EventArgs e)
-		{
-			LoadFile();
+        private void chooseFile6Button_Click(object sender, EventArgs e)
+        {
+            ChooseFile();
+            LoadFile6();
 			RefreshTab();
+		}
+
+
+        // Runs when the "Reload File" button is clicked
+        private void LoadFileButton_Click(object sender, EventArgs e)
+		{
+			if (cpu.UsingWord6)
+			{
+                LoadFile6();
+				MemoryGrid_Refresh();
+            }
+			else
+			{
+                LoadFile();
+				MemoryGrid_Refresh();
+            }
 		}
 
         private void SaveAsButton_Click(object sender, EventArgs e)
@@ -96,6 +122,18 @@ namespace BasicML
 			cpu.Accumulator.Clear();
 			programOutputBox.Clear();
 			RefreshTab();
+		}
+
+		private void AddTab_Click(object sender, EventArgs e)
+		{
+			FormBasicML.AddInstance();
+			FormBasicML.RefreshTabContent();
+		}
+
+		private void RemoveTab_Click(object sender, EventArgs e)
+		{
+			FormBasicML.RemoveInstanceAt(index);
+			FormBasicML.RefreshTabContent();
 		}
 
 

@@ -49,5 +49,12 @@ namespace BasicML
 
 			cpu.memory.InitMemory(fileContent.ToArray());
 		}
-	}
+
+        public static void ReadFileToMemory6(this Cpu cpu, string filePath, bool verbose = true)
+        {
+            List<int> fileContent = ReadFile(filePath, verbose);
+
+            cpu.memory.InitMemory(fileContent.ToArray(), true);
+        }
+    }
 }

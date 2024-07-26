@@ -12,7 +12,9 @@ namespace BasicML
 {
 	public partial class FormTab : UserControl
 	{
-		public FormTab()
+		public int index;
+
+		public FormTab(int index)
 		{
 			InitializeComponent();
 
@@ -23,6 +25,7 @@ namespace BasicML
 
 			// Updates the display so it is ready for use
 			RefreshTab();
+			this.index = index;
 		}
 
 		public void LogToOutputBox(string message)

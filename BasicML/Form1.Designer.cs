@@ -21,7 +21,7 @@ namespace BasicML
             base.Dispose(disposing);
         }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
 		/// <summary>
 		///  Required method for Designer support - do not modify
@@ -126,9 +126,9 @@ namespace BasicML
 			ResumeLayout(false);
 		}
 
-		#endregion
+        #endregion
 
-		private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel tableLayoutPanel1;
         private GroupBox groupBox1;
 		private OpenFileDialog openFileDialog;
 		private RichTextBox loggingBox;
