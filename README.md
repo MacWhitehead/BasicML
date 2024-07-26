@@ -52,9 +52,18 @@ Download the program from the Releases tab and unzip it to the location of your 
 7. Click on 'Save As' to save your contents within a directory of your choice
 8. Upload a new text file, then press 'Reload' to start a new program with the file.
 
+## Starting Up a Second Program or More
+After uploading the first program, the user may want to upload a second program or more for comparison. Here's how to do it:
+
+1. If you want to upload a second text file, press the 'Add Tab' button and
+     a second tab will show up where you can load the second file in.
+3. Only one program can run at a time, but you can have as many tabs with a program uploaded as you want.
+4. To remove a tab, press the 'Remove Tab to remove the current instance of the program.
+
 ## Changing Color Scheme:
 1. Open up the BasicML program
 2. Click on the 'ColorScheme' button on the right hand side
 3. Type in a hexadecimal code for a color of your choice
      - NOTE: The program requires you to write a '#' sign with 6 characters right after, otherwise an error comes up requiring you to input again.
+3.5 Press the Preview button to see what the colors will look like for the background and for the buttons.
 4. The program will change for the buttons and for the background color of the GUI.
