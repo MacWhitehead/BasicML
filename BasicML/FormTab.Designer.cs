@@ -79,10 +79,9 @@
 			this.tableLayoutPanel1.Margin = new Padding(4, 5, 4, 5);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
 			this.tableLayoutPanel1.RowCount = 3;
-			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 17F));
-			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 40F));
-			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 26F));
-			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 17F));
+			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 250F));
+			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 60.60606F));
+			this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 39.39394F));
 			this.tableLayoutPanel1.Size = new Size(1143, 1250);
 			this.tableLayoutPanel1.TabIndex = 1;
 			// 
@@ -90,11 +89,11 @@
 			// 
 			this.memoryGroupBox.Controls.Add(this.memoryGrid);
 			this.memoryGroupBox.Dock = DockStyle.Fill;
-			this.memoryGroupBox.Location = new Point(4, 261);
+			this.memoryGroupBox.Location = new Point(4, 255);
 			this.memoryGroupBox.Margin = new Padding(4, 5, 4, 5);
 			this.memoryGroupBox.Name = "memoryGroupBox";
 			this.memoryGroupBox.Padding = new Padding(4, 5, 4, 5);
-			this.memoryGroupBox.Size = new Size(1135, 592);
+			this.memoryGroupBox.Size = new Size(1135, 596);
 			this.memoryGroupBox.TabIndex = 1;
 			this.memoryGroupBox.TabStop = false;
 			this.memoryGroupBox.Text = "Memory";
@@ -119,7 +118,7 @@
 			this.memoryGrid.RowHeadersWidth = 62;
 			this.memoryGrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.memoryGrid.SelectionMode = DataGridViewSelectionMode.CellSelect;
-			this.memoryGrid.Size = new Size(1127, 558);
+			this.memoryGrid.Size = new Size(1127, 562);
 			this.memoryGrid.TabIndex = 9;
 			this.memoryGrid.CellClick += MemoryGrid_CellClick;
 			this.memoryGrid.CellDoubleClick += MemoryGrid_CellDoubleClick;
@@ -195,7 +194,6 @@
 			// 
 			// groupBoxOfCoolness
 			// 
-			this.groupBoxOfCoolness.AutoSizeMode = AutoSizeMode.GrowAndShrink;
 			this.groupBoxOfCoolness.Controls.Add(this.removeTabButton);
 			this.groupBoxOfCoolness.Controls.Add(this.addTabButton);
 			this.groupBoxOfCoolness.Controls.Add(this.chooseFile6Button);
@@ -212,6 +210,7 @@
 			this.groupBoxOfCoolness.Controls.Add(this.chooseFileButton);
 			this.groupBoxOfCoolness.Dock = DockStyle.Fill;
 			this.groupBoxOfCoolness.Location = new Point(3, 3);
+			this.groupBoxOfCoolness.MinimumSize = new Size(1000, 250);
 			this.groupBoxOfCoolness.Name = "groupBoxOfCoolness";
 			this.groupBoxOfCoolness.Size = new Size(1137, 250);
 			this.groupBoxOfCoolness.TabIndex = 4;
@@ -252,7 +251,6 @@
 			// 
 			// saveAsButton
 			// 
-			this.saveAsButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 			this.saveAsButton.Location = new Point(703, 90);
 			this.saveAsButton.Name = "saveAsButton";
 			this.saveAsButton.Size = new Size(159, 38);
@@ -342,6 +340,7 @@
 			// 
 			// reloadFileButton
 			// 
+			this.reloadFileButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			this.reloadFileButton.Location = new Point(243, 136);
 			this.reloadFileButton.Name = "reloadFileButton";
 			this.reloadFileButton.Size = new Size(111, 38);
@@ -372,11 +371,11 @@
 			// 
 			this.groupBox4.Controls.Add(this.programOutputBox);
 			this.groupBox4.Dock = DockStyle.Fill;
-			this.groupBox4.Location = new Point(4, 863);
+			this.groupBox4.Location = new Point(4, 861);
 			this.groupBox4.Margin = new Padding(4, 5, 4, 5);
 			this.groupBox4.Name = "groupBox4";
 			this.groupBox4.Padding = new Padding(4, 5, 4, 5);
-			this.groupBox4.Size = new Size(1135, 382);
+			this.groupBox4.Size = new Size(1135, 384);
 			this.groupBox4.TabIndex = 5;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Program Output";
@@ -388,7 +387,7 @@
 			this.programOutputBox.Margin = new Padding(4, 5, 4, 5);
 			this.programOutputBox.Name = "programOutputBox";
 			this.programOutputBox.ReadOnly = true;
-			this.programOutputBox.Size = new Size(1127, 348);
+			this.programOutputBox.Size = new Size(1127, 350);
 			this.programOutputBox.TabIndex = 0;
 			this.programOutputBox.Text = "";
 			// 
