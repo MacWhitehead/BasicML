@@ -38,7 +38,12 @@ namespace BasicML
 		private void SetButtonColor(Color color)
 		{
 			chooseFileButton.BackColor = color;
+			chooseFile6Button.BackColor = color;
 			reloadFileButton.BackColor = color;
+
+			saveAsButton.BackColor = color;
+			addTabButton.BackColor = color;
+			removeTabButton.BackColor = color;
 
 			runButton.BackColor = color;
 			runFromStartButton.BackColor = color;
